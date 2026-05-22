@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Grow Up — Educação Infantil | Aprender Pode Ser Leve</title>
+<meta name="description" content="Na Educação Infantil Grow Up, seu filho aprende brincando, explorando e vivendo. Turmas reduzidas, inglês natural. Agende sua visita."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js" defer></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:hidden}
+body{
+  font-family:'Nunito Sans',sans-serif;
+  background:#04102B;
+  color:#fff;
+  overflow-x:hidden;
+  cursor:none;
+}
+a,button{cursor:none}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+/* ── TOKENS ── */
+:root{
+  --blue:#0047C6;
+  --blue-dark:#0037A3;
+  --blue-deep:#04102B;
+  --red:#F32626;
+  --yellow:#FFC928;
+  --green:#27C24C;
+  --white:#fff;
+  --offwhite:#F4F6FC;
+  --ease-out-expo:cubic-bezier(0.16,1,0.3,1);
+  --ease-in-out:cubic-bezier(0.76,0,0.24,1);
+}
+
+/* ── NOISE OVERLAY ── */
+.noise{
+  position:fixed;inset:0;z-index:9999;
+  pointer-events:none;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:128px 128px;
+}
+
+/* ── CURSOR ── */
+#cursor{
+  position:fixed;top:0;left:0;z-index:10000;
+  pointer-events:none;mix-blend-mode:difference;
+}
+.cursor-dot{
+  position:absolute;
+  width:8px;height:8px;
+  background:#fff;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  transition:width .2s var(--ease-out-expo),height .2s var(--ease-out-expo);
+}
+.cursor-ring{
+  position:absolute;
+  width:40px;height:40px;
+  border:1.5px solid rgba(255,255,255,.6);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  transition:width .3s var(--ease-out-expo),height .3s var(--ease-out-expo),opacity .3s;
+}
+body.cursor-hover .cursor-dot{width:48px;height:48px;background:var(--yellow);opacity:.85}
+body.cursor-hover .cursor-ring{opacity:0}
+
+/* ── NAVBAR ── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:28px 0;
+  transition:padding .4s var(--ease-out-expo),background .4s;
+}
+.nav.pinned{
+  padding:16px 0;
+  background:rgba(4,16,43,.88);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.nav-inner{
+  max-width:1200px;margin:0 auto;
+  padding:0 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:24px;
+}
+.logo{
+  font-family:'Nunito',sans-serif;
+  font-weight:900;font-size:1.4rem;
+  letter-spacing:-.02em;
+}
+.logo em{color:var(--yellow);font-style:normal}
+.nav-links{
+  display:none;
+  gap:32px;list-style:none;
+}
+@media(min-width:900px){.nav-links{display:flex}}
+.nav-links a{
+  font-size:.85rem;font-weight:700;
+  color:rgba(255,255,255,.65);
+  letter-spacing:.04em;text-transform:uppercase;
+  transition:color .2s;
+}
+.nav-links a:hover{color:#fff}
+.nav-ctas{display:flex;gap:12px}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:'Nunito',sans-serif;font-weight:800;
+  border-radius:100px;
+  transition:transform .3s var(--ease-out-expo),box-shadow .3s;
+  position:relative;overflow:hidden;
+  white-space:nowrap;
+}
+.btn::after{
+  content:'';
+  position:absolute;inset:0;
+  background:rgba(255,255,255,.1);
+  opacity:0;
+  transition:opacity .2s;
+}
+.btn:hover::after{opacity:1}
+.btn-sm{font-size:.8rem;padding:10px 22px}
+.btn-md{font-size:.95rem;padding:14px 32px}
+.btn-lg{font-size:1rem;padding:18px 44px}
+.btn-xl{font-size:1.1rem;padding:20px 52px}
+.btn-red{background:var(--red);color:#fff;box-shadow:0 8px 32px rgba(243,38,38,.35)}
+.btn-red:hover{box-shadow:0 12px 40px rgba(243,38,38,.5);transform:translateY(-3px)}
+.btn-blue{background:var(--blue);color:#fff;box-shadow:0 8px 32px rgba(0,71,198,.35)}
+.btn-blue:hover{box-shadow:0 12px 40px rgba(0,71,198,.5);transform:translateY(-3px)}
+.btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1.5px solid rgba(255,255,255,.2)}
+.btn-ghost:hover{background:rgba(255,255,255,.14);transform:translateY(-2px)}
+.btn-outline-yellow{background:transparent;color:var(--yellow);border:2px solid var(--yellow)}
+.btn-outline-yellow:hover{background:var(--yellow);color:#04102B;transform:translateY(-2px)}
+.btn-full{width:100%}
+
+/* magnetic wrapper */
+.mag{display:inline-block}
+
+/* ── SPLIT TEXT ── */
+.split-word{display:inline-block;overflow:hidden;vertical-align:bottom}
+.split-char{display:inline-block;transform:translateY(110%)}
+
+/* ── SECTION BASE ── */
+section{position:relative;overflow:hidden}
+.container{max-width:1200px;margin:0 auto;padding:0 32px}
+@media(max-width:600px){.container{padding:0 20px}}
+
+/* ════════════════════════════════════════
+   HERO
+════════════════════════════════════════ */
+.hero{
+  min-height:100svh;
+  background:var(--blue-deep);
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:120px 0 80px;
+}
+/* animated gradient orb */
+.hero-orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(120px);
+  pointer-events:none;
+}
+.orb-1{width:700px;height:700px;background:rgba(0,71,198,.55);top:-200px;right:-200px;animation:orbMove 14s ease-in-out infinite}
+.orb-2{width:500px;height:500px;background:rgba(255,201,40,.12);bottom:-100px;left:-150px;animation:orbMove 18s ease-in-out infinite reverse 3s}
+.orb-3{width:350px;height:350px;background:rgba(243,38,38,.1);top:40%;left:35%;animation:orbMove 22s ease-in-out infinite 6s}
+@keyframes orbMove{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(40px,-30px) scale(1.08)}
+  66%{transform:translate(-25px,20px) scale(.94)}
+}
+
+/* eyebrow */
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,201,40,.1);
+  border:1px solid rgba(255,201,40,.25);
+  border-radius:100px;padding:8px 20px;
+  font-size:.8rem;font-weight:800;
+  color:var(--yellow);letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:32px;opacity:0;
+}
+.eyebrow-dot{width:7px;height:7px;background:var(--yellow);border-radius:50%;animation:eyebrowPulse 2s infinite}
+@keyframes eyebrowPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
+
+/* headline */
+.hero-headline{
+  font-family:'Nunito',sans-serif;
+  font-weight:900;
+  font-size:clamp(3.5rem,9vw,8rem);
+  line-height:.98;
+  letter-spacing:-.03em;
+  margin-bottom:32px;
+}
+.hero-headline .line{display:block;overflow:hidden}
+.accent-yellow{color:var(--yellow)}
+.accent-red{color:var(--red)}
+
+/* sub */
+.hero-sub{
+  font-size:clamp(1rem,2vw,1.2rem);
+  color:rgba(255,255,255,.65);
+  line-height:1.7;
+  max-width:500px;
+  margin-bottom:44px;
+  opacity:0;transform:translateY(24px);
+}
+
+/* ctas */
+.hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:56px;opacity:0;transform:translateY(20px)}
+
+/* scarcity pill */
+.scarcity{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(243,38,38,.12);
+  border:1px solid rgba(243,38,38,.3);
+  border-radius:100px;padding:10px 20px;
+  font-size:.82rem;font-weight:700;color:#ff8a8a;
+  opacity:0;
+}
+
+/* hero right — image */
+.hero-grid{display:grid;grid-template-columns:1fr;gap:60px;align-items:center;position:relative;z-index:2}
+@media(min-width:900px){.hero-grid{grid-template-columns:1fr 1fr;gap:80px}}
+
+.hero-visual{position:relative;opacity:0;transform:translateY(40px)}
+.hero-img-frame{
+  border-radius:40% 60% 55% 45% / 45% 40% 60% 55%;
+  overflow:hidden;
+  aspect-ratio:4/5;
+  background:linear-gradient(135deg,rgba(0,71,198,.4),rgba(255,201,40,.2));
+  box-shadow:0 40px 100px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.08);
+  animation:morphFrame 10s ease-in-out infinite;
+}
+@keyframes morphFrame{
+  0%,100%{border-radius:40% 60% 55% 45% / 45% 40% 60% 55%}
+  25%{border-radius:55% 45% 40% 60% / 60% 55% 45% 40%}
+  50%{border-radius:45% 55% 60% 40% / 40% 60% 55% 45%}
+  75%{border-radius:60% 40% 45% 55% / 55% 45% 40% 60%}
+}
+.hero-img-inner{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:12px;min-height:400px;
+  background:linear-gradient(135deg,rgba(0,56,160,.6) 0%,rgba(0,71,198,.3) 100%);
+}
+.hero-img-inner .big-emoji{font-size:5rem;filter:drop-shadow(0 8px 24px rgba(0,0,0,.4))}
+.hero-img-inner p{font-size:.85rem;color:rgba(255,255,255,.5);text-align:center;padding:0 20px}
+
+/* floating badges */
+.badge-float{
+  position:absolute;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(20px);
+  border-radius:16px;padding:14px 18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.3);
+  display:flex;align-items:center;gap:12px;
+  color:#04102B;
+}
+.badge-float .icon{font-size:1.6rem}
+.badge-float .text{line-height:1.2}
+.badge-float .text strong{display:block;font-size:.88rem;font-weight:800}
+.badge-float .text span{font-size:.75rem;color:#6b7a99}
+.bf-1{bottom:24px;left:-28px;animation:badgeFloat 5s ease-in-out infinite}
+.bf-2{top:28px;right:-20px;animation:badgeFloat 6.5s ease-in-out infinite 1.5s}
+@media(max-width:900px){.bf-1{left:12px;bottom:12px}.bf-2{right:12px;top:12px}}
+@keyframes badgeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* scroll indicator */
+.scroll-hint{
+  display:flex;align-items:center;gap:12px;
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  font-size:.75rem;font-weight:700;color:rgba(255,255,255,.35);
+  letter-spacing:.1em;text-transform:uppercase;
+  opacity:0;
+}
+.scroll-line{
+  width:40px;height:1px;
+  background:rgba(255,255,255,.2);
+  position:relative;overflow:hidden;
+}
+.scroll-line::after{
+  content:'';position:absolute;
+  top:0;left:-100%;width:100%;height:100%;
+  background:#fff;
+  animation:scrollLine 2s ease-in-out infinite 1s;
+}
+@keyframes scrollLine{0%{left:-100%}100%{left:100%}}
+
+/* ════════════════════════════════════════
+   MARQUEE TICKER
+════════════════════════════════════════ */
+.ticker{
+  background:var(--yellow);
+  padding:18px 0;overflow:hidden;
+  white-space:nowrap;
+}
+.ticker-track{
+  display:inline-flex;gap:0;
+  animation:tickerScroll 30s linear infinite;
+}
+.ticker-item{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:0 40px;
+  font-family:'Nunito',sans-serif;
+  font-weight:900;font-size:.88rem;
+  color:#04102B;letter-spacing:.02em;
+  text-transform:uppercase;
+}
+.ticker-sep{width:6px;height:6px;background:#04102B;border-radius:50%;opacity:.4}
+@keyframes tickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker:hover .ticker-track{animation-play-state:paused}
+
+/* ════════════════════════════════════════
+   SECTION — EMPATHY  (light bg)
+════════════════════════════════════════ */
+.s-empathy{background:var(--offwhite);color:#04102B;padding:120px 0}
+.eyebrow-dark{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,71,198,.08);border:1px solid rgba(0,71,198,.15);
+  border-radius:100px;padding:6px 16px;
+  font-size:.75rem;font-weight:800;color:var(--blue);
+  letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:20px;
+}
+.section-title{
+  font-family:'Nunito',sans-serif;
+  font-weight:900;
+  font-size:clamp(2rem,5vw,3.5rem);
+  line-height:1.08;
+  letter-spacing:-.02em;
+}
+.empathy-grid{
+  display:grid;gap:64px;
+  grid-template-columns:1fr;
+  align-items:center;
+}
+@media(min-width:900px){.empathy-grid{grid-template-columns:1fr 1fr}}
+
+.empathy-text .section-title{margin-bottom:20px}
+.empathy-text p{
+  font-size:1.1rem;color:#4a5568;
+  line-height:1.75;max-width:460px;
+  margin-bottom:36px;
+}
+.e-cards{display:flex;flex-direction:column;gap:16px}
+.e-card{
+  background:#fff;
+  border-radius:20px;
+  padding:28px;
+  display:flex;align-items:flex-start;gap:18px;
+  box-shadow:0 2px 24px rgba(0,71,198,.07);
+  border:1.5px solid rgba(0,71,198,.06);
+  transition:transform .4s var(--ease-out-expo),box-shadow .4s;
+}
+.e-card:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 16px 48px rgba(0,71,198,.14)}
+.e-icon{
+  width:52px;height:52px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;flex-shrink:0;
+}
+.e-icon.y{background:rgba(255,201,40,.15)}
+.e-icon.b{background:rgba(0,71,198,.1)}
+.e-icon.g{background:rgba(39,194,76,.12)}
+.e-body h3{font-size:1rem;font-weight:800;margin-bottom:6px;color:#04102B}
+.e-body p{font-size:.88rem;color:#6b7a99;line-height:1.55}
+
+/* ════════════════════════════════════════
+   SECTION — ATIVIDADES  (dark)
+════════════════════════════════════════ */
+.s-activities{background:#04102B;padding:120px 0}
+.act-header{text-align:center;margin-bottom:72px}
+.act-header p{font-size:1.05rem;color:rgba(255,255,255,.5);max-width:500px;margin:16px auto 0;line-height:1.65}
+
+.act-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+@media(min-width:600px){.act-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.act-grid{grid-template-columns:repeat(4,1fr)}}
+
+.act-card{
+  border-radius:24px;
+  padding:32px 24px;
+  display:flex;flex-direction:column;gap:14px;
+  transition:transform .4s var(--ease-out-expo);
+  transform-style:preserve-3d;
+  position:relative;
+}
+.act-card .icon{font-size:2rem}
+.act-card h3{font-family:'Nunito',sans-serif;font-weight:900;font-size:.95rem}
+.act-card p{font-size:.8rem;line-height:1.55;opacity:.65}
+.ac-1{background:rgba(0,71,198,.2);border:1px solid rgba(0,71,198,.3)}
+.ac-2{background:rgba(255,201,40,.1);border:1px solid rgba(255,201,40,.2);color:#04102B}
+.ac-2 h3,.ac-2 p{color:#04102B}
+.ac-2 p{opacity:.7}
+.ac-3{background:rgba(39,194,76,.12);border:1px solid rgba(39,194,76,.2)}
+.ac-4{background:rgba(243,38,38,.1);border:1px solid rgba(243,38,38,.2)}
+.ac-5{background:rgba(255,201,40,.1);border:1px solid rgba(255,201,40,.2)}
+.ac-6{background:rgba(0,71,198,.15);border:1px solid rgba(0,71,198,.25)}
+.ac-7{background:rgba(243,38,38,.08);border:1px solid rgba(243,38,38,.15)}
+.ac-8{background:rgba(39,194,76,.1);border:1px solid rgba(39,194,76,.18)}
+
+/* pinned large card */
+.act-card.wide{
+  background:linear-gradient(135deg,var(--blue) 0%,#0056e0 100%);
+  border:none;
+  grid-column:span 2;
+}
+@media(min-width:900px){.act-card.wide{grid-column:span 1}}
+.act-card.wide h3,.act-card.wide p{color:#fff}
+.act-card.wide p{opacity:.75}
+
+/* ════════════════════════════════════════
+   SECTION — INGLÊS  (split)
+════════════════════════════════════════ */
+.s-english{background:var(--offwhite);color:#04102B;padding:120px 0}
+.eng-grid{
+  display:grid;gap:80px;
+  grid-template-columns:1fr;align-items:center;
+}
+@media(min-width:900px){.eng-grid{grid-template-columns:1fr 1fr}}
+.eng-visual{
+  background:linear-gradient(135deg,var(--blue) 0%,#0056E0 100%);
+  border-radius:40px;
+  padding:64px 48px;
+  color:#fff;
+  position:relative;overflow:hidden;
+}
+.eng-visual::before{
+  content:'';position:absolute;
+  width:350px;height:350px;
+  background:rgba(255,201,40,.12);
+  border-radius:50%;top:-100px;right:-80px;
+  filter:blur(60px);
+}
+.eng-big-num{
+  font-family:'Nunito',sans-serif;
+  font-weight:900;font-size:6rem;
+  color:rgba(255,255,255,.08);
+  line-height:1;position:relative;z-index:1;
+  margin-bottom:-20px;
+}
+.eng-visual h3{font-family:'Nunito',sans-serif;font-weight:900;font-size:2rem;margin-bottom:12px;position:relative;z-index:1}
+.eng-visual p{font-size:.95rem;color:rgba(255,255,255,.75);line-height:1.7;position:relative;z-index:1}
+.eng-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;position:relative;z-index:1}
+.eng-tag{
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:100px;padding:7px 16px;
+  font-size:.8rem;font-weight:700;
+}
+.eng-text .section-title{margin-bottom:16px}
+.eng-text p{font-size:1.05rem;color:#4a5568;line-height:1.75;margin-bottom:32px}
+.check-list{list-style:none;display:flex;flex-direction:column;gap:14px}
+.check-list li{
+  display:flex;align-items:flex-start;gap:14px;
+  font-size:.95rem;font-weight:600;color:#04102B;
+}
+.check-list li::before{
+  content:'✓';width:24px;height:24px;
+  background:var(--green);color:#fff;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.72rem;font-weight:900;flex-shrink:0;margin-top:2px;
+}
+
+/* ════════════════════════════════════════
+   SECTION — DIFERENCIAIS  (dark)
+════════════════════════════════════════ */
+.s-dif{background:#04102B;padding:120px 0}
+.dif-header{text-align:center;margin-bottom:72px}
+.dif-header p{font-size:1.05rem;color:rgba(255,255,255,.45);max-width:480px;margin:16px auto 0;line-height:1.65}
+.dif-grid{
+  display:grid;gap:20px;
+  grid-template-columns:1fr;
+}
+@media(min-width:600px){.dif-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:900px){.dif-grid{grid-template-columns:repeat(3,1fr)}}
+
+.dif-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:28px;padding:40px 32px;
+  transition:transform .4s var(--ease-out-expo),background .3s,border-color .3s,box-shadow .3s;
+  position:relative;overflow:hidden;
+}
+.dif-card::after{
+  content:'';position:absolute;
+  inset:0;opacity:0;
+  background:linear-gradient(135deg,rgba(0,71,198,.15),rgba(255,201,40,.06));
+  transition:opacity .3s;
+}
+.dif-card:hover{
+  transform:translateY(-8px);
+  background:rgba(255,255,255,.07);
+  border-color:rgba(0,71,198,.35);
+  box-shadow:0 24px 60px rgba(0,0,0,.3);
+}
+.dif-card:hover::after{opacity:1}
+.dif-card .icon{font-size:2.4rem;margin-bottom:20px;display:block;position:relative;z-index:1}
+.dif-card h3{font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:900;margin-bottom:10px;position:relative;z-index:1}
+.dif-card p{font-size:.88rem;color:rgba(255,255,255,.5);line-height:1.65;position:relative;z-index:1}
+.dif-card.featured{
+  background:var(--yellow);
+  border-color:transparent;
+}
+.dif-card.featured h3,.dif-card.featured p{color:#04102B}
+.dif-card.featured p{opacity:.75}
+.dif-card.featured:hover{box-shadow:0 24px 60px rgba(255,201,40,.25)}
+.dif-card.featured::after{display:none}
+
+/* ════════════════════════════════════════
+   SECTION — DEPOIMENTOS MARQUEE  (light)
+════════════════════════════════════════ */
+.s-testimonials{background:var(--offwhite);color:#04102B;padding:120px 0}
+.test-header{text-align:center;margin-bottom:64px}
+.test-header p{font-size:1.05rem;color:#6b7a99;max-width:480px;margin:16px auto 0}
+
+.test-marquee{overflow:hidden;margin:0 -32px}
+.test-track{
+  display:flex;gap:24px;
+  animation:testScroll 40s linear infinite;
+  width:max-content;
+}
+.test-marquee:hover .test-track{animation-play-state:paused}
+@keyframes testScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.t-card{
+  background:#fff;
+  border-radius:24px;padding:32px;
+  width:360px;flex-shrink:0;
+  border:1.5px solid rgba(0,71,198,.07);
+  box-shadow:0 4px 24px rgba(0,71,198,.06);
+  transition:transform .3s var(--ease-out-expo),box-shadow .3s;
+}
+.t-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,71,198,.12)}
+.stars{color:var(--yellow);font-size:.88rem;letter-spacing:3px;margin-bottom:16px}
+.t-card blockquote{
+  font-size:1rem;font-style:italic;
+  color:#1a2840;line-height:1.65;
+  font-weight:600;margin-bottom:24px;
+}
+.t-author{display:flex;align-items:center;gap:12px}
+.t-avatar{
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;
+  flex-shrink:0;
+}
+.av-y{background:rgba(255,201,40,.2)}
+.av-b{background:rgba(0,71,198,.1)}
+.av-g{background:rgba(39,194,76,.15)}
+.t-info h4{font-size:.88rem;font-weight:800;color:#04102B}
+.t-info span{font-size:.78rem;color:#9aabb0}
+
+/* ════════════════════════════════════════
+   SECTION — NÚMEROS / TRUST  (dark)
+════════════════════════════════════════ */
+.s-trust{background:#04102B;padding:120px 0}
+.trust-grid{
+  display:grid;
+  grid-template-columns:1fr;gap:80px;align-items:center;
+}
+@media(min-width:900px){.trust-grid{grid-template-columns:1fr 1fr}}
+.trust-text .section-title{margin-bottom:16px}
+.trust-text p{font-size:1.05rem;color:rgba(255,255,255,.55);line-height:1.75;margin-bottom:32px}
+.t-list{list-style:none;display:flex;flex-direction:column;gap:16px}
+.t-item{display:flex;align-items:center;gap:14px;font-size:.95rem;font-weight:700}
+.t-ico{
+  width:44px;height:44px;
+  background:rgba(255,255,255,.05);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;flex-shrink:0;
+}
+
+.stats-box{
+  background:rgba(0,71,198,.2);
+  border:1px solid rgba(0,71,198,.35);
+  border-radius:32px;padding:48px 40px;
+}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.stat{text-align:center}
+.stat-num{
+  font-family:'Nunito',sans-serif;font-weight:900;
+  font-size:3.5rem;color:var(--yellow);
+  display:block;line-height:1;
+}
+.stat-label{font-size:.82rem;color:rgba(255,255,255,.5);font-weight:600;margin-top:8px;display:block}
+
+/* ════════════════════════════════════════
+   SECTION — ESCASSEZ  (blue)
+════════════════════════════════════════ */
+.s-escassez{
+  background:linear-gradient(135deg,#0047C6 0%,#0056E0 50%,#003DA3 100%);
+  padding:100px 0;
+}
+.esc-inner{text-align:center;max-width:640px;margin:0 auto}
+.esc-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(243,38,38,.2);border:1px solid rgba(243,38,38,.4);
+  border-radius:100px;padding:8px 20px;
+  font-size:.8rem;font-weight:800;color:#ff8a8a;
+  margin-bottom:28px;letter-spacing:.06em;text-transform:uppercase;
+}
+.s-escassez .section-title{color:#fff;margin-bottom:16px}
+.s-escassez p{font-size:1.1rem;color:rgba(255,255,255,.7);line-height:1.65;margin-bottom:40px}
+.esc-ctas{display:flex;flex-direction:column;gap:14px;align-items:center}
+@media(min-width:480px){.esc-ctas{flex-direction:row;justify-content:center}}
+
+/* ════════════════════════════════════════
+   SECTION — FAQ
+════════════════════════════════════════ */
+.s-faq{background:#04102B;padding:120px 0}
+.faq-wrap{max-width:720px;margin:64px auto 0;display:flex;flex-direction:column;gap:12px}
+.faq-item{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:18px;overflow:hidden;
+  transition:border-color .3s;
+}
+.faq-item.open{border-color:rgba(0,71,198,.4)}
+.faq-q{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:22px 24px;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:.97rem;
+  color:#fff;text-align:left;background:none;border:none;
+  transition:color .2s;
+}
+.faq-q:hover{color:var(--yellow)}
+.faq-arr{
+  width:32px;height:32px;
+  background:rgba(255,255,255,.07);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;color:rgba(255,255,255,.5);
+  transition:transform .4s var(--ease-out-expo),background .3s,color .3s;
+  flex-shrink:0;
+}
+.faq-item.open .faq-arr{transform:rotate(180deg);background:var(--blue);color:#fff}
+.faq-body{max-height:0;overflow:hidden;transition:max-height .45s var(--ease-in-out)}
+.faq-body-inner{padding:0 24px 22px;font-size:.92rem;color:rgba(255,255,255,.5);line-height:1.75}
+
+/* ════════════════════════════════════════
+   SECTION — FORM
+════════════════════════════════════════ */
+.s-form{background:var(--offwhite);color:#04102B;padding:120px 0}
+.form-wrap{max-width:620px;margin:0 auto}
+.form-header{text-align:center;margin-bottom:48px}
+.form-header p{font-size:1rem;color:#6b7a99;margin-top:12px;line-height:1.65}
+.form-box{
+  background:#fff;
+  border-radius:32px;padding:48px 40px;
+  box-shadow:0 24px 80px rgba(0,71,198,.1);
+}
+@media(max-width:480px){.form-box{padding:28px 20px;border-radius:24px}}
+.form-row{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:480px){.form-row{grid-template-columns:1fr 1fr}}
+.form-group{display:flex;flex-direction:column;gap:8px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:.82rem;font-weight:800;color:#04102B;letter-spacing:.02em}
+.form-input,.form-select{
+  width:100%;padding:14px 18px;
+  border-radius:12px;
+  border:2px solid rgba(0,71,198,.1);
+  background:#F4F6FC;
+  font-family:'Nunito Sans',sans-serif;
+  font-size:.95rem;color:#04102B;
+  outline:none;appearance:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.form-input:focus,.form-select:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 4px rgba(0,71,198,.1);
+  background:#fff;
+}
+.form-input::placeholder{color:rgba(107,122,153,.5)}
+.form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230047C6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:44px}
+.form-note{text-align:center;margin-top:14px;font-size:.78rem;color:#9aabb0}
+.form-note a{color:var(--blue);font-weight:700}
+
+/* ════════════════════════════════════════
+   SECTION — CTA FINAL
+════════════════════════════════════════ */
+.s-final{
+  background:var(--blue-deep);
+  padding:140px 0;
+  position:relative;overflow:hidden;
+}
+.final-orb{
+  position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;
+}
+.fo-1{width:500px;height:500px;background:rgba(0,71,198,.5);top:-150px;right:-100px}
+.fo-2{width:350px;height:350px;background:rgba(255,201,40,.1);bottom:-80px;left:-80px}
+.final-inner{text-align:center;max-width:680px;margin:0 auto;position:relative;z-index:2}
+.final-inner .section-title{font-size:clamp(2.5rem,7vw,5rem);color:#fff;margin-bottom:24px}
+.final-inner p{font-size:1.15rem;color:rgba(255,255,255,.65);line-height:1.65;margin-bottom:48px}
+.final-ctas{display:flex;flex-direction:column;gap:14px;align-items:center}
+@media(min-width:480px){.final-ctas{flex-direction:row;justify-content:center}}
+
+/* ════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════ */
+.footer{background:#020D20;color:rgba(255,255,255,.55);padding:72px 0 32px}
+.footer-grid{display:grid;gap:48px;grid-template-columns:1fr;margin-bottom:56px}
+@media(min-width:600px){.footer-grid{grid-template-columns:2fr 1fr 1fr}}
+.footer-brand .logo{color:#fff;display:inline-block;margin-bottom:16px;font-size:1.3rem}
+.footer-brand p{font-size:.88rem;line-height:1.65;max-width:280px}
+.f-social{display:flex;gap:12px;margin-top:24px}
+.f-soc-btn{
+  width:38px;height:38px;
+  background:rgba(255,255,255,.07);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;
+  transition:background .2s,transform .2s;
+}
+.f-soc-btn:hover{background:var(--blue);transform:translateY(-2px)}
+.footer-col h4{
+  font-size:.75rem;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:#fff;margin-bottom:20px;
+}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:.88rem;color:rgba(255,255,255,.45);transition:color .2s}
+.footer-links a:hover{color:var(--yellow)}
+.f-contact{list-style:none;display:flex;flex-direction:column;gap:12px}
+.f-contact li{display:flex;align-items:flex-start;gap:10px;font-size:.85rem;line-height:1.5}
+.f-contact li span:first-child{flex-shrink:0;margin-top:1px}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.06);
+  padding-top:28px;
+  display:flex;flex-direction:column;gap:10px;
+  align-items:center;text-align:center;
+}
+@media(min-width:600px){.footer-bottom{flex-direction:row;justify-content:space-between;text-align:left}}
+.footer-bottom p{font-size:.8rem}
+.footer-btm-links{display:flex;gap:20px}
+.footer-btm-links a{font-size:.8rem;color:rgba(255,255,255,.3);transition:color .2s}
+.footer-btm-links a:hover{color:#fff}
+
+/* ════════════════════════════════════════
+   FLOATING WA
+════════════════════════════════════════ */
+.wa-float{
+  position:fixed;bottom:88px;right:20px;z-index:600;
+}
+@media(min-width:768px){.wa-float{bottom:32px}}
+.wa-btn{
+  width:60px;height:60px;
+  background:#25D366;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 32px rgba(37,211,102,.45);
+  transition:transform .3s var(--ease-out-expo);
+  animation:waPulse 3s ease-in-out infinite;
+}
+.wa-btn:hover{transform:scale(1.12);animation-play-state:paused}
+.wa-btn svg{width:28px;height:28px;fill:#fff}
+@keyframes waPulse{
+  0%,100%{box-shadow:0 8px 32px rgba(37,211,102,.45)}
+  50%{box-shadow:0 8px 48px rgba(37,211,102,.7),0 0 0 14px rgba(37,211,102,.08)}
+}
+
+/* ════════════════════════════════════════
+   STICKY MOBILE
+════════════════════════════════════════ */
+.sticky-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:400;
+  background:rgba(4,16,43,.96);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  padding:12px 16px;
+  display:flex;gap:12px;
+  border-top:1px solid rgba(255,255,255,.07);
+  box-shadow:0 -4px 24px rgba(0,0,0,.3);
+}
+.sticky-bar .btn{flex:1;font-size:.88rem;padding:13px 10px}
+@media(min-width:768px){.sticky-bar{display:none}}
+
+/* ════════════════════════════════════════
+   SCROLL PROGRESS
+════════════════════════════════════════ */
+.progress-bar{
+  position:fixed;top:0;left:0;z-index:600;
+  height:3px;width:0%;
+  background:linear-gradient(90deg,var(--blue),var(--yellow));
+  transition:width .1s linear;
+}
+
+/* ════════════════════════════════════════
+   UTILITY
+════════════════════════════════════════ */
+.text-center{text-align:center}
+.mb-20{margin-bottom:20px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+
+/* stagger helper */
+.stagger>*{opacity:0;transform:translateY(32px)}
+</style>
+</head>
+<body>
+
+<!-- NOISE -->
+<div class="noise" aria-hidden="true"></div>
+
+<!-- SCROLL PROGRESS -->
+<div class="progress-bar" id="progressBar" role="progressbar" aria-hidden="true"></div>
+
+<!-- CURSOR -->
+<div id="cursor" aria-hidden="true">
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo mag">Grow<em>Up</em></a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#ingles">Inglês</a></li>
+      <li><a href="#depoimentos">Famílias</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="https://wa.me/5511939466440" class="btn btn-ghost btn-sm mag" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="#agendar" class="btn btn-red btn-sm mag">Agendar visita</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="inicio">
+  <div class="hero-orb orb-1" aria-hidden="true"></div>
+  <div class="hero-orb orb-2" aria-hidden="true"></div>
+  <div class="hero-orb orb-3" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-eyebrow" id="heroEyebrow">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          Matrículas 2026 abertas
+        </div>
+
+        <h1 class="hero-headline" id="heroHeadline" aria-label="Aprender pode ser leve.">
+          <span class="line" id="hl-1">APRENDER</span>
+          <span class="line" id="hl-2">PODE SER</span>
+          <span class="line accent-yellow" id="hl-3">LEVE.</span>
+        </h1>
+
+        <p class="hero-sub" id="heroSub">
+          Na Educação Infantil Grow Up, seu filho aprende brincando, explorando e vivendo cada momento com alegria e descoberta.
+        </p>
+
+        <div class="hero-ctas" id="heroCtas">
+          <a href="#agendar" class="btn btn-red btn-lg mag">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Agendar visita
+          </a>
+          <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20a%20Grow%20Up" class="btn btn-ghost btn-lg mag" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Falar no WhatsApp
+          </a>
+        </div>
+
+        <div class="scarcity" id="heroScarcity">
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#ff8a8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Turmas reduzidas — vagas limitadas para 2026
+        </div>
+      </div>
+
+      <div class="hero-visual" id="heroVisual">
+        <div class="hero-img-frame">
+          <div class="hero-img-inner" role="img" aria-label="Criança feliz na Grow Up">
+            <span class="big-emoji" aria-hidden="true">👦🏽</span>
+            <p>Foto real da criança<br>na Grow Up aqui</p>
+          </div>
+        </div>
+
+        <div class="badge-float bf-1" aria-hidden="true">
+          <span class="icon">🎨</span>
+          <div class="text"><strong>Criatividade diária</strong><span>Atividades lúdicas</span></div>
+        </div>
+        <div class="badge-float bf-2" aria-hidden="true">
+          <span class="icon">🌍</span>
+          <div class="text"><strong>Inglês natural</strong><span>Sem pressão</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint" id="scrollHint" aria-hidden="true">
+    <div class="scroll-line"></div>
+    Scroll
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ══ TICKER ══ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack">
+    <span class="ticker-item">Inglês natural <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Turmas reduzidas <span class="ticker-sep"></span></span>
+    <span class="ticker-item">2 a 5 anos <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Matrículas 2026 abertas <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Acolhimento genuíno <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Infância feliz <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Desenvolvimento com leveza <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Grow Up — Kids <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Inglês natural <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Turmas reduzidas <span class="ticker-sep"></span></span>
+    <span class="ticker-item">2 a 5 anos <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Matrículas 2026 abertas <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Acolhimento genuíno <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Infância feliz <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Desenvolvimento com leveza <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Grow Up — Kids <span class="ticker-sep"></span></span>
+  </div>
+</div>
+
+<!-- ══ EMPATIA ══ -->
+<section class="s-empathy" id="sobre">
+  <div class="container">
+    <div class="empathy-grid">
+      <div class="empathy-text">
+        <div class="eyebrow-dark gsap-fade">Para os pais</div>
+        <h2 class="section-title gsap-split mb-20">
+          Seu filho merece<br><span style="color:var(--blue)">viver a infância.</span>
+        </h2>
+        <p class="gsap-fade">Mais do que ensinar, acreditamos em acolher, estimular e respeitar o tempo de cada criança. Aqui, cada passo é celebrado com afeto.</p>
+        <a href="#agendar" class="btn btn-blue btn-md mag gsap-fade" style="margin-top:32px">Conhecer a escola</a>
+      </div>
+      <div class="e-cards">
+        <div class="e-card gsap-card">
+          <div class="e-icon y" aria-hidden="true">🔍</div>
+          <div class="e-body">
+            <h3>Mais descobertas</h3>
+            <p>Um ambiente pensado para despertar a curiosidade natural de cada criança, todos os dias.</p>
+          </div>
+        </div>
+        <div class="e-card gsap-card">
+          <div class="e-icon b" aria-hidden="true">🦋</div>
+          <div class="e-body">
+            <h3>Mais autonomia</h3>
+            <p>Respeitamos o tempo de cada um. Sem pressa, sem comparação. Cada criança no seu ritmo.</p>
+          </div>
+        </div>
+        <div class="e-card gsap-card">
+          <div class="e-icon g" aria-hidden="true">🎨</div>
+          <div class="e-body">
+            <h3>Mais criatividade</h3>
+            <p>Arte, música e expressão fazem parte da rotina — não como extra, mas como essência.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ATIVIDADES ══ -->
+<section class="s-activities" id="atividades">
+  <div class="container">
+    <div class="act-header">
+      <div class="eyebrow-dark" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.6)" aria-label="Educação viva">Educação viva</div>
+      <h2 class="section-title gsap-split" style="margin-top:16px">Brincar também<br>é <span class="accent-yellow">aprender.</span></h2>
+      <p>Cada atividade tem um propósito — vivido com leveza e alegria.</p>
+    </div>
+    <div class="act-grid stagger" id="actGrid">
+      <div class="act-card ac-1 gsap-tilt"><span class="icon" aria-hidden="true">🎭</span><h3>Expressão</h3><p>Teatro e fantasia para crianças livres e confiantes.</p></div>
+      <div class="act-card ac-2 gsap-tilt"><span class="icon" aria-hidden="true">🎵</span><h3>Musicalização</h3><p>Ritmo e sons que desenvolvem o ouvido e a alma.</p></div>
+      <div class="act-card wide ac-3 gsap-tilt"><span class="icon" aria-hidden="true">🤝</span><h3>Socialização</h3><p>Aprender a conviver, respeitar e fazer amizades para a vida toda.</p></div>
+      <div class="act-card ac-4 gsap-tilt"><span class="icon" aria-hidden="true">🧠</span><h3>Cognição</h3><p>Raciocínio, memória e concentração com brincadeiras.</p></div>
+      <div class="act-card ac-5 gsap-tilt"><span class="icon" aria-hidden="true">✏️</span><h3>Coordenação</h3><p>Pintura, recorte e construção que desenvolvem movimentos.</p></div>
+      <div class="act-card ac-6 gsap-tilt"><span class="icon" aria-hidden="true">💛</span><h3>Emocional</h3><p>Inteligência emocional trabalhada com afeto desde cedo.</p></div>
+      <div class="act-card ac-7 gsap-tilt"><span class="icon" aria-hidden="true">🌱</span><h3>Natureza</h3><p>Horta e o mundo natural como sala de aula viva.</p></div>
+      <div class="act-card ac-8 gsap-tilt"><span class="icon" aria-hidden="true">🚀</span><h3>Curiosidade</h3><p>Ciência e experimentos com os próprios olhos.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INGLÊS ══ -->
+<section class="s-english" id="ingles">
+  <div class="container">
+    <div class="eng-grid">
+      <div class="eng-visual gsap-fade">
+        <div class="eng-big-num" aria-hidden="true">EN</div>
+        <h3>O inglês acontece naturalmente.</h3>
+        <p>Músicas, brincadeiras, histórias e rotina diária. Seu filho cresce convivendo com o idioma de forma leve — sem pressão, sem cobranças.</p>
+        <div class="eng-tags">
+          <span class="eng-tag">Músicas</span>
+          <span class="eng-tag">Histórias</span>
+          <span class="eng-tag">Brincadeiras</span>
+          <span class="eng-tag">Rotina</span>
+          <span class="eng-tag">Arte</span>
+        </div>
+      </div>
+      <div class="eng-text">
+        <div class="eyebrow-dark gsap-fade">Bilingual desde sempre</div>
+        <h2 class="section-title gsap-split mb-20">Inglês como<br><span style="color:var(--blue)">parte da vida.</span></h2>
+        <p class="gsap-fade">Nenhuma criança precisa saber inglês para entrar. O idioma entra como parte natural da experiência — assim como aprender a se expressar em qualquer língua.</p>
+        <ul class="check-list gsap-fade">
+          <li>Sem pressão de resultados ou provas</li>
+          <li>Integrado à rotina de forma gradual</li>
+          <li>Professores especializados em infância</li>
+          <li>Imersão leve através de jogos e músicas</li>
+          <li>Confiança que cresce naturalmente</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DIFERENCIAIS ══ -->
+<section class="s-dif" id="diferenciais">
+  <div class="container">
+    <div class="dif-header">
+      <div class="eyebrow-dark" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.5)">Por que a Grow?</div>
+      <h2 class="section-title gsap-split" style="margin-top:16px">Aqui, cada criança<br>é <span class="accent-red">vista.</span></h2>
+      <p>Pequenos detalhes que fazem toda a diferença na infância.</p>
+    </div>
+    <div class="dif-grid stagger" id="difGrid">
+      <div class="dif-card gsap-tilt"><span class="icon">👥</span><h3>Turmas reduzidas</h3><p>Grupos pequenos garantem atenção real e individual para cada criança, todos os dias.</p></div>
+      <div class="dif-card gsap-tilt"><span class="icon">🫂</span><h3>Acolhimento genuíno</h3><p>Cada criança entra sendo vista, ouvida e respeitada do seu jeito único.</p></div>
+      <div class="dif-card featured gsap-tilt"><span class="icon">⏱️</span><h3>Rotina estruturada</h3><p>Segurança vem da previsibilidade. Uma rotina que dá confiança para explorar.</p></div>
+      <div class="dif-card gsap-tilt"><span class="icon">🎯</span><h3>Atenção individual</h3><p>Cada criança aprende no seu tempo. Sem comparações, sem pressão.</p></div>
+      <div class="dif-card gsap-tilt"><span class="icon">💬</span><h3>Parceria com famílias</h3><p>Comunicação constante. Você sempre sabe o que acontece na escola.</p></div>
+      <div class="dif-card gsap-tilt"><span class="icon">🏆</span><h3>Equipe especializada</h3><p>Professores apaixonados por educação infantil e preparados para cada fase.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DEPOIMENTOS MARQUEE ══ -->
+<section class="s-testimonials" id="depoimentos">
+  <div class="container">
+    <div class="test-header">
+      <div class="eyebrow-dark gsap-fade">Famílias Grow</div>
+      <h2 class="section-title gsap-split" style="margin-top:16px">Quem já está <span style="color:var(--blue)">aqui conta.</span></h2>
+    </div>
+  </div>
+  <div class="test-marquee" aria-label="Depoimentos de famílias">
+    <div class="test-track" id="testTrack">
+      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"Ela acorda feliz porque sabe que vai para a Grow. Isso diz tudo sobre o lugar."</blockquote><div class="t-author"><div class="t-avatar av-y">👩🏻</div><div class="t-info"><h4>Camila R.</h4><span>Mãe da Sophia, 3 anos</span></div></div></div>
+      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"Meu filho era tímido e em poucos meses a Grow transformou. Hoje faz amigos com facilidade."</blockquote><div class="t-author"><div class="t-avatar av-b">👨🏽</div><div class="t-info"><h4>André M.</h4><span>Pai do Lucas, 4 anos</span></div></div></div>
+      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"A adaptação foi tranquila demais. Tanto carinho que minha filha nunca chorou."</blockquote><div class="t-author"><div class="t-avatar av-g">👩🏾</div><div class="t-info"><h4>Letícia S.</h4><span>Mãe da Isabella, 2 anos</span></div></div></div>
+      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"O inglês do meu filho evoluiu sem que ele percebesse. Parece mágica, mas é método."</blockquote><div class="t-author"><div class="t-avatar av-y">👨🏻</div><div class="t-info"><h4>Rafael T.</h4><span>Pai do Davi, 5 anos</span></div></div></div>
+      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"Nunca vi meu filho tão animado para ir à escola. Ele pede para ir mesmo no final de semana!"</blockquote><div class="t-author"><div class="t-avatar av-b">👩🏼</div><div class="t-info"><h4>Mariana L.</h4><span>Mãe do Pedro, 4 anos</span></div></div></div>
+      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"A comunicação com os professores é impecável. Me sinto parte do desenvolvimento dela."</blockquote><div class="t-author"><div class="t-avatar av-g">👩🏽</div><div class="t-info"><h4>Fernanda A.</h4><span>Mãe da Beatriz, 3 anos</span></div></div></div>
+      <!-- duplicated for infinite loop -->
+      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"Ela acorda feliz porque sabe que vai para a Grow. Isso diz tudo sobre o lugar."</blockquote><div class="t-author"><div class="t-avatar av-y">👩🏻</div><div class="t-info"><h4>Camila R.</h4><span>Mãe da Sophia, 3 anos</span></div></div></div>
+      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"Meu filho era tímido e em poucos meses a Grow transformou. Hoje faz amigos com facilidade."</blockquote><div class="t-author"><div class="t-avatar av-b">👨🏽</div><div class="t-info"><h4>André M.</h4><span>Pai do Lucas, 4 anos</span></div></div></div>
+      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"A adaptação foi tranquila demais. Tanto carinho que minha filha nunca chorou."</blockquote><div class="t-author"><div class="t-avatar av-g">👩🏾</div><div class="t-info"><h4>Letícia S.</h4><span>Mãe da Isabella, 2 anos</span></div></div></div>
+      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"O inglês do meu filho evoluiu sem que ele percebesse. Parece mágica, mas é método."</blockquote><div class="t-author"><div class="t-avatar av-y">👨🏻</div><div class="t-info"><h4>Rafael T.</h4><span>Pai do Davi, 5 anos</span></div></div></div>
+      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"Nunca vi meu filho tão animado para ir à escola. Ele pede para ir mesmo no final de semana!"</blockquote><div class="t-author"><div class="t-avatar av-b">👩🏼</div><div class="t-info"><h4>Mariana L.</h4><span>Mãe do Pedro, 4 anos</span></div></div></div>
+      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"A comunicação com os professores é impecável. Me sinto parte do desenvolvimento dela."</blockquote><div class="t-author"><div class="t-avatar av-g">👩🏽</div><div class="t-info"><h4>Fernanda A.</h4><span>Mãe da Beatriz, 3 anos</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TRUST / NÚMEROS ══ -->
+<section class="s-trust">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-text">
+        <div class="eyebrow-dark" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.5)" aria-label="Tranquilidade total">Tranquilidade total</div>
+        <h2 class="section-title gsap-split" style="margin-top:16px;margin-bottom:16px">Seu filho em<br><span class="accent-yellow">boas mãos.</span></h2>
+        <p>Deixar seu filho pela primeira vez é difícil. Por isso criamos um ambiente onde segurança e acolhimento são prioridade absoluta.</p>
+        <ul class="t-list gsap-fade" style="margin-top:0">
+          <li class="t-item"><div class="t-ico">🛡️</div>Ambiente seguro e supervisionado</li>
+          <li class="t-item"><div class="t-ico">👩‍🏫</div>Equipe treinada e apaixonada</li>
+          <li class="t-item"><div class="t-ico">📱</div>Comunicação diária com os pais</li>
+          <li class="t-item"><div class="t-ico">📷</div>Fotos e atualizações no app</li>
+        </ul>
+      </div>
+      <div class="stats-box gsap-fade">
+        <div class="stats-grid">
+          <div class="stat"><span class="stat-num counter" data-target="8">0</span><sup style="color:var(--yellow);font-family:'Nunito';font-weight:900;font-size:1.5rem">+</sup><span class="stat-label">Anos de história</span></div>
+          <div class="stat"><span class="stat-num counter" data-target="97">0</span><sup style="color:var(--yellow);font-family:'Nunito';font-weight:900;font-size:1.5rem">%</sup><span class="stat-label">Famílias satisfeitas</span></div>
+          <div class="stat"><span class="stat-num counter" data-target="12">0</span><span class="stat-label">Alunos por turma</span></div>
+          <div class="stat"><span class="stat-num">2–5</span><span class="stat-label">Anos de idade</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ESCASSEZ ══ -->
+<section class="s-escassez" id="vagas">
+  <div class="container">
+    <div class="esc-inner">
+      <div class="esc-badge gsap-fade">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Vagas limitadas
+      </div>
+      <h2 class="section-title gsap-split" style="margin-bottom:16px">Turmas reduzidas<br>significam <span class="accent-yellow">atenção real.</span></h2>
+      <p class="gsap-fade">As vagas para 2026 são limitadas para garantir acolhimento e desenvolvimento individual. Não espere as últimas vagas.</p>
+      <div class="esc-ctas gsap-fade">
+        <a href="#agendar" class="btn btn-red btn-lg mag">
+          <svg width="17" height="17" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Agendar visita
+        </a>
+        <a href="https://wa.me/5511939466440?text=Gostaria%20de%20verificar%20vagas%202026" class="btn btn-ghost btn-lg mag" target="_blank" rel="noopener">Verificar vagas</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="s-faq" id="faq">
+  <div class="container">
+    <div class="text-center">
+      <div class="eyebrow-dark" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.5);display:inline-flex" aria-label="Tirando dúvidas">Tirando dúvidas</div>
+      <h2 class="section-title gsap-split" style="margin-top:16px">Perguntas <span class="accent-yellow">frequentes.</span></h2>
+    </div>
+    <div class="faq-wrap" id="faqList">
+      <div class="faq-item gsap-fade"><button class="faq-q" aria-expanded="false">Meu filho precisa saber inglês para entrar? <span class="faq-arr" aria-hidden="true">▼</span></button><div class="faq-body"><div class="faq-body-inner">Não! Nenhuma criança entra na Grow com inglês prévio. Nosso método introduz o idioma de forma completamente natural, através de músicas, brincadeiras e rotina. É exatamente assim que as crianças aprendem melhor.</div></div></div>
+      <div class="faq-item gsap-fade"><button class="faq-q" aria-expanded="false">Como funciona a adaptação? <span class="faq-arr" aria-hidden="true">▼</span></button><div class="faq-body"><div class="faq-body-inner">A adaptação é feita com carinho e no ritmo de cada criança. Começamos com períodos curtos, sempre com presença permitida dos pais quando necessário. Nossa equipe transforma esse momento em algo tranquilo para toda a família.</div></div></div>
+      <div class="faq-item gsap-fade"><button class="faq-q" aria-expanded="false">Como é a rotina das crianças? <span class="faq-arr" aria-hidden="true">▼</span></button><div class="faq-body"><div class="faq-body-inner">Rotina estruturada e previsível — o que dá segurança às crianças. Inclui acolhida, atividades pedagógicas, brincadeiras livres, inglês integrado, refeições, descanso e atividades artísticas. Tudo pensado para o desenvolvimento completo.</div></div></div>
+      <div class="faq-item gsap-fade"><button class="faq-q" aria-expanded="false">Como funciona a alimentação? <span class="faq-arr" aria-hidden="true">▼</span></button><div class="faq-body"><div class="faq-body-inner">Refeições balanceadas elaboradas por nutricionista, pensadas para crianças de 2 a 5 anos. Inclui lanches e almoço. Restrições alimentares são sempre respeitadas — basta informar no cadastro.</div></div></div>
+      <div class="faq-item gsap-fade"><button class="faq-q" aria-expanded="false">Como acompanho o dia da minha criança? <span class="faq-arr" aria-hidden="true">▼</span></button><div class="faq-body"><div class="faq-body-inner">Comunicação constante via aplicativo com fotos e atualizações do dia. Nossa equipe está sempre disponível, e reuniões pedagógicas são realizadas periodicamente para uma parceria real com as famílias.</div></div></div>
+      <div class="faq-item gsap-fade"><button class="faq-q" aria-expanded="false">Como são as turmas? <span class="faq-arr" aria-hidden="true">▼</span></button><div class="faq-body"><div class="faq-body-inner">Turmas reduzidas com no máximo 12 crianças por professor. Essa proporção garante atenção individualizada e permite que cada criança seja realmente vista e acompanhada em seu desenvolvimento.</div></div></div>
+      <div class="faq-item gsap-fade"><button class="faq-q" aria-expanded="false">Existe período integral? <span class="faq-arr" aria-hidden="true">▼</span></button><div class="faq-body"><div class="faq-body-inner">Sim! Oferecemos período parcial (manhã ou tarde) e integral. Cada opção foi pensada para atender às necessidades das famílias mantendo a qualidade do cuidado e do desenvolvimento educacional.</div></div></div>
+      <div class="faq-item gsap-fade"><button class="faq-q" aria-expanded="false">Como funciona para crianças tímidas? <span class="faq-arr" aria-hidden="true">▼</span></button><div class="faq-body"><div class="faq-body-inner">Temos muita experiência com crianças introvertidas. Nunca forçamos participação — criamos o ambiente certo para que cada criança queira participar no seu próprio tempo. O resultado costuma surpreender os pais.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FORM ══ -->
+<section class="s-form" id="agendar">
+  <div class="container">
+    <div class="form-wrap">
+      <div class="form-header">
+        <div class="eyebrow-dark gsap-fade" style="display:inline-flex;margin-bottom:16px">Agendar visita</div>
+        <h2 class="section-title gsap-split">Venha nos <span style="color:var(--red)">conhecer.</span></h2>
+        <p class="gsap-fade">Preencha abaixo — nossa equipe entra em contato para agendar a melhor data para você.</p>
+      </div>
+      <div class="form-box gsap-fade">
+        <form id="visitForm" novalidate>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label" for="parentName">Seu nome</label><input class="form-input" type="text" id="parentName" placeholder="Como você se chama?" autocomplete="name" required/></div>
+            <div class="form-group"><label class="form-label" for="whatsapp">WhatsApp</label><input class="form-input" type="tel" id="whatsapp" placeholder="(11) 99999-9999" autocomplete="tel" required/></div>
+            <div class="form-group"><label class="form-label" for="childName">Nome da criança</label><input class="form-input" type="text" id="childName" placeholder="Nome do seu filho(a)" required/></div>
+            <div class="form-group"><label class="form-label" for="childAge">Idade</label><select class="form-select" id="childAge" required><option value="" disabled selected>Selecione</option><option value="2">2 anos</option><option value="3">3 anos</option><option value="4">4 anos</option><option value="5">5 anos</option></select></div>
+            <div class="form-group full"><label class="form-label" for="period">Turno desejado</label><select class="form-select" id="period" required><option value="" disabled selected>Qual turno prefere?</option><option value="manha">Manhã (7h–12h)</option><option value="tarde">Tarde (12h–17h)</option><option value="integral">Integral (7h–17h)</option></select></div>
+          </div>
+          <button type="submit" class="btn btn-red btn-full btn-lg mag" id="formBtn" style="margin-top:8px">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Quero agendar minha visita
+          </button>
+          <p class="form-note">Seus dados estão seguros. Não enviamos spam. <a href="#">Política de privacidade.</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA FINAL ══ -->
+<section class="s-final">
+  <div class="final-orb fo-1" aria-hidden="true"></div>
+  <div class="final-orb fo-2" aria-hidden="true"></div>
+  <div class="container">
+    <div class="final-inner">
+      <h2 class="section-title gsap-split" style="font-size:clamp(2.5rem,7vw,5rem)">Você não precisa<br>decidir <span class="accent-yellow">hoje.</span></h2>
+      <p class="gsap-fade">Só precisa conhecer um lugar onde seu filho possa crescer feliz. Venha tomar um café e sentir o ambiente pessoalmente.</p>
+      <div class="final-ctas gsap-fade">
+        <a href="#agendar" class="btn btn-red btn-xl mag">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Agendar minha visita
+        </a>
+        <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20conhecer%20a%20Grow%20Up" class="btn btn-ghost btn-xl mag" target="_blank" rel="noopener">Falar no WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer" id="contato">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">Grow<em>Up</em></a>
+        <p>Educação Infantil bilíngue onde cada criança aprende brincando, cresce com leveza e vive a infância que merece.</p>
+        <div class="f-social">
+          <a href="#" class="f-soc-btn" aria-label="Instagram">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="#" class="f-soc-btn" aria-label="Facebook">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Links</h4>
+        <ul class="footer-links">
+          <li><a href="#sobre">Nossa missão</a></li>
+          <li><a href="#atividades">Atividades</a></li>
+          <li><a href="#ingles">Inglês</a></li>
+          <li><a href="#diferenciais">Diferenciais</a></li>
+          <li><a href="#depoimentos">Depoimentos</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#agendar">Agendar visita</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul class="f-contact">
+          <li><span>📍</span><span>São Paulo, SP — Brasil</span></li>
+          <li><span>📱</span><a href="https://wa.me/5511939466440" style="color:rgba(255,255,255,.45);transition:color .2s" onmouseover="this.style.color='#FFC928'" onmouseout="this.style.color='rgba(255,255,255,.45)'">(11) 93946-6440</a></li>
+          <li><span>🕐</span><span>Seg–Sex, 7h–17h</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Grow Up Educação Infantil. Todos os direitos reservados.</p>
+      <div class="footer-btm-links"><a href="#">Privacidade</a><a href="#">Termos</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING WA -->
+<a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20a%20Grow%20Up" class="wa-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <div class="wa-btn">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </div>
+</a>
+
+<!-- STICKY MOBILE -->
+<div class="sticky-bar" id="stickyBar">
+  <a href="#agendar" class="btn btn-red">
+    <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Agendar visita
+  </a>
+  <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20a%20Grow%20Up" class="btn btn-blue" target="_blank" rel="noopener">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    WhatsApp
+  </a>
+</div>
+
+<!-- ══════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════ -->
+<script>
+window.addEventListener('load', () => {
+  const gsapLoaded = typeof gsap !== 'undefined';
+  const lenisLoaded = typeof Lenis !== 'undefined';
+
+  /* ── SMOOTH SCROLL (Lenis) ── */
+  let lenis;
+  if (lenisLoaded) {
+    lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    if (gsapLoaded && ScrollTrigger) {
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(time => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+    }
+  }
+
+  /* ── SCROLL PROGRESS ── */
+  const progressBar = document.getElementById('progressBar');
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+    progressBar.style.width = pct + '%';
+  }, { passive: true });
+
+  /* ── NAVBAR ── */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('pinned', window.scrollY > 50), { passive: true });
+
+  /* ── CUSTOM CURSOR ── */
+  const cursorDot = document.getElementById('cursorDot');
+  const cursorRing = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animCursor() {
+    rx += (mx - rx) * 0.14;
+    ry += (my - ry) * 0.14;
+    cursorDot.style.left = mx + 'px';
+    cursorDot.style.top = my + 'px';
+    cursorRing.style.left = rx + 'px';
+    cursorRing.style.top = ry + 'px';
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+  document.querySelectorAll('a,button,.mag,.act-card,.e-card,.dif-card,.t-card').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+  });
+
+  /* ── MAGNETIC BUTTONS ── */
+  document.querySelectorAll('.mag').forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const r = el.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width / 2;
+      const y = e.clientY - r.top - r.height / 2;
+      el.style.transform = `translate(${x * 0.28}px, ${y * 0.28}px)`;
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1)';
+      el.style.transform = 'translate(0,0)';
+      setTimeout(() => el.style.transition = '', 500);
+    });
+  });
+
+  /* ── 3D TILT CARDS ── */
+  document.querySelectorAll('.gsap-tilt').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `perspective(800px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg) translateZ(6px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+      card.style.transform = 'perspective(800px) rotateY(0) rotateX(0) translateZ(0)';
+      setTimeout(() => card.style.transition = '', 600);
+    });
+  });
+
+  /* ── HERO ENTRANCE ── */
+  if (gsapLoaded) {
+    // split headline into chars
+    ['hl-1','hl-2','hl-3'].forEach((id, li) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const txt = el.textContent;
+      el.innerHTML = txt.split('').map(c =>
+        c === ' ' ? ' ' : `<span class="split-char" style="display:inline-block;transform:translateY(110%)">${c}</span>`
+      ).join('');
+    });
+
+    const tl = gsap.timeline({ delay: 0.1 });
+    tl.to('#heroEyebrow', { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' })
+      .to('#hl-1 .split-char', { y: '0%', duration: 0.8, stagger: 0.03, ease: 'expo.out' }, '-=0.3')
+      .to('#hl-2 .split-char', { y: '0%', duration: 0.8, stagger: 0.03, ease: 'expo.out' }, '-=0.6')
+      .to('#hl-3 .split-char', { y: '0%', duration: 0.8, stagger: 0.03, ease: 'expo.out' }, '-=0.6')
+      .to('#heroSub', { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' }, '-=0.4')
+      .to('#heroCtas', { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' }, '-=0.4')
+      .to('#heroScarcity', { opacity: 1, duration: 0.5, ease: 'expo.out' }, '-=0.2')
+      .to('#heroVisual', { opacity: 1, y: 0, scale: 1, duration: 1, ease: 'expo.out' }, '-=0.8')
+      .to('#scrollHint', { opacity: 1, duration: 0.5 }, '-=0.2');
+
+    /* ── SCROLLTRIGGER ANIMATIONS ── */
+    gsap.registerPlugin(ScrollTrigger);
+
+    // split text util — preserves inner <span> tags during word splitting
+    function splitAndAnimate(selector) {
+      document.querySelectorAll(selector).forEach(el => {
+        const saved = [];
+        let html = el.innerHTML.replace(/<span[^>]*>[\s\S]*?<\/span>/g, match => {
+          saved.push(match);
+          return `§${saved.length - 1}§`;
+        });
+        const lines = html.split('<br>');
+        el.innerHTML = lines.map(line => {
+          const words = line.trim().split(/\s+/).filter(Boolean);
+          return words.map(w => {
+            const restored = w.replace(/§(\d+)§/g, (_, i) => saved[+i]);
+            return `<span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span class="split-w" style="display:inline-block;transform:translateY(110%)">${restored}</span></span>`;
+          }).join(' ');
+        }).join('<br>');
+        gsap.to(el.querySelectorAll('.split-w'), {
+          y: '0%', duration: 0.9, stagger: 0.06, ease: 'expo.out',
+          scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+        });
+      });
+    }
+    splitAndAnimate('.gsap-split');
+
+    // fade-ups
+    gsap.utils.toArray('.gsap-fade').forEach(el => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 28 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'expo.out',
+          scrollTrigger: { trigger: el, start: 'top 88%', once: true } }
+      );
+    });
+
+    // staggered grids
+    gsap.utils.toArray('.stagger').forEach(grid => {
+      gsap.to(grid.children, {
+        opacity: 1, y: 0, duration: 0.7, stagger: 0.08, ease: 'expo.out',
+        scrollTrigger: { trigger: grid, start: 'top 82%', once: true }
+      });
+    });
+
+    // cards
+    gsap.utils.toArray('.gsap-card').forEach((card, i) => {
+      gsap.fromTo(card,
+        { opacity: 0, x: 24 },
+        { opacity: 1, x: 0, duration: 0.7, ease: 'expo.out', delay: i * 0.1,
+          scrollTrigger: { trigger: card, start: 'top 88%', once: true } }
+      );
+    });
+
+    /* hero parallax on scroll */
+    gsap.to('#heroVisual', {
+      y: -80,
+      ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
+    });
+
+  } else {
+    // fallback if GSAP fails to load
+    ['heroEyebrow','heroSub','heroCtas','heroScarcity','heroVisual'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.style.opacity = '1'; el.style.transform = 'none'; }
+    });
+    ['hl-1','hl-2','hl-3'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.opacity = '1';
+    });
+    document.querySelectorAll('.gsap-fade,.gsap-split,.stagger>*').forEach(el => {
+      el.style.opacity = '1'; el.style.transform = 'none';
+    });
+  }
+
+  /* ── HERO MOUSE PARALLAX ── */
+  document.addEventListener('mousemove', e => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    document.querySelectorAll('.hero-orb').forEach((orb, i) => {
+      const factor = (i + 1) * 0.4;
+      orb.style.transform += ` translate(${x * factor}px, ${y * factor}px)`;
+    });
+  });
+
+  /* ── COUNTER ANIMATION ── */
+  document.querySelectorAll('.counter').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    const obs = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      obs.disconnect();
+      let current = 0;
+      const step = target / 60;
+      const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = Math.floor(current);
+        if (current >= target) clearInterval(timer);
+      }, 16);
+    }, { threshold: 0.5 });
+    obs.observe(el);
+  });
+
+  /* ── FAQ ACCORDION ── */
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const body = item.querySelector('.faq-body');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(open => {
+        open.classList.remove('open');
+        open.querySelector('.faq-body').style.maxHeight = '0';
+        open.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  /* ── PHONE MASK ── */
+  const wppInput = document.getElementById('whatsapp');
+  if (wppInput) {
+    wppInput.addEventListener('input', e => {
+      let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length > 10) v = v.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+      else if (v.length > 6) v = v.replace(/^(\d{2})(\d{4})(\d*)/, '($1) $2-$3');
+      else if (v.length > 2) v = v.replace(/^(\d{2})(\d*)/, '($1) $2');
+      e.target.value = v;
+    });
+  }
+
+  /* ── FORM SUBMIT ── */
+  const form = document.getElementById('visitForm');
+  const formBtn = document.getElementById('formBtn');
+  if (form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('parentName').value.trim();
+      const wpp = document.getElementById('whatsapp').value.trim();
+      const child = document.getElementById('childName').value.trim();
+      const age = document.getElementById('childAge').value;
+      const period = document.getElementById('period').value;
+      if (!name || !wpp || !child || !age || !period) {
+        formBtn.textContent = 'Preencha todos os campos';
+        formBtn.style.background = '#c0392b';
+        setTimeout(() => { formBtn.innerHTML = `<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Quero agendar minha visita`; formBtn.style.background = ''; }, 2500);
+        return;
+      }
+      const p = {manha:'Manhã',tarde:'Tarde',integral:'Integral'};
+      const msg = encodeURIComponent(`Olá! Gostaria de agendar uma visita à Grow Up.\n\n👤 *Nome:* ${name}\n👧 *Criança:* ${child} (${age} anos)\n🕐 *Turno:* ${p[period]||period}\n📱 *WhatsApp:* ${wpp}`);
+      formBtn.textContent = 'Abrindo WhatsApp...';
+      formBtn.style.background = '#1FA13F';
+      setTimeout(() => { window.open(`https://wa.me/5511939466440?text=${msg}`, '_blank'); formBtn.innerHTML = '✓ Enviado — aguarde o contato!'; }, 600);
+    });
+  }
+
+  /* ── SMOOTH ANCHOR ── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      if (lenis) lenis.scrollTo(target, { offset: -80 });
+      else window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+    });
+  });
+});
+</script>
+</body>
+</html>
