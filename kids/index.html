@@ -91,12 +91,8 @@ body.cursor-hover .cursor-ring{opacity:0}
   gap:16px;
 }
 @media(min-width:600px){.nav-inner{padding:0 32px;gap:24px}}
-.logo{
-  font-family:'Nunito',sans-serif;
-  font-weight:900;font-size:1.4rem;
-  letter-spacing:-.02em;
-}
-.logo em{color:var(--yellow);font-style:normal}
+.logo img{height:36px;width:auto;display:block}
+@media(min-width:600px){.logo img{height:42px}}
 .nav-links{
   display:none;
   gap:32px;list-style:none;
@@ -232,12 +228,8 @@ section{position:relative;overflow:hidden}
 }
 
 /* hero layout — flat grid */
-.hero-brand{
-  font-family:'Nunito',sans-serif;font-weight:900;font-size:1.1rem;
-  letter-spacing:-.02em;color:rgba(255,255,255,.9);
-  margin-bottom:16px;display:block;
-}
-.hero-brand em{color:var(--yellow);font-style:normal}
+.hero-brand{display:block;margin-bottom:20px}
+.hero-brand img{height:48px;width:auto;filter:brightness(0) invert(1)}
 .hero-grid{display:grid;grid-template-columns:1fr;row-gap:0;position:relative;z-index:2}
 @media(min-width:900px){
   .hero-grid{
@@ -856,7 +848,7 @@ section{position:relative;overflow:hidden}
 <!-- NAV -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#" class="logo mag">Grow<em>Up</em></a>
+    <a href="#" class="logo mag"><img src="../images/logo.png" alt="Grow Up Bilingual School"></a>
     <ul class="nav-links">
       <li><a href="#sobre">Sobre</a></li>
       <li><a href="#ingles">Inglês</a></li>
@@ -879,7 +871,7 @@ section{position:relative;overflow:hidden}
   <div class="container">
     <div class="hero-grid">
 
-      <span class="hero-brand" aria-hidden="true">Grow<em>Up</em></span>
+      <span class="hero-brand"><img src="../images/logo.png" alt="Grow Up Bilingual School"></span>
 
       <div class="hero-eyebrow" id="heroEyebrow">
         <span class="eyebrow-dot" aria-hidden="true"></span>
