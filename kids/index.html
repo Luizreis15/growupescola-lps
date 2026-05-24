@@ -86,10 +86,11 @@ body.cursor-hover .cursor-ring{opacity:0}
 }
 .nav-inner{
   max-width:1200px;margin:0 auto;
-  padding:0 32px;
+  padding:0 20px;
   display:flex;align-items:center;justify-content:space-between;
-  gap:24px;
+  gap:16px;
 }
+@media(min-width:600px){.nav-inner{padding:0 32px;gap:24px}}
 .logo{
   font-family:'Nunito',sans-serif;
   font-weight:900;font-size:1.4rem;
@@ -108,7 +109,9 @@ body.cursor-hover .cursor-ring{opacity:0}
   transition:color .2s;
 }
 .nav-links a:hover{color:#fff}
-.nav-ctas{display:flex;gap:12px}
+.nav-ctas{display:flex;gap:8px}
+.nav-ctas .btn-ghost{display:none}
+@media(min-width:600px){.nav-ctas{gap:12px}.nav-ctas .btn-ghost{display:inline-flex}}
 
 /* ── BUTTONS ── */
 .btn{
