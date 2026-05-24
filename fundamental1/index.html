@@ -324,7 +324,7 @@ section{position:relative;overflow:hidden}
 /* ════════════════════════════════════════
    SECTION — EMPATHY  (light bg)
 ════════════════════════════════════════ */
-.s-empathy{background:var(--offwhite);color:#04102B;padding:120px 0}
+.s-empathy{background:var(--offwhite);color:#04102B;padding:80px 0}
 .eyebrow-dark{
   display:inline-flex;align-items:center;gap:8px;
   background:rgba(0,71,198,.08);border:1px solid rgba(0,71,198,.15);
@@ -378,8 +378,8 @@ section{position:relative;overflow:hidden}
 /* ════════════════════════════════════════
    SECTION — ATIVIDADES  (dark)
 ════════════════════════════════════════ */
-.s-activities{background:#04102B;padding:120px 0}
-.act-header{text-align:center;margin-bottom:72px}
+.s-activities{background:#04102B;padding:80px 0}
+.act-header{text-align:center;margin-bottom:48px}
 .act-header p{font-size:1.05rem;color:rgba(255,255,255,.5);max-width:500px;margin:16px auto 0;line-height:1.65}
 
 .act-grid{
@@ -401,16 +401,16 @@ section{position:relative;overflow:hidden}
 .act-card .icon{font-size:2rem}
 .act-card h3{font-family:'Nunito',sans-serif;font-weight:900;font-size:.95rem}
 .act-card p{font-size:.8rem;line-height:1.55;opacity:.65}
-.ac-1{background:rgba(0,71,198,.2);border:1px solid rgba(0,71,198,.3)}
-.ac-2{background:rgba(255,201,40,.1);border:1px solid rgba(255,201,40,.2);color:#04102B}
+.ac-1{background:rgba(0,71,198,.35);border:1px solid rgba(0,71,198,.5)}
+.ac-2{background:rgba(255,201,40,.45);border:1px solid rgba(255,201,40,.6);color:#04102B}
 .ac-2 h3,.ac-2 p{color:#04102B}
-.ac-2 p{opacity:.7}
-.ac-3{background:rgba(39,194,76,.12);border:1px solid rgba(39,194,76,.2)}
-.ac-4{background:rgba(243,38,38,.1);border:1px solid rgba(243,38,38,.2)}
-.ac-5{background:rgba(255,201,40,.1);border:1px solid rgba(255,201,40,.2)}
-.ac-6{background:rgba(0,71,198,.15);border:1px solid rgba(0,71,198,.25)}
-.ac-7{background:rgba(243,38,38,.08);border:1px solid rgba(243,38,38,.15)}
-.ac-8{background:rgba(39,194,76,.1);border:1px solid rgba(39,194,76,.18)}
+.ac-2 p{opacity:.8}
+.ac-3{background:rgba(39,194,76,.28);border:1px solid rgba(39,194,76,.4)}
+.ac-4{background:rgba(243,38,38,.25);border:1px solid rgba(243,38,38,.4)}
+.ac-5{background:rgba(255,201,40,.3);border:1px solid rgba(255,201,40,.45)}
+.ac-6{background:rgba(0,71,198,.3);border:1px solid rgba(0,71,198,.45)}
+.ac-7{background:rgba(243,38,38,.2);border:1px solid rgba(243,38,38,.35)}
+.ac-8{background:rgba(39,194,76,.25);border:1px solid rgba(39,194,76,.38)}
 
 /* pinned large card */
 .act-card.wide{
@@ -425,7 +425,7 @@ section{position:relative;overflow:hidden}
 /* ════════════════════════════════════════
    SECTION — INGLÊS  (split)
 ════════════════════════════════════════ */
-.s-english{background:var(--offwhite);color:#04102B;padding:120px 0}
+.s-english{background:var(--offwhite);color:#04102B;padding:80px 0}
 .eng-grid{
   display:grid;gap:80px;
   grid-template-columns:1fr;align-items:center;
@@ -434,10 +434,11 @@ section{position:relative;overflow:hidden}
 .eng-visual{
   background:linear-gradient(135deg,var(--blue) 0%,#0056E0 100%);
   border-radius:40px;
-  padding:64px 48px;
+  padding:48px 32px;
   color:#fff;
   position:relative;overflow:hidden;
 }
+@media(min-width:600px){.eng-visual{padding:64px 48px}}
 .eng-visual::before{
   content:'';position:absolute;
   width:350px;height:350px;
@@ -478,8 +479,8 @@ section{position:relative;overflow:hidden}
 /* ════════════════════════════════════════
    SECTION — DIFERENCIAIS  (dark)
 ════════════════════════════════════════ */
-.s-dif{background:#04102B;padding:120px 0}
-.dif-header{text-align:center;margin-bottom:72px}
+.s-dif{background:#04102B;padding:80px 0}
+.dif-header{text-align:center;margin-bottom:48px}
 .dif-header p{font-size:1.05rem;color:rgba(255,255,255,.45);max-width:480px;margin:16px auto 0;line-height:1.65}
 .dif-grid{
   display:grid;gap:20px;
@@ -489,8 +490,8 @@ section{position:relative;overflow:hidden}
 @media(min-width:900px){.dif-grid{grid-template-columns:repeat(3,1fr)}}
 
 .dif-card{
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.07);
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.14);
   border-radius:28px;padding:40px 32px;
   transition:transform .4s var(--ease-out-expo),background .3s,border-color .3s,box-shadow .3s;
   position:relative;overflow:hidden;
@@ -523,11 +524,11 @@ section{position:relative;overflow:hidden}
 /* ════════════════════════════════════════
    SECTION — DEPOIMENTOS MARQUEE  (light)
 ════════════════════════════════════════ */
-.s-testimonials{background:var(--offwhite);color:#04102B;padding:120px 0}
-.test-header{text-align:center;margin-bottom:64px}
+.s-testimonials{background:var(--offwhite);color:#04102B;padding:80px 0}
+.test-header{text-align:center;margin-bottom:48px}
 .test-header p{font-size:1.05rem;color:#6b7a99;max-width:480px;margin:16px auto 0}
 
-.test-marquee{overflow:hidden;margin:0 -32px}
+.test-marquee{overflow:clip;margin:0 -32px}
 .test-track{
   display:flex;gap:24px;
   animation:testScroll 40s linear infinite;
@@ -566,7 +567,7 @@ section{position:relative;overflow:hidden}
 /* ════════════════════════════════════════
    SECTION — NÚMEROS / TRUST  (dark)
 ════════════════════════════════════════ */
-.s-trust{background:#04102B;padding:120px 0}
+.s-trust{background:#04102B;padding:80px 0}
 .trust-grid{
   display:grid;
   grid-template-columns:1fr;gap:80px;align-items:center;
@@ -603,7 +604,7 @@ section{position:relative;overflow:hidden}
 ════════════════════════════════════════ */
 .s-escassez{
   background:linear-gradient(135deg,#0047C6 0%,#0056E0 50%,#003DA3 100%);
-  padding:100px 0;
+  padding:72px 0;
 }
 .esc-inner{text-align:center;max-width:640px;margin:0 auto}
 .esc-badge{
@@ -621,8 +622,8 @@ section{position:relative;overflow:hidden}
 /* ════════════════════════════════════════
    SECTION — FAQ
 ════════════════════════════════════════ */
-.s-faq{background:#04102B;padding:120px 0}
-.faq-wrap{max-width:720px;margin:64px auto 0;display:flex;flex-direction:column;gap:12px}
+.s-faq{background:#04102B;padding:80px 0}
+.faq-wrap{max-width:720px;margin:40px auto 0;display:flex;flex-direction:column;gap:12px}
 .faq-item{
   background:rgba(255,255,255,.04);
   border:1px solid rgba(255,255,255,.07);
@@ -653,9 +654,9 @@ section{position:relative;overflow:hidden}
 /* ════════════════════════════════════════
    SECTION — FORM
 ════════════════════════════════════════ */
-.s-form{background:var(--offwhite);color:#04102B;padding:120px 0}
+.s-form{background:var(--offwhite);color:#04102B;padding:80px 0}
 .form-wrap{max-width:620px;margin:0 auto}
-.form-header{text-align:center;margin-bottom:48px}
+.form-header{text-align:center;margin-bottom:32px}
 .form-header p{font-size:1rem;color:#6b7a99;margin-top:12px;line-height:1.65}
 .form-box{
   background:#fff;
@@ -693,7 +694,7 @@ section{position:relative;overflow:hidden}
 ════════════════════════════════════════ */
 .s-final{
   background:var(--blue-deep);
-  padding:140px 0;
+  padding:80px 0;
   position:relative;overflow:hidden;
 }
 .final-orb{
@@ -748,27 +749,6 @@ section{position:relative;overflow:hidden}
 .footer-btm-links a{font-size:.8rem;color:rgba(255,255,255,.3);transition:color .2s}
 .footer-btm-links a:hover{color:#fff}
 
-/* ════════════════════════════════════════
-   FLOATING WA
-════════════════════════════════════════ */
-.wa-float{
-  position:fixed;bottom:88px;right:20px;z-index:600;
-}
-@media(min-width:768px){.wa-float{bottom:32px}}
-.wa-btn{
-  width:60px;height:60px;
-  background:#25D366;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 8px 32px rgba(37,211,102,.45);
-  transition:transform .3s var(--ease-out-expo);
-  animation:waPulse 3s ease-in-out infinite;
-}
-.wa-btn:hover{transform:scale(1.12);animation-play-state:paused}
-.wa-btn svg{width:28px;height:28px;fill:#fff}
-@keyframes waPulse{
-  0%,100%{box-shadow:0 8px 32px rgba(37,211,102,.45)}
-  50%{box-shadow:0 8px 48px rgba(37,211,102,.7),0 0 0 14px rgba(37,211,102,.08)}
-}
 
 /* ════════════════════════════════════════
    STICKY MOBILE
@@ -806,8 +786,8 @@ section{position:relative;overflow:hidden}
 .stagger>*{opacity:0;transform:translateY(32px)}
 
 /* ── GALERIA ── */
-.s-gallery{padding:100px 0;background:var(--offwhite);color:#04102B}
-.s-gallery .gallery-header{text-align:center;margin-bottom:56px}
+.s-gallery{padding:72px 0;background:var(--offwhite);color:#04102B}
+.s-gallery .gallery-header{text-align:center;margin-bottom:40px}
 .gallery-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -1264,13 +1244,6 @@ section{position:relative;overflow:hidden}
     </div>
   </div>
 </footer>
-
-<!-- FLOATING WA -->
-<a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Fundamental%20I%20Grow%20Up" class="wa-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
-  <div class="wa-btn">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-  </div>
-</a>
 
 <!-- STICKY MOBILE -->
 <div class="sticky-bar" id="stickyBar">
