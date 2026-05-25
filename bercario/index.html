@@ -4,1332 +4,1252 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Grow Up — Berçário | Seu bebê em boas mãos</title>
-<meta name="description" content="Berçário Grow Up em São Paulo: cuidado individual, rotina pensada e câmeras ao vivo. Bebês de 4 meses a 2 anos. Fale conosco no WhatsApp."/>
+<meta name="description" content="Berçário Grow Up em Santo André: cuidado individual, rotina pensada para cada bebê e câmeras ao vivo — você acompanha de onde estiver. Bebês de 4 meses a 2 anos."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{overflow-x:hidden}
 body{
   font-family:'Nunito Sans',sans-serif;
-  background:var(--bg-page);
-  color:var(--text-primary);
-  line-height:var(--lh-body);
-  padding-bottom:calc(56px + env(safe-area-inset-bottom, 0px));
+  background:#04102B;
+  color:#fff;
+  overflow-x:hidden;
 }
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
-button{font-family:inherit}
+button{font-family:inherit;cursor:pointer}
 
 :root{
-  --white:#FFFFFF;
-  --blue:#295DA6;
-  --sky:#2B94CF;
-  --green:#2CA346;
-  --yellow:#F6D539;
-  --red:#DA212B;
-  --red-dark:#B81B24;
-  --text-primary:#111111;
-  --text-secondary:#5F5B5C;
-  --text-muted:#5F5B5C;
-  --border:#CFCFCD;
-  --bg-page:#F9FAFB;
-  --bg-sky:#DFEFF8;
-  --bg-blue:#DFE7F2;
-  --bg-green:#DFF1E3;
-  --bg-yellow:#FEF9E1;
-  --shadow-sm:0 4px 20px rgba(41,93,166,.08);
-  --shadow-md:0 12px 32px rgba(17,17,17,.08);
-  --h1-mobile:36px;
-  --h2-mobile:28px;
-  --body-mobile:17px;
-  --small:14px;
-  --tiny:12px;
-  --weight-regular:400;
-  --weight-semibold:600;
-  --weight-bold:700;
-  --lh-headline:1.15;
-  --lh-body:1.65;
-  --nav-h:46px;
+  --blue:#0047C6;
+  --blue-dark:#0037A3;
+  --blue-deep:#04102B;
+  --red:#F32626;
+  --yellow:#FFC928;
+  --green:#27C24C;
+  --white:#fff;
+  --offwhite:#F4F6FC;
+  --ease-out-expo:cubic-bezier(0.16,1,0.3,1);
+  --ease-in-out:cubic-bezier(0.76,0,0.24,1);
 }
 
-/* ── NAVBAR ── */
+/* ── NOISE ── */
+.noise{
+  position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:128px 128px;
+}
+
+/* ── SCROLL PROGRESS ── */
+.progress-bar{
+  position:fixed;top:0;left:0;z-index:1000;
+  height:3px;width:0%;
+  background:linear-gradient(90deg,var(--blue),var(--yellow));
+  transition:width .1s linear;
+}
+
+/* ── NAV ── */
 .nav{
-  position:sticky;top:0;z-index:100;
-  background:var(--white);
-  border-bottom:0.5px solid var(--border);
-  height:var(--nav-h);
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:20px 0;
+  transition:padding .4s var(--ease-out-expo),background .4s;
+}
+.nav.pinned{
+  padding:12px 0;
+  background:rgba(4,16,43,.92);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(255,255,255,.06);
 }
 .nav-inner{
-  max-width:480px;margin:0 auto;
+  max-width:1200px;margin:0 auto;
   padding:0 20px;
-  height:100%;
   display:flex;align-items:center;justify-content:space-between;
 }
-.nav-logo img{height:28px;width:auto}
-.nav-wpp-link{
-  display:inline-flex;align-items:center;gap:5px;
-  font-size:12px;font-weight:var(--weight-semibold);
-  color:var(--green);
-  padding:6px 10px;
-  border-radius:100px;
-  border:1px solid var(--border);
-  background:var(--white);
-  flex-shrink:0;
+@media(min-width:600px){.nav-inner{padding:0 32px}}
+.nav-logo img{height:32px;width:auto}
+@media(min-width:600px){.nav-logo img{height:38px}}
+.nav-wpp{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--green);color:#fff;
+  font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:800;
+  padding:9px 18px;border-radius:100px;
+  box-shadow:0 4px 18px rgba(39,194,76,.4);
+  transition:transform .25s var(--ease-out-expo),box-shadow .25s;
+  white-space:nowrap;
 }
-.nav-wpp-link svg{width:15px;height:15px;flex-shrink:0}
+.nav-wpp:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(39,194,76,.5)}
+.nav-wpp svg{width:14px;height:14px;fill:#fff}
 
-/* ── LABELS ── */
-.section-label{
-  font-size:var(--tiny);
-  font-weight:var(--weight-semibold);
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:var(--blue);
-  margin-bottom:12px;
+/* ── HERO ── */
+.hero{
+  min-height:100svh;
+  background:var(--blue-deep);
+  padding:100px 0 64px;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center;
 }
-.section-label--light{color:rgba(255,255,255,.55)}
-.section-h2{
-  font-size:var(--h2-mobile);
-  font-weight:var(--weight-bold);
-  line-height:var(--lh-headline);
-  color:var(--text-primary);
-  margin-bottom:16px;
+.hero-orb{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none}
+.orb-1{width:700px;height:700px;background:rgba(0,71,198,.5);top:-220px;right:-180px;animation:orbMove 14s ease-in-out infinite}
+.orb-2{width:450px;height:450px;background:rgba(255,201,40,.1);bottom:-120px;left:-120px;animation:orbMove 20s ease-in-out infinite reverse 4s}
+.orb-3{width:300px;height:300px;background:rgba(39,194,76,.07);top:45%;left:32%;animation:orbMove 18s ease-in-out infinite 8s}
+@keyframes orbMove{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(35px,-25px) scale(1.07)}
+  66%{transform:translate(-22px,18px) scale(.94)}
 }
-.section-h2--light{color:#fff}
-.section-body{
-  font-size:var(--body-mobile);
-  color:var(--text-secondary);
-  line-height:var(--lh-body);
-}
-.section-body--light{color:rgba(255,255,255,.75)}
-.accent-green{color:var(--green)}
-.accent-blue{color:var(--blue)}
-.accent-red{color:var(--red)}
-.hl-yellow{
-  color:var(--blue);
-  background:var(--yellow);
-  padding:.02em .14em;
-  border-radius:6px;
-  box-decoration-break:clone;
-  -webkit-box-decoration-break:clone;
-}
-.section-head{text-align:center}
-.section-head .section-body{max-width:340px;margin-left:auto;margin-right:auto}
 
-/* split headline (hero) */
+.hero-inner{
+  max-width:1200px;margin:0 auto;
+  padding:0 20px;
+  position:relative;z-index:2;
+}
+@media(min-width:600px){.hero-inner{padding:0 32px}}
+
+/* desktop layout */
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:0;
+}
+@media(min-width:900px){
+  .hero-grid{
+    grid-template-columns:1fr 1fr;
+    grid-template-areas:
+      "eyebrow visual"
+      "headline visual"
+      "sub     visual"
+      "ctas    visual"
+      "scarcity visual";
+    column-gap:72px;
+    align-items:center;
+  }
+  .hero-eyebrow {grid-area:eyebrow}
+  .hero-headline{grid-area:headline}
+  .hero-sub     {grid-area:sub}
+  .hero-ctas    {grid-area:ctas}
+  .hero-scarcity{grid-area:scarcity}
+  .hero-visual  {grid-area:visual;align-self:center}
+}
+
+/* eyebrow */
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,201,40,.1);
+  border:1px solid rgba(255,201,40,.25);
+  border-radius:100px;padding:8px 20px;
+  font-size:.75rem;font-weight:800;
+  color:var(--yellow);letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:24px;
+  opacity:0;
+}
+.eyebrow-dot{width:7px;height:7px;background:var(--yellow);border-radius:50%;animation:eyebrowPulse 2s infinite;flex-shrink:0}
+@keyframes eyebrowPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+
+/* headline */
 .hero-headline{
   font-family:'Nunito',sans-serif;
   font-weight:900;
-  font-size:var(--h1-mobile);
-  line-height:var(--lh-headline);
-  color:var(--text-primary);
-  text-align:center;
-  margin-bottom:12px;
+  font-size:clamp(3.2rem,11vw,7.5rem);
+  line-height:.97;
+  letter-spacing:-.03em;
+  margin-bottom:24px;
 }
-.hero-headline .line{
-  display:block;
-  overflow:hidden;
-  padding-bottom:.06em;
-}
+.hero-headline .line{display:block;overflow:hidden;padding-bottom:.06em}
 .split-char{display:inline-block;transform:translateY(110%)}
-.hero-intro{text-align:center}
-.hero-intro .hero-badges{justify-content:center}
-.hero-intro .hero-sub{max-width:340px;margin-left:auto;margin-right:auto;text-align:center}
-.hero-intro .hero-photo-card{margin-left:auto;margin-right:auto}
-.hero-intro .hero-stats{max-width:360px;margin-left:auto;margin-right:auto}
-.hero-fade{opacity:0;transform:translateY(18px)}
+.accent-yellow{color:var(--yellow)}
 
-@keyframes pulse-red{
-  0%,100%{box-shadow:0 4px 14px rgba(218,33,43,.28)}
-  50%{box-shadow:0 6px 18px rgba(218,33,43,.4)}
-}
-@keyframes float-y{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-6px)}
-}
-@keyframes badge-blink{
-  0%,100%{opacity:1;transform:scale(1)}
-  50%{opacity:.5;transform:scale(1.25)}
-}
-@keyframes live-pulse{
-  0%,100%{opacity:1}
-  50%{opacity:.45}
-}
-@keyframes shimmer{
-  0%{background-position:0% 50%}
-  100%{background-position:200% 50%}
-}
-@media (prefers-reduced-motion:reduce){
-  .btn-primary,.hero-photo-card,.badge-dot,.live-badge,.ticker-track,.reveal{animation:none!important;transition:none!important}
-  .split-char{transform:none!important}
-  .hero-fade{opacity:1!important;transform:none!important}
-}
-
-/* ── CTAs ── */
-.btn-primary{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  width:100%;
-  background:var(--red);
-  color:#fff;
-  font-size:var(--body-mobile);
-  font-weight:var(--weight-bold);
-  padding:14px 18px;
-  border-radius:12px;
-  border:none;
-  box-shadow:0 4px 16px rgba(218,33,43,.28);
-  transition:transform .15s ease,background .2s ease;
-}
-.btn-primary:hover{background:var(--red-dark)}
-.btn-primary:active{transform:scale(.98)}
-.btn-wpp{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  width:100%;
-  background:var(--green);
-  color:#fff;
-  font-size:15px;
-  font-weight:var(--weight-semibold);
-  padding:13px 16px;
-  border-radius:12px;
-  border:none;
-  box-shadow:0 2px 10px rgba(44,163,70,.22);
-  transition:transform .15s ease,opacity .2s ease;
-}
-.btn-wpp:active{transform:scale(.98)}
-.btn-wpp svg{flex-shrink:0;width:20px;height:20px}
-.btn-wpp--outline{
-  background:var(--white);
-  color:var(--green);
-  border:1.5px solid rgba(44,163,70,.45);
-  box-shadow:none;
-}
-.btn-wpp-text{display:flex;flex-direction:column;align-items:flex-start;line-height:1.25}
-.btn-wpp-title{font-size:inherit;font-weight:var(--weight-bold)}
-.btn-wpp-hint{font-size:13px;font-weight:var(--weight-semibold);opacity:.88;margin-top:2px}
-.hero-cta-row{
-  display:flex;flex-direction:column;gap:10px;
-  max-width:360px;margin:0 auto 20px;
-}
-.hero-cta-row .btn-primary{padding:15px 18px;font-size:17px}
-.hero-cta-row .btn-wpp--outline .btn-wpp-text{align-items:center;width:100%}
-.hero-cta-row .btn-wpp--outline{justify-content:center;text-align:center}
-.btn-primary--lg{padding:16px 20px;font-size:17px}
-
-/* ══ HERO ══ */
-.hero{
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(165deg,var(--bg-blue) 0%,var(--white) 48%,var(--bg-yellow) 100%);
-  padding:24px 20px 28px;
-  max-width:480px;margin:0 auto;
-}
-.hero::before{
-  content:'';
-  position:absolute;
-  width:160px;height:160px;
-  border-radius:50%;
-  background:rgba(41,93,166,.12);
-  top:-50px;right:-40px;
-  pointer-events:none;
-}
-.hero > *{position:relative;z-index:1}
-.hero-badges{
-  display:flex;flex-wrap:wrap;gap:8px;
-  margin-bottom:14px;
-}
-.badge-pill{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:12px;font-weight:var(--weight-semibold);
-  padding:6px 12px;border-radius:100px;
-}
-.badge-pill--green{
-  background:var(--bg-green);
-  border:1px solid rgba(44,163,70,.35);
-  color:var(--green);
-}
-.badge-pill--green .badge-dot{
-  display:inline-block;
-  width:7px;height:7px;
-  background:var(--green);
-  border-radius:50%;
-  animation:badge-blink 1.8s ease infinite;
-}
-.badge-pill--yellow{
-  background:var(--yellow);
-  border:1px solid rgba(41,93,166,.2);
-  color:var(--blue);
-  font-size:var(--tiny);
-  font-weight:var(--weight-bold);
-}
+/* sub */
 .hero-sub{
-  font-size:var(--body-mobile);
-  color:var(--text-secondary);
-  line-height:1.65;
-  margin-bottom:16px;
+  font-size:clamp(1rem,2.5vw,1.15rem);
+  color:rgba(255,255,255,.65);
+  line-height:1.75;
+  max-width:480px;
+  margin-bottom:28px;
+  opacity:0;transform:translateY(20px);
 }
-.hero-photo-card{
-  width:100%;
-  max-width:320px;
-  margin:0 auto 14px;
-  aspect-ratio:1/1;
-  border-radius:16px;
+
+/* visual */
+.hero-visual{
+  position:relative;
+  margin-bottom:28px;
+  opacity:0;transform:translateY(30px);
+}
+@media(min-width:900px){.hero-visual{margin-bottom:0}}
+
+.hero-img-frame{
+  border-radius:40% 60% 55% 45% / 45% 40% 60% 55%;
   overflow:hidden;
-  border:3px solid var(--blue);
-  box-shadow:var(--shadow-md),0 0 0 3px var(--yellow);
-  background:var(--bg-blue);
+  aspect-ratio:4/5;
+  max-width:380px;
+  margin:0 auto;
+  box-shadow:0 40px 100px rgba(0,0,0,.55),inset 0 0 0 1.5px rgba(255,255,255,.08);
+  animation:morphFrame 10s ease-in-out infinite;
 }
-.hero-photo-card img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+@media(min-width:480px){.hero-img-frame{max-width:420px}}
+@media(min-width:900px){.hero-img-frame{max-width:none;aspect-ratio:4/5}}
+@keyframes morphFrame{
+  0%,100%{border-radius:40% 60% 55% 45% / 45% 40% 60% 55%}
+  25%{border-radius:55% 45% 40% 60% / 60% 55% 45% 40%}
+  50%{border-radius:45% 55% 60% 40% / 40% 60% 55% 45%}
+  75%{border-radius:60% 40% 45% 55% / 55% 45% 40% 60%}
 }
-.hero-stats{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:10px;
-  margin-bottom:16px;
+.hero-img-frame img{width:100%;height:100%;object-fit:cover;display:block}
+
+.badge-float{
+  position:absolute;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(20px);
+  border-radius:16px;padding:12px 16px;
+  box-shadow:0 18px 48px rgba(0,0,0,.28);
+  display:flex;align-items:center;gap:10px;
+  color:#04102B;
 }
-.stat-cell{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:14px 16px;
-  text-align:left;
-  background:var(--white);
-  border:1px solid var(--border);
-  border-radius:12px;
-  box-shadow:0 2px 8px rgba(20,32,24,.06);
+.badge-float .icon{font-size:1.4rem;flex-shrink:0}
+.badge-float .text strong{display:block;font-size:.82rem;font-weight:800;line-height:1.2}
+.badge-float .text span{font-size:.7rem;color:#6b7a99}
+.bf-cam{bottom:-12px;right:8px;animation:badgeFloat 5.5s ease-in-out infinite}
+.bf-care{top:20px;left:-8px;animation:badgeFloat 6.5s ease-in-out infinite 1.2s}
+@media(min-width:480px){.bf-cam{right:16px}.bf-care{left:-16px}}
+@keyframes badgeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+/* CTAs */
+.hero-ctas{
+  display:flex;flex-direction:column;gap:12px;
+  max-width:440px;
+  margin-bottom:20px;
+  opacity:0;transform:translateY(16px);
 }
-.stat-cell--highlight{
-  background:var(--bg-yellow);
-  border-color:rgba(246,213,57,.6);
+@media(min-width:480px){.hero-ctas{flex-direction:row}}
+
+/* scarcity */
+.hero-scarcity{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(243,38,38,.1);border:1px solid rgba(243,38,38,.25);
+  border-radius:100px;padding:8px 18px;
+  font-size:.78rem;font-weight:700;color:#ff8a8a;
+  opacity:0;
 }
-.stat-cell--blue{
-  background:var(--bg-blue);
-  border-color:rgba(41,93,166,.25);
+
+/* scroll hint */
+.scroll-hint{
+  display:flex;align-items:center;gap:12px;
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  font-size:.72rem;font-weight:700;color:rgba(255,255,255,.3);
+  letter-spacing:.1em;text-transform:uppercase;
+  opacity:0;
 }
-.stat-icon{
-  flex-shrink:0;
-  width:40px;height:40px;
-  border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
+.scroll-line{width:36px;height:1px;background:rgba(255,255,255,.2);position:relative;overflow:hidden}
+.scroll-line::after{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:#fff;animation:scrollLine 2s ease-in-out infinite 1.5s;
 }
-.stat-icon svg{width:22px;height:22px;stroke-width:2}
-.stat-icon--green{background:var(--bg-green);color:var(--green)}
-.stat-icon--green svg{stroke:var(--green)}
-.stat-icon--yellow{background:var(--yellow);color:var(--blue)}
-.stat-icon--yellow svg{stroke:var(--blue)}
-.stat-icon--blue{background:var(--bg-blue);color:var(--blue)}
-.stat-icon--blue svg{stroke:var(--blue)}
-.stat-text{flex:1;min-width:0}
-.stat-num{
-  display:block;
-  font-size:17px;
-  font-weight:var(--weight-bold);
-  color:var(--blue);
-  line-height:1.25;
+@keyframes scrollLine{0%{left:-100%}100%{left:100%}}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:'Nunito',sans-serif;font-weight:800;
+  border-radius:100px;border:none;
+  transition:transform .3s var(--ease-out-expo),box-shadow .3s;
+  position:relative;overflow:hidden;white-space:nowrap;cursor:pointer;
 }
-.stat-label{
-  display:block;
-  font-size:var(--small);
-  color:var(--text-secondary);
-  margin-top:2px;
-  line-height:1.35;
+.btn::after{
+  content:'';position:absolute;inset:0;
+  background:rgba(255,255,255,.12);opacity:0;transition:opacity .2s;
 }
-/* ══ TICKER ══ */
+.btn:hover::after{opacity:1}
+.btn-red{background:var(--red);color:#fff;box-shadow:0 8px 28px rgba(243,38,38,.4)}
+.btn-red:hover{box-shadow:0 14px 40px rgba(243,38,38,.55);transform:translateY(-3px)}
+.btn-red:active{transform:scale(.97)}
+.btn-ghost{background:rgba(255,255,255,.07);color:#fff;border:1.5px solid rgba(255,255,255,.2)}
+.btn-ghost:hover{background:rgba(255,255,255,.13);transform:translateY(-2px)}
+.btn-green{background:var(--green);color:#fff;box-shadow:0 8px 28px rgba(39,194,76,.4)}
+.btn-green:hover{box-shadow:0 14px 40px rgba(39,194,76,.55);transform:translateY(-3px)}
+.btn-green:active{transform:scale(.97)}
+.btn-lg{font-size:1rem;padding:17px 36px}
+.btn-md{font-size:.92rem;padding:14px 28px}
+.btn-full{width:100%;border-radius:14px}
+
+/* ── TICKER ── */
 .ticker{
   background:var(--yellow);
-  border-top:2px solid var(--blue);
-  border-bottom:2px solid var(--blue);
-  padding:12px 0;
-  overflow:hidden;
+  padding:17px 0;overflow:hidden;white-space:nowrap;
+  border-top:2px solid rgba(4,16,43,.08);
 }
 .ticker-track{
-  display:flex;
-  width:max-content;
-  animation:ticker 22s linear infinite;
+  display:inline-flex;
+  animation:tickerScroll 28s linear infinite;
 }
 .ticker:hover .ticker-track{animation-play-state:paused}
 .ticker-item{
-  font-size:var(--small);
-  font-weight:var(--weight-bold);
-  color:var(--blue);
-  padding:0 20px;
-  white-space:nowrap;
-  text-transform:uppercase;
-  letter-spacing:.04em;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:0 36px;
+  font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;
+  color:#04102B;letter-spacing:.02em;text-transform:uppercase;
 }
-.ticker-item::after{content:' · ';opacity:.5}
-.ticker-item:last-child::after{content:''}
-@keyframes ticker{
-  from{transform:translateX(0)}
-  to{transform:translateX(-50%)}
-}
+.ticker-sep{width:5px;height:5px;background:#04102B;border-radius:50%;opacity:.35}
+@keyframes tickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ══ S02 ESPELHO ══ */
-.s-mirror{
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(165deg,var(--blue) 0%,#1e4a8a 100%);
-  padding:56px 22px;
-  max-width:480px;margin:0 auto;
+/* ── SECTION BASE ── */
+section{position:relative;overflow:hidden}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+@media(min-width:600px){.container{padding:0 32px}}
+
+.section-label{
+  font-size:.72rem;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;margin-bottom:12px;
 }
-.s-mirror::after{
-  content:'';
-  position:absolute;
-  width:180px;height:180px;
-  background:rgba(246,213,57,.12);
-  border-radius:50%;
-  bottom:-70px;right:-50px;
-  filter:blur(40px);
-  pointer-events:none;
+.sl-yellow{color:var(--yellow)}
+.sl-blue{color:var(--blue)}
+.sl-muted-light{color:rgba(255,255,255,.45)}
+.section-title{
+  font-family:'Nunito',sans-serif;font-weight:900;
+  font-size:clamp(1.9rem,5vw,3.2rem);
+  line-height:1.08;letter-spacing:-.02em;
+  margin-bottom:16px;
 }
-.mirror-inner{position:relative;z-index:1;max-width:400px;margin:0 auto}
-.mirror-lead{margin-top:20px;margin-bottom:28px;line-height:1.7}
-.pillar-list{display:flex;flex-direction:column;gap:14px}
+.st-light{color:#fff}
+.st-dark{color:#04102B}
+.section-body{font-size:1rem;line-height:1.75;margin-bottom:24px}
+.sb-light{color:rgba(255,255,255,.6)}
+.sb-dark{color:#4a5568}
+
+/* reveal animation */
+.gsap-reveal{opacity:0;transform:translateY(32px)}
+.gsap-reveal-left{opacity:0;transform:translateX(-28px)}
+.gsap-reveal-right{opacity:0;transform:translateX(28px)}
+
+/* ════════════════════════════════════
+   S-MIRROR — EMPATIA (dark)
+════════════════════════════════════ */
+.s-mirror{background:#04102B;padding:96px 0}
+.mirror-orb{
+  position:absolute;width:500px;height:500px;
+  background:rgba(0,71,198,.12);border-radius:50%;
+  filter:blur(100px);bottom:-200px;right:-120px;pointer-events:none;
+}
+.mirror-grid{
+  display:grid;gap:56px;align-items:center;
+}
+@media(min-width:900px){.mirror-grid{grid-template-columns:1fr 1fr}}
+
+.pillar-list{display:flex;flex-direction:column;gap:14px;margin-top:32px}
 .pillar-card{
-  display:flex;gap:14px;align-items:flex-start;
-  background:rgba(255,255,255,.1);
-  border:1px solid rgba(255,255,255,.18);
-  border-radius:14px;
-  padding:18px 16px;
-  backdrop-filter:blur(8px);
+  display:flex;gap:16px;align-items:flex-start;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:18px;padding:22px 20px;
+  transition:background .3s,border-color .3s,transform .4s var(--ease-out-expo);
 }
+.pillar-card:hover{background:rgba(255,255,255,.09);border-color:rgba(0,71,198,.4);transform:translateX(6px)}
 .pillar-icon-wrap{
-  flex-shrink:0;
-  width:40px;height:40px;
-  border-radius:10px;
-  background:rgba(246,213,57,.2);
+  flex-shrink:0;width:46px;height:46px;border-radius:13px;
+  background:rgba(255,201,40,.15);
   display:flex;align-items:center;justify-content:center;
 }
-.pillar-icon{width:20px;height:20px;color:var(--yellow)}
-.pillar-title{
-  font-size:15px;
-  font-weight:var(--weight-bold);
-  color:#fff;
-  margin-bottom:6px;
-}
-.pillar-desc{
-  font-size:var(--small);
-  color:rgba(255,255,255,.72);
-  line-height:1.55;
-}
+.pillar-icon{width:22px;height:22px;color:var(--yellow)}
+.pillar-title{font-size:1rem;font-weight:800;color:#fff;margin-bottom:5px}
+.pillar-desc{font-size:.86rem;color:rgba(255,255,255,.58);line-height:1.6}
 
-/* ══ S03 GALERIA ══ */
-.s-gallery{
-  background:var(--white);
-  padding:56px 20px 48px;
-  max-width:480px;margin:0 auto;
+/* stat strip */
+.stat-strip{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:rgba(255,255,255,.07);
+  border-radius:20px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+  margin-top:40px;
 }
-.s-gallery .section-label{color:var(--blue)}
-.s-gallery .section-h2{color:var(--text-primary)}
-.gallery-carousel-wrap{
-  margin-top:24px;
-  position:relative;
-  padding:0;
+.stat-cell{
+  background:#04102B;
+  padding:24px 20px;text-align:center;
 }
+.stat-num{
+  font-family:'Nunito',sans-serif;font-weight:900;
+  font-size:1.6rem;color:var(--yellow);
+  display:block;line-height:1;margin-bottom:6px;
+}
+.stat-label{font-size:.75rem;color:rgba(255,255,255,.45);font-weight:600;line-height:1.35}
+
+/* ════════════════════════════════════
+   S-GALLERY (light)
+════════════════════════════════════ */
+.s-gallery{background:var(--offwhite);color:#04102B;padding:96px 0}
+.gallery-head{text-align:center;margin-bottom:40px}
+
 .gallery-carousel{
   position:relative;
-  width:min(100%,420px);
+  width:100%;max-width:460px;
   margin:0 auto;
   aspect-ratio:4/5;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:var(--shadow-md);
+  border-radius:28px;overflow:hidden;
+  box-shadow:0 32px 80px rgba(4,16,43,.18);
   border:3px solid var(--blue);
-  outline:3px solid var(--yellow);
-  outline-offset:2px;
+  outline:3px solid var(--yellow);outline-offset:3px;
 }
 .gallery-slide{
   position:absolute;inset:0;
-  opacity:0;
-  transform:scale(1.04);
-  transition:opacity .7s ease,transform .7s ease;
+  opacity:0;transform:scale(1.05);
+  transition:opacity .8s ease,transform .8s ease;
 }
-.gallery-slide.active{
-  opacity:1;
-  transform:scale(1);
-  z-index:1;
-}
-.gallery-slide img{
-  width:100%;height:100%;
-  object-fit:cover;
-}
-.gallery-dots{
-  display:flex;justify-content:center;gap:8px;
-  margin-top:12px;
-  margin-bottom:0;
-}
+.gallery-slide.active{opacity:1;transform:scale(1);z-index:1}
+.gallery-slide img{width:100%;height:100%;object-fit:cover}
+.gallery-dots{display:flex;justify-content:center;gap:9px;margin-top:16px}
 .gallery-dot{
   width:8px;height:8px;border-radius:50%;
-  background:var(--border);
-  border:none;padding:0;cursor:pointer;
-  transition:background .2s ease,transform .2s ease;
+  background:rgba(4,16,43,.18);border:none;padding:0;cursor:pointer;
+  transition:background .2s,transform .2s;
 }
-.gallery-dot.active{background:var(--red);transform:scale(1.2)}
+.gallery-dot.active{background:var(--red);transform:scale(1.3)}
 
-/* ══ S04 CÂMERA ══ */
-.s-camera{
-  background:var(--bg-sky);
-  color:var(--text-primary);
-  padding:56px 22px;
-  max-width:480px;margin:0 auto;
+/* ════════════════════════════════════
+   S-CAMERA (dark)
+════════════════════════════════════ */
+.s-camera{background:#04102B;padding:96px 0}
+.camera-orb{
+  position:absolute;width:450px;height:450px;
+  background:rgba(0,71,198,.14);border-radius:50%;
+  filter:blur(90px);top:-100px;left:-100px;pointer-events:none;
 }
-.s-camera .section-label{color:var(--blue)}
-.s-camera .section-h2 .accent-blue{color:var(--blue)}
+.camera-grid{
+  display:grid;gap:56px;align-items:center;
+}
+@media(min-width:800px){.camera-grid{grid-template-columns:1fr 1fr}}
+
+.phone-wrap{
+  display:flex;justify-content:center;align-items:center;
+  position:relative;
+}
+.phone-glow{
+  position:absolute;
+  width:220px;height:220px;
+  background:rgba(0,71,198,.35);
+  border-radius:50%;filter:blur(60px);
+  animation:phoneGlow 4s ease-in-out infinite;
+}
+@keyframes phoneGlow{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:.9;transform:scale(1.1)}}
 .phone-mockup{
   position:relative;
-  margin:24px auto 20px;
-  max-width:240px;
-  border-radius:20px;
-  border:3px solid var(--text-primary);
-  background:var(--text-primary);
+  width:200px;
+  border-radius:32px;
+  border:3px solid rgba(255,255,255,.15);
+  background:#000;
   overflow:hidden;
-  box-shadow:var(--shadow-md);
+  box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06);
 }
+@media(min-width:480px){.phone-mockup{width:240px}}
 .phone-mockup img{
-  width:100%;
-  aspect-ratio:9/16;
-  object-fit:cover;
-  display:block;
-}
-.phone-placeholder{
-  aspect-ratio:9/16;
-  background:var(--blue);
-  display:flex;align-items:center;justify-content:center;
-  color:rgba(255,255,255,.6);
-  font-size:var(--small);
-  font-weight:var(--weight-semibold);
+  width:100%;aspect-ratio:9/16;object-fit:cover;display:block;
 }
 .live-badge{
-  position:absolute;
-  top:12px;right:12px;
-  background:var(--red);
-  color:#fff;
-  font-size:10px;
-  font-weight:var(--weight-bold);
-  padding:5px 11px;
-  border-radius:100px;
-  animation:live-pulse 1.2s ease infinite;
-  box-shadow:0 2px 10px rgba(218,33,43,.35);
+  position:absolute;top:14px;right:14px;
+  background:var(--red);color:#fff;
+  font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 11px;border-radius:100px;
+  animation:livePulse 1.5s ease-in-out infinite;
+  box-shadow:0 2px 14px rgba(243,38,38,.6);
 }
-.benefit-list{margin-top:12px;list-style:none;display:flex;flex-direction:column;gap:10px}
-.benefit-list li{
-  display:flex;gap:10px;align-items:flex-start;
-  font-size:14px;color:var(--text-secondary);
-  line-height:var(--lh-body);
-  background:var(--white);
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:12px 14px;
-  box-shadow:var(--shadow-sm);
-}
-.benefit-check{
-  color:var(--blue);
-  font-weight:var(--weight-bold);
-  flex-shrink:0;
-}
+@keyframes livePulse{0%,100%{opacity:1}50%{opacity:.5}}
 
-/* ══ S05 DESENVOLVIMENTO ══ */
-.s-dev{
-  background:var(--bg-yellow);
-  padding:56px 20px;
-  max-width:480px;margin:0 auto;
+.benefit-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.benefit-item{
+  display:flex;gap:16px;align-items:flex-start;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:16px;padding:18px 18px;
+  transition:background .25s,transform .3s var(--ease-out-expo);
 }
-.s-dev .section-label{color:var(--blue)}
-.s-dev > .section-body,.s-camera > .section-body{
-  text-align:center;
-  max-width:340px;
-  margin:0 auto 24px;
+.benefit-item:hover{background:rgba(255,255,255,.09);transform:translateX(4px)}
+.benefit-icon{
+  flex-shrink:0;width:42px;height:42px;border-radius:11px;
+  background:rgba(0,71,198,.3);
+  display:flex;align-items:center;justify-content:center;
 }
+.benefit-icon svg{width:19px;height:19px;stroke:var(--yellow);stroke-width:2;fill:none}
+.benefit-title{font-size:.93rem;font-weight:800;color:#fff;margin-bottom:3px}
+.benefit-desc{font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.55}
+
+/* ════════════════════════════════════
+   S-DEV — DESENVOLVIMENTO (light)
+════════════════════════════════════ */
+.s-dev{background:var(--offwhite);color:#04102B;padding:96px 0}
+.dev-head{text-align:center;margin-bottom:40px}
+
 .act-scroll{
-  display:flex;
-  gap:12px;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
+  display:flex;gap:14px;
+  overflow-x:auto;scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;
-  margin:20px -20px 0;
-  padding:4px 20px 8px;
+  margin:0 -20px;
+  padding:4px 20px 10px;
   scrollbar-width:none;
 }
 .act-scroll::-webkit-scrollbar{display:none}
-@media(min-width:481px){
+@media(min-width:600px){
   .act-scroll{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    overflow:visible;
-    margin:24px 0 0;
-    padding:0;
+    display:grid;grid-template-columns:repeat(3,1fr);
+    overflow:visible;margin:0;padding:0;
   }
-  .act-card{flex:none}
 }
+@media(min-width:900px){.act-scroll{grid-template-columns:repeat(6,1fr)}}
+
 .act-card{
-  flex:0 0 72%;
-  scroll-snap-align:center;
-  background:var(--white);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:18px 16px;
-  box-shadow:var(--shadow-sm);
+  flex:0 0 68%;scroll-snap-align:center;
+  background:#fff;
+  border:1px solid rgba(4,16,43,.08);
+  border-radius:18px;padding:22px 18px;
+  box-shadow:0 4px 20px rgba(4,16,43,.07);
+  transition:transform .35s var(--ease-out-expo),box-shadow .35s;
 }
+.act-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(4,16,43,.14)}
 .act-icon{
-  width:32px;height:32px;
-  border-radius:8px;
+  width:40px;height:40px;border-radius:11px;
   display:flex;align-items:center;justify-content:center;
-  margin-bottom:10px;
+  margin-bottom:14px;
 }
-.act-icon svg{width:18px;height:18px;stroke:var(--text-primary);fill:none;stroke-width:1.75}
-.act-icon--yellow{background:var(--bg-yellow)}
-.act-icon--green{background:var(--bg-green)}
-.act-icon--blue{background:var(--bg-blue)}
-.act-icon--red{background:#FFE8E6}
-.act-card h3{
-  font-size:14px;
-  font-weight:var(--weight-semibold);
-  color:var(--text-primary);
-  margin-bottom:4px;
-}
-.act-card p{
-  font-size:var(--small);
-  color:var(--text-secondary);
-  line-height:1.5;
-}
-.english-note{
-  margin-top:20px;
-  background:var(--white);
-  border:1px solid var(--border);
-  border-left:4px solid var(--sky);
-  border-radius:12px;
-  padding:18px 18px;
-  box-shadow:var(--shadow-sm);
-}
-.english-note h4{
-  font-size:15px;
-  font-weight:var(--weight-bold);
-  color:var(--blue);
-  margin-bottom:8px;
-}
-.english-note p{
-  font-size:var(--small);
-  color:var(--text-secondary);
-  line-height:var(--lh-body);
-}
+.act-icon svg{width:20px;height:20px;stroke-width:1.75;fill:none}
+.ai-y{background:rgba(255,201,40,.15)}.ai-y svg{stroke:var(--blue)}
+.ai-g{background:rgba(39,194,76,.12)}.ai-g svg{stroke:var(--green)}
+.ai-b{background:rgba(0,71,198,.1)}.ai-b svg{stroke:var(--blue)}
+.ai-r{background:rgba(243,38,38,.08)}.ai-r svg{stroke:var(--red)}
+.act-card h3{font-size:.92rem;font-weight:800;color:#04102B;margin-bottom:5px}
+.act-card p{font-size:.8rem;color:#6b7a99;line-height:1.55}
 
-/* ══ S06 DIFERENCIAIS ══ */
-.s-dif{
-  background:var(--bg-page);
-  padding:56px 20px;
-  max-width:480px;margin:0 auto;
+.dev-note{
+  margin-top:28px;
+  background:#fff;
+  border:1px solid rgba(4,16,43,.08);
+  border-left:4px solid var(--blue);
+  border-radius:16px;padding:22px 22px;
+  box-shadow:0 4px 20px rgba(4,16,43,.06);
 }
-.s-dif .section-label{color:var(--blue)}
-.dif-list{margin-top:28px;display:flex;flex-direction:column;gap:12px}
-.dif-item{
-  display:flex;gap:16px;align-items:flex-start;
-  padding:20px 18px;
-  background:var(--white);
-  border:1px solid var(--border);
-  border-radius:14px;
-  box-shadow:var(--shadow-sm);
-  border-left:4px solid var(--sky);
-}
-.dif-icon-wrap{
-  flex-shrink:0;
-  width:44px;height:44px;
-  border-radius:12px;
-  background:var(--bg-blue);
-  display:flex;align-items:center;justify-content:center;
-}
-.dif-icon{width:22px;height:22px;color:var(--blue)}
-.dif-item h3{
-  font-size:15px;
-  font-weight:var(--weight-bold);
-  color:var(--text-primary);
-  margin-bottom:6px;
-}
-.dif-item p{
-  font-size:var(--small);
-  color:var(--text-secondary);
-  line-height:1.55;
-}
+.dev-note h4{font-size:1rem;font-weight:800;color:var(--blue);margin-bottom:7px}
+.dev-note p{font-size:.88rem;color:#6b7a99;line-height:1.7}
 
-/* ══ S07 DEPOIMENTOS ══ */
-.s-testimonials{
-  background:var(--bg-blue);
-  padding:56px 20px;
-  max-width:480px;margin:0 auto;
+/* ════════════════════════════════════
+   S-DIF — DIFERENCIAIS (dark)
+════════════════════════════════════ */
+.s-dif{background:#04102B;padding:96px 0}
+.dif-head{text-align:center;margin-bottom:48px}
+
+.dif-grid{
+  display:grid;gap:14px;
+  grid-template-columns:1fr;
 }
-.test-carousel{
-  display:flex;
-  gap:16px;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
+@media(min-width:600px){.dif-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.dif-grid{grid-template-columns:repeat(3,1fr)}}
+
+.dif-card{
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:22px;padding:32px 28px;
+  transition:transform .4s var(--ease-out-expo),background .3s,border-color .3s,box-shadow .3s;
+  position:relative;overflow:hidden;
+}
+.dif-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,71,198,.12),rgba(255,201,40,.04));
+  opacity:0;transition:opacity .3s;
+}
+.dif-card:hover{transform:translateY(-7px);background:rgba(255,255,255,.08);border-color:rgba(0,71,198,.4);box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.dif-card:hover::before{opacity:1}
+.dif-card.featured{background:var(--yellow);border-color:transparent}
+.dif-card.featured::before{display:none}
+.dif-card.featured:hover{box-shadow:0 24px 60px rgba(255,201,40,.25)}
+.dif-icon{font-size:2.2rem;margin-bottom:18px;display:block;position:relative;z-index:1}
+.dif-card h3{font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:900;margin-bottom:8px;position:relative;z-index:1}
+.dif-card p{font-size:.85rem;line-height:1.65;position:relative;z-index:1}
+.dif-card:not(.featured) h3{color:#fff}
+.dif-card:not(.featured) p{color:rgba(255,255,255,.5)}
+.dif-card.featured h3,.dif-card.featured p{color:#04102B}
+.dif-card.featured p{opacity:.75}
+
+/* ════════════════════════════════════
+   S-TESTIMONIALS (light)
+════════════════════════════════════ */
+.s-testimonials{background:var(--offwhite);color:#04102B;padding:96px 0}
+.test-head{text-align:center;margin-bottom:48px}
+
+.test-scroll{
+  display:flex;gap:16px;
+  overflow-x:auto;scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;
-  margin:24px -20px 0;
-  padding:0 20px 8px;
+  margin:0 -20px;
+  padding:4px 20px 12px;
   scrollbar-width:none;
 }
-.test-carousel::-webkit-scrollbar{display:none}
-.test-card{
-  flex:0 0 calc(100% - 40px);
-  scroll-snap-align:center;
-  background:var(--white);
-  border:0.5px solid var(--border);
+.test-scroll::-webkit-scrollbar{display:none}
+@media(min-width:900px){
+  .test-scroll{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    overflow:visible;margin:0;padding:0;
+  }
+}
+
+.t-card{
+  flex:0 0 calc(90% - 20px);scroll-snap-align:center;
+  background:#fff;
+  border:1.5px solid rgba(4,16,43,.07);
   border-left:4px solid var(--yellow);
-  border-radius:12px;
-  padding:20px;
-  box-shadow:var(--shadow-sm);
+  border-radius:20px;padding:28px 24px;
+  box-shadow:0 4px 24px rgba(4,16,43,.07);
+  transition:transform .35s var(--ease-out-expo),box-shadow .35s;
 }
-.test-stars{
-  color:var(--yellow);
-  font-size:16px;
-  letter-spacing:3px;
-  margin-bottom:12px;
-  text-shadow:0 1px 0 rgba(230,184,0,.5);
+.t-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(4,16,43,.12)}
+.t-stars{color:var(--yellow);font-size:.88rem;letter-spacing:2px;margin-bottom:14px}
+.t-header-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.t-avatar{
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(0,71,198,.1);color:var(--blue);
+  font-size:.8rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
-.test-header-row{
-  display:flex;align-items:center;gap:12px;
-  margin-bottom:14px;
-}
-.test-avatar{
-  width:44px;height:44px;
-  border-radius:50%;
-  background:var(--bg-sky);
-  color:var(--blue);
-  font-size:14px;
-  font-weight:var(--weight-bold);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-}
-.test-name{
-  font-size:15px;
-  font-weight:var(--weight-semibold);
-  color:var(--text-primary);
-}
-.test-meta{
-  font-size:12px;
-  color:var(--text-muted);
-  margin-top:2px;
-}
-.test-quote{
-  font-size:15px;
-  color:var(--text-secondary);
-  line-height:var(--lh-body);
-  font-style:italic;
-}
+.t-name{font-size:.9rem;font-weight:700;color:#04102B}
+.t-meta{font-size:.75rem;color:#9aabb0;margin-top:2px}
+.t-quote{font-size:.95rem;color:#4a5568;line-height:1.7;font-style:italic}
 
-/* ══ FAQ (antes do rodapé) ══ */
-.s-faq{
-  background:var(--bg-page);
-  padding:48px 20px 56px;
-  max-width:480px;margin:0 auto;
-}
-.faq-list{margin-top:20px;display:flex;flex-direction:column;gap:10px}
-.faq-item{
-  background:var(--white);
-  border:1px solid var(--border);
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:var(--shadow-sm);
-}
-.faq-q{
-  width:100%;
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:18px 16px;
-  background:none;border:none;
-  text-align:left;
-  font-size:16px;
-  font-weight:var(--weight-semibold);
-  color:var(--text-primary);
-  cursor:pointer;
-}
-.faq-chevron-wrap{
-  flex-shrink:0;
-  width:32px;height:32px;
-  border-radius:8px;
-  background:var(--bg-blue);
-  display:flex;align-items:center;justify-content:center;
-}
-.faq-chevron{
-  width:16px;height:16px;
-  color:var(--blue);
-  transition:transform .25s ease;
-}
-.faq-item.open .faq-chevron{transform:rotate(180deg)}
-.faq-item.open{border-color:rgba(41,93,166,.35)}
-.faq-a{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .25s ease;
-}
-.faq-a-inner{
-  font-size:var(--small);
-  color:var(--text-secondary);
-  line-height:var(--lh-body);
-  padding:0 16px 18px;
-}
-
-/* ══ CONVERSÃO WHATSAPP ══ */
+/* ════════════════════════════════════
+   S-CONVERT — CTA (blue gradient)
+════════════════════════════════════ */
 .s-convert{
-  background:linear-gradient(180deg,var(--bg-sky) 0%,var(--bg-yellow) 40%,var(--white) 75%);
-  padding:56px 20px 48px;
-  max-width:480px;margin:0 auto;
+  background:linear-gradient(135deg,#0047C6 0%,#0056E0 50%,#003DA3 100%);
+  padding:96px 0;position:relative;overflow:hidden;
 }
-.s-urgency-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  background:var(--red);
-  color:#fff;
-  font-size:var(--tiny);
-  font-weight:var(--weight-bold);
-  letter-spacing:.04em;
-  text-transform:uppercase;
-  padding:8px 14px;
-  border-radius:100px;
+.convert-orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.co-1{width:500px;height:500px;background:rgba(255,201,40,.12);top:-200px;right:-120px}
+.co-2{width:350px;height:350px;background:rgba(39,194,76,.1);bottom:-100px;left:-80px}
+.convert-inner{
+  max-width:560px;margin:0 auto;text-align:center;
+  position:relative;z-index:2;
+}
+.urgency-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(243,38,38,.2);border:1px solid rgba(243,38,38,.4);
+  border-radius:100px;padding:7px 18px;
+  font-size:.73rem;font-weight:800;color:#ff8a8a;
+  letter-spacing:.06em;text-transform:uppercase;
+  margin-bottom:22px;
+  animation:pulseBadge 2.5s ease-in-out infinite;
+}
+@keyframes pulseBadge{0%,100%{box-shadow:none}50%{box-shadow:0 0 0 10px rgba(243,38,38,.07)}}
+.convert-title{
+  font-family:'Nunito',sans-serif;font-weight:900;
+  font-size:clamp(1.9rem,5vw,2.8rem);
+  color:#fff;line-height:1.1;letter-spacing:-.02em;
   margin-bottom:14px;
-  animation:pulse-red 2s ease-in-out infinite;
 }
-.s-urgency-h2{
-  font-size:var(--h2-mobile);
-  font-weight:var(--weight-bold);
-  line-height:var(--lh-headline);
-  color:var(--text-primary);
-  margin-bottom:12px;
-}
-.s-urgency-h2 em{font-style:normal;color:var(--red)}
-.s-urgency-lead{
-  font-size:var(--body-mobile);
-  color:var(--text-secondary);
-  line-height:var(--lh-body);
-  margin-bottom:8px;
-}
+.convert-sub{font-size:1.05rem;color:rgba(255,255,255,.72);line-height:1.7;margin-bottom:36px}
 .convert-card{
-  margin-top:28px;
-  padding:28px 22px;
-  background:var(--white);
-  border:1px solid var(--border);
-  border-radius:16px;
-  box-shadow:var(--shadow-md);
-  text-align:center;
-  position:relative;
-  overflow:hidden;
+  background:rgba(255,255,255,.1);
+  backdrop-filter:blur(24px);
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:24px;padding:32px 28px;
+  display:flex;flex-direction:column;gap:13px;
 }
-.convert-card::before{
-  content:'';
-  position:absolute;
-  left:0;top:0;bottom:0;
-  width:4px;
-  background:linear-gradient(180deg,var(--red) 0%,var(--sky) 100%);
+.btn-wpp-green{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;
+  background:var(--green);color:#fff;
+  font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:800;
+  padding:17px 20px;border-radius:14px;border:none;
+  box-shadow:0 8px 28px rgba(39,194,76,.45);
+  transition:transform .25s var(--ease-out-expo),box-shadow .25s;cursor:pointer;
 }
-.convert-card .section-label{color:var(--blue)}
-.convert-card .section-h2{margin-bottom:12px}
-.convert-card .section-body{margin-bottom:20px}
-.convert-card .btn-wpp{justify-content:center;text-align:center}
-.convert-card .btn-wpp-text{align-items:center}
-.convert-card .btn-primary{margin-bottom:12px}
-.wpp-cta-note{
-  margin-top:14px;
-  font-size:var(--small);
-  color:var(--text-muted);
-  line-height:var(--lh-body);
-}
-
-/* ══ FOOTER CURTO ══ */
-.footer{
-  background:var(--bg-blue);
-  color:var(--text-secondary);
-  padding:28px 20px 24px;
-  text-align:center;
-  border-top:1px solid var(--border);
-}
-.footer-inner{max-width:480px;margin:0 auto}
-.footer-addr{
-  font-size:var(--small);
-  line-height:1.6;
-  margin-bottom:16px;
-  color:var(--text-primary);
-}
-.footer-addr a{color:var(--blue);font-weight:var(--weight-semibold)}
-.footer-social{
-  display:flex;
-  justify-content:center;
-  gap:14px;
-  margin-bottom:14px;
-}
-.footer-social a{
-  width:44px;height:44px;
-  border-radius:12px;
-  background:var(--white);
-  border:1px solid var(--border);
+.btn-wpp-green:hover{transform:translateY(-3px);box-shadow:0 14px 44px rgba(39,194,76,.6)}
+.btn-wpp-green:active{transform:scale(.98)}
+.btn-wpp-green svg{width:22px;height:22px;fill:#fff;flex-shrink:0}
+.btn-visit-white{
   display:flex;align-items:center;justify-content:center;
-  color:var(--blue);
-  transition:transform .2s ease,background .2s ease,border-color .2s ease;
+  width:100%;
+  background:rgba(255,255,255,.12);color:#fff;
+  font-family:'Nunito',sans-serif;font-size:.93rem;font-weight:700;
+  padding:14px 20px;border-radius:12px;border:1.5px solid rgba(255,255,255,.28);
+  transition:background .2s,transform .2s;cursor:pointer;
 }
-.footer-social a:hover{
-  transform:translateY(-2px);
-  background:var(--bg-blue);
-  border-color:var(--blue);
-}
-.footer-handle{
-  font-size:var(--tiny);
-  color:var(--text-muted);
-  margin-bottom:10px;
-}
-.footer-handle a{color:var(--blue);font-weight:var(--weight-semibold)}
-.footer-copy{font-size:11px;color:var(--text-muted)}
+.btn-visit-white:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+.convert-note{font-size:.78rem;color:rgba(255,255,255,.5);margin-top:4px}
 
-/* ══ STICKY BAR ══ */
+/* ════════════════════════════════════
+   S-FAQ (dark)
+════════════════════════════════════ */
+.s-faq{background:#04102B;padding:96px 0}
+.faq-head{text-align:center;margin-bottom:40px}
+.faq-wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.faq-item{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:18px;overflow:hidden;
+  transition:border-color .3s;
+}
+.faq-item.open{border-color:rgba(0,71,198,.45)}
+.faq-q{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:22px 22px;background:none;border:none;text-align:left;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;
+  color:#fff;cursor:pointer;transition:color .2s;
+}
+.faq-q:hover{color:var(--yellow)}
+.faq-arr{
+  flex-shrink:0;width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,.07);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .4s var(--ease-out-expo),background .3s;
+}
+.faq-arr svg{width:14px;height:14px;stroke:#fff;stroke-width:2;fill:none;transition:stroke .3s}
+.faq-item.open .faq-arr{transform:rotate(180deg);background:var(--blue)}
+.faq-body{max-height:0;overflow:hidden;transition:max-height .45s var(--ease-in-out)}
+.faq-body-inner{padding:0 22px 20px;font-size:.9rem;color:rgba(255,255,255,.52);line-height:1.8}
+
+/* ════════════════════════════════════
+   FOOTER (darkest)
+════════════════════════════════════ */
+.footer{
+  background:#020D20;color:rgba(255,255,255,.5);
+  padding:56px 20px 32px;text-align:center;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+@media(min-width:600px){.footer{padding:56px 32px 32px}}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-logo img{height:28px;width:auto;margin:0 auto 18px;opacity:.65}
+.footer-addr{font-size:.83rem;line-height:1.75;margin-bottom:18px;color:rgba(255,255,255,.45)}
+.footer-addr a{color:var(--yellow);font-weight:700}
+.footer-social{display:flex;justify-content:center;gap:12px;margin-bottom:16px}
+.footer-social a{
+  width:42px;height:42px;border-radius:11px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.45);
+  transition:background .2s,color .2s,transform .2s;
+}
+.footer-social a:hover{background:var(--blue);color:#fff;transform:translateY(-2px)}
+.footer-handle{font-size:.75rem;color:rgba(255,255,255,.3);margin-bottom:10px}
+.footer-handle a{color:rgba(255,201,40,.65);font-weight:700}
+.footer-copy{font-size:.72rem;color:rgba(255,255,255,.25)}
+
+/* ── STICKY BAR ── */
 .sticky-bar{
-  position:fixed;bottom:0;left:0;right:0;z-index:100;
-  background:rgba(255,255,255,.96);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-  border-top:1px solid var(--border);
-  padding:8px 14px calc(8px + env(safe-area-inset-bottom, 0px));
-  display:flex;gap:8px;
-  max-width:480px;
-  margin:0 auto;
-  transform:translateY(110%);
-  transition:transform .25s ease;
-  box-shadow:0 -4px 24px rgba(17,17,17,.06);
+  position:fixed;bottom:0;left:0;right:0;z-index:600;
+  background:rgba(4,16,43,.97);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-top:1px solid rgba(255,255,255,.07);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+  display:flex;gap:10px;
+  transform:translateY(110%);transition:transform .35s var(--ease-out-expo);
+  box-shadow:0 -4px 24px rgba(0,0,0,.35);
 }
 .sticky-bar.visible{transform:translateY(0)}
-.sticky-bar .btn-primary{
+.sticky-bar .btn-red-sm{
   flex:1.1;
-  padding:11px 12px;
-  font-size:14px;
-  border-radius:10px;
-  box-shadow:0 2px 10px rgba(218,33,43,.22);
+  display:flex;align-items:center;justify-content:center;
+  background:var(--red);color:#fff;
+  font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:800;
+  padding:12px 10px;border-radius:10px;border:none;cursor:pointer;
+  box-shadow:0 4px 16px rgba(243,38,38,.35);
+  transition:transform .2s;
 }
-.sticky-bar .btn-wpp{
+.sticky-bar .btn-red-sm:hover{transform:scale(1.02)}
+.sticky-bar .btn-wpp-sm{
   flex:1;
-  padding:11px 10px;
-  font-size:13px;
-  border-radius:10px;
-  box-shadow:0 2px 8px rgba(44,163,70,.18);
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  background:var(--green);color:#fff;
+  font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:800;
+  padding:12px 10px;border-radius:10px;border:none;cursor:pointer;
+  box-shadow:0 4px 14px rgba(39,194,76,.3);
+  transition:transform .2s;
 }
-.sticky-bar .btn-wpp svg{width:18px;height:18px}
-.sticky-bar .btn-wpp-text{display:none}
+.sticky-bar .btn-wpp-sm svg{width:17px;height:17px;fill:#fff}
+.sticky-bar .btn-wpp-sm:hover{transform:scale(1.02)}
 
-.reveal{
-  opacity:0;
-  transform:translateY(20px);
-  transition:opacity .5s ease,transform .5s ease;
-}
-.reveal.visible{
-  opacity:1;
-  transform:translateY(0);
-}
-
-@media(min-width:481px){
-  body{background:var(--bg-blue)}
+/* reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:0.01ms!important;transition-duration:0.01ms!important}
+  .split-char{transform:none!important}
+  .hero-eyebrow,.hero-sub,.hero-visual,.hero-ctas,.hero-scarcity,.scroll-hint{opacity:1!important;transform:none!important}
 }
 </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<header class="nav">
+<!-- NOISE -->
+<div class="noise" aria-hidden="true"></div>
+
+<!-- SCROLL PROGRESS -->
+<div class="progress-bar" id="progressBar" role="progressbar" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
   <div class="nav-inner">
-    <a href="#" class="nav-logo" aria-label="Grow Up — página inicial">
+    <a href="#" class="nav-logo" aria-label="Grow Up — início">
       <img src="../images/logo.png" alt="Grow Up"/>
     </a>
-    <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Berçário%20Grow%20Up" class="nav-wpp-link" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Berç%C3%A1rio%20Grow%20Up"
+       class="nav-wpp" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       WhatsApp
     </a>
   </div>
-</header>
+</nav>
 
-<!-- S01 HERO -->
+<!-- ══ HERO ══ -->
 <section class="hero" id="inicio">
-  <div class="hero-intro">
-  <div class="hero-badges hero-fade" id="heroBadges">
-    <span class="badge-pill badge-pill--green"><span class="badge-dot" aria-hidden="true"></span> Matrículas 2026 abertas</span>
-    <span class="badge-pill badge-pill--yellow">vagas limitadas</span>
-  </div>
-  <h1 class="hero-headline" id="heroHeadline" aria-label="Seu bebê em boas mãos.">
-    <span class="line" id="hl-1">Seu bebê</span>
-    <span class="line accent-blue" id="hl-2">em boas</span>
-    <span class="line" id="hl-3"><span class="hl-yellow">mãos.</span></span>
-  </h1>
-  <p class="hero-sub hero-fade" id="heroSub">Berçário com cuidado individual, rotina pensada para cada bebê e câmeras ao vivo — você acompanha o dia do seu filho de onde estiver.</p>
-  <div class="hero-cta-row hero-fade" id="heroCtas">
-    <a href="#whatsapp" class="btn-primary">Agendar visita</a>
-    <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Berçário%20Grow%20Up" class="btn-wpp btn-wpp--outline" target="_blank" rel="noopener" aria-label="Falar no WhatsApp sobre o berçário">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Falar no WhatsApp
-    </a>
-  </div>
-  <div class="hero-photo-card hero-fade" id="heroPhoto">
-    <img src="../images/bercario/hero.jpg" alt="Bebê acolhido no Berçário Grow Up" width="340" height="340" fetchpriority="high"/>
-  </div>
-  <div class="hero-stats hero-fade" id="heroStats" aria-label="Destaques do berçário">
-    <div class="stat-cell stat-cell--highlight">
-      <span class="stat-icon stat-icon--yellow" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4"/><path d="M6 20v-1a6 6 0 0112 0v1"/></svg>
-      </span>
-      <div class="stat-text">
-        <span class="stat-num">A partir de 4 meses</span>
-        <span class="stat-label">Aceitamos bebês pequenos com equipe e ambiente preparados</span>
+  <div class="hero-orb orb-1" aria-hidden="true"></div>
+  <div class="hero-orb orb-2" aria-hidden="true"></div>
+  <div class="hero-orb orb-3" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <div class="hero-grid">
+
+      <!-- TEXT COLUMN -->
+      <div class="hero-text-col">
+        <div class="hero-eyebrow" id="heroEyebrow">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          Berçário · Matrículas 2026 abertas
+        </div>
+
+        <h1 class="hero-headline" id="heroHeadline" aria-label="Seu bebê em boas mãos.">
+          <span class="line" id="hl-1">SEU BEBÊ</span>
+          <span class="line" id="hl-2">EM BOAS</span>
+          <span class="line accent-yellow" id="hl-3">MÃOS.</span>
+        </h1>
+
+        <p class="hero-sub" id="heroSub">
+          Berçário com cuidado individual, rotina pensada para cada bebê e câmeras ao vivo — você acompanha o dia do seu filho de onde estiver.
+        </p>
       </div>
-    </div>
-    <div class="stat-cell">
-      <span class="stat-icon stat-icon--green" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-      </span>
-      <div class="stat-text">
-        <span class="stat-num">0 a 2 anos</span>
-        <span class="stat-label">Berçário completo na primeira infância</span>
+
+      <!-- VISUAL -->
+      <div class="hero-visual" id="heroVisual">
+        <div class="hero-img-frame">
+          <img src="../images/bercario/hero.jpg" alt="Bebê acolhido no Berçário Grow Up" width="480" height="600" fetchpriority="high"/>
+        </div>
+
+        <div class="badge-float bf-cam" aria-hidden="true">
+          <span class="icon">📹</span>
+          <div class="text">
+            <strong>Câmera ao vivo</strong>
+            <span>Acesso pelo celular</span>
+          </div>
+        </div>
+
+        <div class="badge-float bf-care" aria-hidden="true">
+          <span class="icon">🤱</span>
+          <div class="text">
+            <strong>Desde 4 meses</strong>
+            <span>Cuidado individual</span>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="stat-cell stat-cell--blue">
-      <span class="stat-icon stat-icon--blue" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
-      </span>
-      <div class="stat-text">
-        <span class="stat-num accent-blue">Câmera ao vivo</span>
-        <span class="stat-label">Acompanhe seu bebê pelo celular, a qualquer hora</span>
+
+      <!-- CTAs -->
+      <div class="hero-ctas" id="heroCtas">
+        <a href="#whatsapp" class="btn btn-red btn-lg btn-full">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Agendar visita
+        </a>
+        <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Berç%C3%A1rio%20Grow%20Up"
+           class="btn btn-ghost btn-lg btn-full" target="_blank" rel="noopener" aria-label="Falar no WhatsApp sobre o berçário">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Falar no WhatsApp
+        </a>
       </div>
+
+      <div class="hero-scarcity" id="heroScarcity">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#ff8a8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Vagas limitadas · bebês de 4 meses a 2 anos
+      </div>
+
     </div>
   </div>
+
+  <div class="scroll-hint" id="scrollHint" aria-hidden="true">
+    <div class="scroll-line"></div>
+    Scroll
+    <div class="scroll-line"></div>
   </div>
 </section>
 
-<!-- TICKER -->
+<!-- ══ TICKER ══ -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span class="ticker-item">Turmas reduzidas</span>
-    <span class="ticker-item">Câmera ao vivo</span>
-    <span class="ticker-item">Adaptação respeitosa</span>
-    <span class="ticker-item">Berçário Grow Up</span>
-    <span class="ticker-item">Cuidado individual</span>
-    <span class="ticker-item">Turmas reduzidas</span>
-    <span class="ticker-item">Câmera ao vivo</span>
-    <span class="ticker-item">Adaptação respeitosa</span>
-    <span class="ticker-item">Berçário Grow Up</span>
-    <span class="ticker-item">Cuidado individual</span>
+    <span class="ticker-item">Cuidado individual <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Câmera ao vivo <span class="ticker-sep"></span></span>
+    <span class="ticker-item">A partir de 4 meses <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Matrículas 2026 abertas <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Adaptação respeitosa <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Turmas reduzidas <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Berçário Grow Up <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Parceria com as famílias <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Cuidado individual <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Câmera ao vivo <span class="ticker-sep"></span></span>
+    <span class="ticker-item">A partir de 4 meses <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Matrículas 2026 abertas <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Adaptação respeitosa <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Turmas reduzidas <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Berçário Grow Up <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Parceria com as famílias <span class="ticker-sep"></span></span>
   </div>
 </div>
 
-<!-- S02 ESPELHO EMOCIONAL -->
+<!-- ══ EMPATIA ══ -->
 <section class="s-mirror" id="sobre">
-  <div class="mirror-inner">
-  <p class="section-label section-label--light">Para os pais</p>
-  <h2 class="section-h2 section-h2--light">Você não procura<br>apenas uma <span class="hl-yellow">escola.</span></h2>
-  <p class="section-body section-body--light mirror-lead">Você procura um lugar onde seu bebê seja acolhido, respeitado e cuidado com atenção de verdade. Sabemos o quanto essa decisão mexe com o coração dos pais. Por isso, cada detalhe da Grow Up foi pensado para trazer segurança, tranquilidade e confiança para toda a família.</p>
-  <ul class="pillar-list">
-    <li class="pillar-card">
-      <span class="pillar-icon-wrap" aria-hidden="true"><svg class="pillar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></span>
-      <div>
-        <p class="pillar-title">Mais acolhimento</p>
-        <p class="pillar-desc">Um espaço onde seu bebê é recebido com carinho genuíno, todos os dias.</p>
+  <div class="mirror-orb" aria-hidden="true"></div>
+  <div class="container">
+    <div class="mirror-grid">
+      <div class="gsap-reveal">
+        <p class="section-label sl-yellow">Para os pais</p>
+        <h2 class="section-title st-light">
+          Você não procura<br>só uma escola.
+        </h2>
+        <p class="section-body sb-light">
+          Você procura um lugar onde seu bebê seja acolhido, respeitado e cuidado com atenção de verdade. Sabemos o quanto essa decisão mexe com o coração. Por isso, cada detalhe da Grow Up foi pensado para trazer segurança e tranquilidade para toda a família.
+        </p>
+        <a href="#whatsapp" class="btn btn-red btn-md" style="border-radius:14px">Conhecer o berçário</a>
       </div>
-    </li>
-    <li class="pillar-card">
-      <span class="pillar-icon-wrap" aria-hidden="true"><svg class="pillar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+
       <div>
-        <p class="pillar-title">Mais cuidado</p>
-        <p class="pillar-desc">Atenção próxima e presença de verdade em cada momento da rotina.</p>
+        <ul class="pillar-list">
+          <li class="pillar-card gsap-reveal" style="transition-delay:.1s">
+            <span class="pillar-icon-wrap" aria-hidden="true">
+              <svg class="pillar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            </span>
+            <div>
+              <p class="pillar-title">Mais acolhimento</p>
+              <p class="pillar-desc">Um espaço onde seu bebê é recebido com carinho genuíno, todos os dias — sem exceção.</p>
+            </div>
+          </li>
+          <li class="pillar-card gsap-reveal" style="transition-delay:.2s">
+            <span class="pillar-icon-wrap" aria-hidden="true">
+              <svg class="pillar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            <div>
+              <p class="pillar-title">Mais segurança</p>
+              <p class="pillar-desc">Câmeras ao vivo, equipe especializada e ambiente preparado para a primeira infância.</p>
+            </div>
+          </li>
+          <li class="pillar-card gsap-reveal" style="transition-delay:.3s">
+            <span class="pillar-icon-wrap" aria-hidden="true">
+              <svg class="pillar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            </span>
+            <div>
+              <p class="pillar-title">Mais confiança</p>
+              <p class="pillar-desc">Comunicação constante com a família — você sempre sabe o que acontece com o seu bebê.</p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="stat-strip gsap-reveal" style="transition-delay:.2s" aria-label="Destaques do berçário">
+          <div class="stat-cell">
+            <span class="stat-num">4m+</span>
+            <span class="stat-label">Idade mínima aceita</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-num">0–2</span>
+            <span class="stat-label">Anos no berçário</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-num">📹</span>
+            <span class="stat-label">Câmera ao vivo 24h</span>
+          </div>
+        </div>
       </div>
-    </li>
-    <li class="pillar-card">
-      <span class="pillar-icon-wrap" aria-hidden="true"><svg class="pillar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span>
-      <div>
-        <p class="pillar-title">Mais segurança</p>
-        <p class="pillar-desc">Ambiente preparado e equipe especializada para os primeiros anos.</p>
-      </div>
-    </li>
-  </ul>
+    </div>
   </div>
 </section>
 
-<!-- S03 GALERIA -->
+<!-- ══ GALERIA ══ -->
 <section class="s-gallery" id="galeria">
-  <div class="section-head">
-    <p class="section-label">Nossa escola</p>
-    <h2 class="section-h2">Momentos reais do Berçário Grow Up.</h2>
-  </div>
-  <div class="gallery-carousel-wrap">
-    <div class="gallery-carousel" id="galleryCarousel" aria-label="Galeria de fotos do berçário" aria-live="polite">
-      <div class="gallery-slide active"><img src="../images/bercario/Galeria1.jpg" alt="Sala do berçário Grow Up" loading="lazy" width="400" height="400"/></div>
-      <div class="gallery-slide"><img src="../images/bercario/Galeria2.jpg" alt="Atividades no berçário Grow Up" loading="lazy" width="400" height="400"/></div>
-      <div class="gallery-slide"><img src="../images/bercario/Galeria3.jpg" alt="Ambiente acolhedor do berçário" loading="lazy" width="400" height="400"/></div>
-      <div class="gallery-slide"><img src="../images/bercario/Galeria4.jpg" alt="Crianças no berçário Grow Up" loading="lazy" width="400" height="400"/></div>
+  <div class="container">
+    <div class="gallery-head gsap-reveal">
+      <p class="section-label sl-blue">Nossa escola</p>
+      <h2 class="section-title st-dark">Momentos reais<br>do Berçário Grow Up.</h2>
     </div>
-    <div class="gallery-dots" id="galleryDots" aria-hidden="true"></div>
+    <div class="gsap-reveal" style="transition-delay:.1s">
+      <div class="gallery-carousel" id="galleryCarousel" aria-label="Galeria de fotos do berçário" aria-live="polite">
+        <div class="gallery-slide active"><img src="../images/bercario/Galeria1.jpg" alt="Sala aconchegante do Berçário Grow Up" loading="lazy" width="460" height="575"/></div>
+        <div class="gallery-slide"><img src="../images/bercario/Galeria2.jpg" alt="Atividades sensoriais no berçário" loading="lazy" width="460" height="575"/></div>
+        <div class="gallery-slide"><img src="../images/bercario/Galeria3.jpg" alt="Ambiente seguro e acolhedor do berçário" loading="lazy" width="460" height="575"/></div>
+        <div class="gallery-slide"><img src="../images/bercario/Galeria4.jpg" alt="Bebê feliz no Berçário Grow Up" loading="lazy" width="460" height="575"/></div>
+      </div>
+      <div class="gallery-dots" id="galleryDots" aria-hidden="true"></div>
+    </div>
   </div>
 </section>
 
-<!-- S04 CÂMERA AO VIVO -->
+<!-- ══ CÂMERA AO VIVO ══ -->
 <section class="s-camera" id="camera">
-  <div class="section-head">
-    <p class="section-label">Transparência total</p>
-    <h2 class="section-h2">Veja seu bebê<br>de <span class="accent-blue">onde você estiver.</span></h2>
+  <div class="camera-orb" aria-hidden="true"></div>
+  <div class="container">
+    <div class="camera-grid">
+      <div class="phone-wrap gsap-reveal">
+        <div class="phone-glow" aria-hidden="true"></div>
+        <div class="phone-mockup">
+          <span class="live-badge" aria-hidden="true">● AO VIVO</span>
+          <img src="../images/bercario/hero.jpg" alt="Visualização da câmera ao vivo do berçário" loading="lazy"/>
+        </div>
+      </div>
+
+      <div class="gsap-reveal" style="transition-delay:.15s">
+        <p class="section-label sl-yellow">Transparência total</p>
+        <h2 class="section-title st-light">Veja seu bebê de<br>onde você estiver.</h2>
+        <p class="section-body sb-light">
+          A Grow Up tem câmeras ao vivo em todas as salas do berçário. Você acessa pelo celular, a qualquer hora, e vê exatamente o que acontece com o seu bebê. Sem surpresas. Sem dúvidas.
+        </p>
+        <ul class="benefit-list">
+          <li class="benefit-item">
+            <span class="benefit-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+            </span>
+            <div>
+              <p class="benefit-title">Acesso em tempo real pelo celular</p>
+              <p class="benefit-desc">Android e iPhone. Qualquer hora do dia.</p>
+            </div>
+          </li>
+          <li class="benefit-item">
+            <span class="benefit-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            </span>
+            <div>
+              <p class="benefit-title">Todas as salas cobertas</p>
+              <p class="benefit-desc">Cobertura completa do berçário, sem pontos cegos.</p>
+            </div>
+          </li>
+          <li class="benefit-item">
+            <span class="benefit-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            </span>
+            <div>
+              <p class="benefit-title">Paz de espírito desde o primeiro dia</p>
+              <p class="benefit-desc">Você vê, respira fundo, e volta ao trabalho tranquila.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
-  <p class="section-body">A Grow Up tem câmeras ao vivo em todas as salas do berçário. Você acessa pelo celular, a qualquer hora, e vê exatamente o que está acontecendo com o seu bebê. Nenhum segredo. Nenhuma dúvida.</p>
-  <div class="phone-mockup">
-    <span class="live-badge" aria-hidden="true">● AO VIVO</span>
-    <img src="../images/bercario/hero.jpg" alt="Visualização da câmera ao vivo do berçário" loading="lazy"/>
-  </div>
-  <ul class="benefit-list">
-    <li><span class="benefit-check" aria-hidden="true">✓</span> Acesso pelo celular em tempo real — Android e iPhone</li>
-    <li><span class="benefit-check" aria-hidden="true">✓</span> Cobertura de todas as salas do berçário</li>
-    <li><span class="benefit-check" aria-hidden="true">✓</span> Paz de espírito no primeiro dia — e em todos os outros</li>
-  </ul>
 </section>
 
-<!-- S05 DESENVOLVIMENTO -->
+<!-- ══ DESENVOLVIMENTO ══ -->
 <section class="s-dev" id="atividades">
-  <div class="section-head">
-    <p class="section-label">Desenvolvimento com presença</p>
-    <h2 class="section-h2">Cada bebê tem<br>seu <span class="accent-blue">tempo.</span></h2>
+  <div class="container">
+    <div class="dev-head gsap-reveal">
+      <p class="section-label sl-blue">Desenvolvimento com presença</p>
+      <h2 class="section-title st-dark">Cada bebê tem<br>seu <span style="color:var(--blue)">tempo.</span></h2>
+      <p class="section-body sb-dark" style="max-width:520px;margin:0 auto">
+        Na Grow Up, a rotina é construída para incentivar descobertas, fortalecer vínculos e acompanhar cada criança individualmente. Sem comparações, sem pressa.
+      </p>
+    </div>
+
+    <div class="act-scroll gsap-reveal" style="transition-delay:.1s">
+      <article class="act-card">
+        <div class="act-icon ai-y" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </div>
+        <h3>Musicalização</h3>
+        <p>Ritmos que acalmam e estimulam o desenvolvimento cerebral.</p>
+      </article>
+      <article class="act-card">
+        <div class="act-icon ai-g" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>
+        </div>
+        <h3>Sensorial</h3>
+        <p>Cores, texturas e sons para ativar todos os sentidos.</p>
+      </article>
+      <article class="act-card">
+        <div class="act-icon ai-b" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3>Motor</h3>
+        <p>Movimentos e brincadeiras que fortalecem o corpo.</p>
+      </article>
+      <article class="act-card">
+        <div class="act-icon ai-r" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
+        </div>
+        <h3>Arte Livre</h3>
+        <p>Primeiras expressões com materiais seguros e coloridos.</p>
+      </article>
+      <article class="act-card">
+        <div class="act-icon ai-y" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 20v-1a6 6 0 0112 0v1"/></svg>
+        </div>
+        <h3>Vínculo</h3>
+        <p>Primeiros laços em ambiente supervisionado e seguro.</p>
+      </article>
+      <article class="act-card">
+        <div class="act-icon ai-g" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Rotina</h3>
+        <p>Previsibilidade que traz segurança e confiança ao bebê.</p>
+      </article>
+    </div>
+
+    <aside class="dev-note gsap-reveal" style="transition-delay:.2s">
+      <h4>O inglês começa no Kids.</h4>
+      <p>No Berçário, a prioridade é o vínculo, o desenvolvimento e a confiança. O inglês entra com naturalidade quando chega a hora certa — na turma Kids, aqui mesmo na Grow Up.</p>
+    </aside>
   </div>
-  <p class="section-body">Na Grow Up, a rotina é construída para incentivar descobertas, fortalecer vínculos e acompanhar cada criança individualmente. Sem comparações, sem pressão.</p>
-  <div class="act-scroll">
-    <article class="act-card">
-      <div class="act-icon act-icon--yellow" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-      </div>
-      <h3>Musicalização</h3>
-      <p>Ritmos que acalmam e estimulam o desenvolvimento.</p>
-    </article>
-    <article class="act-card">
-      <div class="act-icon act-icon--green" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>
-      </div>
-      <h3>Sensorial</h3>
-      <p>Cores, texturas e sons para ativar todos os sentidos.</p>
-    </article>
-    <article class="act-card">
-      <div class="act-icon act-icon--blue" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      </div>
-      <h3>Motor</h3>
-      <p>Movimentos e brincadeiras que fortalecem o corpo.</p>
-    </article>
-    <article class="act-card">
-      <div class="act-icon act-icon--red" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4.5L5.5 20l2-7L2 9h7z"/></svg>
-      </div>
-      <h3>Brincar livre</h3>
-      <p>Explorar com curiosidade em espaço seguro.</p>
-    </article>
-    <article class="act-card">
-      <div class="act-icon act-icon--yellow" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
-      </div>
-      <h3>Arte infantil</h3>
-      <p>Primeiras expressões com materiais seguros.</p>
-    </article>
-    <article class="act-card">
-      <div class="act-icon act-icon--green" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-      </div>
-      <h3>Vínculo</h3>
-      <p>Primeiros laços em ambiente supervisionado.</p>
-    </article>
-  </div>
-  <aside class="english-note">
-    <h4>O inglês começa no Kids.</h4>
-    <p>No Berçário, a prioridade é o vínculo, o desenvolvimento e a confiança. O inglês entra com naturalidade quando chega a hora certa — na turma Kids, aqui mesmo na Grow Up.</p>
-  </aside>
 </section>
 
-<!-- S06 DIFERENCIAIS -->
+<!-- ══ DIFERENCIAIS ══ -->
 <section class="s-dif" id="diferenciais">
-  <div class="section-head">
-    <p class="section-label">Por que a Grow?</p>
-    <h2 class="section-h2">Aqui, seu bebê<br>não é <span class="accent-red">só mais um.</span></h2>
-    <p class="section-body">Turmas reduzidas permitem um olhar mais atento, mais presença e mais acolhimento para cada criança.</p>
+  <div class="container">
+    <div class="dif-head gsap-reveal">
+      <p class="section-label sl-muted-light">Por que a Grow?</p>
+      <h2 class="section-title st-light" style="margin-top:12px">Aqui, seu bebê<br>não é <span class="accent-yellow">só mais um.</span></h2>
+      <p class="section-body sb-light" style="max-width:480px;margin:0 auto">Turmas reduzidas permitem um olhar mais atento, mais presença e mais acolhimento para cada criança.</p>
+    </div>
+    <div class="dif-grid">
+      <div class="dif-card gsap-reveal"><span class="dif-icon">👥</span><h3>Turmas reduzidas</h3><p>Atenção real e individual para cada bebê, todos os dias, sem exceção.</p></div>
+      <div class="dif-card gsap-reveal" style="transition-delay:.08s"><span class="dif-icon">📹</span><h3>Câmera ao vivo</h3><p>Você vê seu bebê pelo celular a qualquer momento do dia.</p></div>
+      <div class="dif-card featured gsap-reveal" style="transition-delay:.16s"><span class="dif-icon">🤱</span><h3>Adaptação respeitosa</h3><p>Gradual e no ritmo do bebê e da família. Você participa ativamente.</p></div>
+      <div class="dif-card gsap-reveal" style="transition-delay:.24s"><span class="dif-icon">🌙</span><h3>Sono e alimentação</h3><p>Rotina personalizada que respeita as necessidades únicas de cada bebê.</p></div>
+      <div class="dif-card gsap-reveal" style="transition-delay:.32s"><span class="dif-icon">💬</span><h3>Parceria com famílias</h3><p>Comunicação constante — você sempre sabe o que aconteceu no dia.</p></div>
+      <div class="dif-card gsap-reveal" style="transition-delay:.4s"><span class="dif-icon">🏆</span><h3>Equipe especializada</h3><p>Apaixonada por educação infantil e preparada para cada fase da vida.</p></div>
+    </div>
   </div>
-  <ul class="dif-list">
-    <li class="dif-item">
-      <span class="dif-icon-wrap" aria-hidden="true"><svg class="dif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span>
-      <div>
-        <h3>Turmas reduzidas</h3>
-        <p>Atenção real e individual para cada criança, todos os dias.</p>
-      </div>
-    </li>
-    <li class="dif-item">
-      <span class="dif-icon-wrap" aria-hidden="true"><svg class="dif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span>
-      <div>
-        <h3>Câmera ao vivo</h3>
-        <p>Você vê seu bebê pelo celular a qualquer momento do dia.</p>
-      </div>
-    </li>
-    <li class="dif-item">
-      <span class="dif-icon-wrap" aria-hidden="true"><svg class="dif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></span>
-      <div>
-        <h3>Acolhimento genuíno</h3>
-        <p>Cada criança vista, ouvida e respeitada do seu jeito único.</p>
-      </div>
-    </li>
-    <li class="dif-item">
-      <span class="dif-icon-wrap" aria-hidden="true"><svg class="dif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></span>
-      <div>
-        <h3>Sono e alimentação</h3>
-        <p>Rotina personalizada que respeita o sono e a alimentação de cada bebê.</p>
-      </div>
-    </li>
-    <li class="dif-item">
-      <span class="dif-icon-wrap" aria-hidden="true"><svg class="dif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>
-      <div>
-        <h3>Parceria com famílias</h3>
-        <p>Comunicação constante. Você sempre sabe o que acontece.</p>
-      </div>
-    </li>
-    <li class="dif-item">
-      <span class="dif-icon-wrap" aria-hidden="true"><svg class="dif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M22 10v6M2 10l10-6 10 6-10 6-10-6z"/><path d="M6 12v5c0 2 2.5 4 6 4s6-2 6-4v-5"/></svg></span>
-      <div>
-        <h3>Equipe especializada</h3>
-        <p>Apaixonada por educação infantil e preparada para cada fase.</p>
-      </div>
-    </li>
-  </ul>
 </section>
 
-<!-- S07 DEPOIMENTOS -->
+<!-- ══ DEPOIMENTOS ══ -->
 <section class="s-testimonials" id="depoimentos">
-  <div class="section-head">
-    <p class="section-label">Famílias Grow</p>
-    <h2 class="section-h2">Quem já está aqui conta.</h2>
-  </div>
-  <div class="test-carousel" aria-label="Depoimentos de famílias">
-    <article class="test-card">
-      <div class="test-header-row">
-        <div class="test-avatar" aria-hidden="true">AP</div>
-        <div>
-          <p class="test-name">Ana Paula R.</p>
-          <p class="test-meta">mãe do Lorenzo, 9 meses</p>
+  <div class="container">
+    <div class="test-head gsap-reveal">
+      <p class="section-label sl-blue">Famílias Grow</p>
+      <h2 class="section-title st-dark" style="margin-top:12px">Quem já está aqui <span style="color:var(--blue)">conta.</span></h2>
+    </div>
+    <div class="test-scroll">
+      <article class="t-card gsap-reveal">
+        <div class="t-header-row">
+          <div class="t-avatar" aria-hidden="true">AP</div>
+          <div><p class="t-name">Ana Paula R.</p><p class="t-meta">mãe do Lorenzo, 9 meses</p></div>
         </div>
-      </div>
-      <p class="test-stars" aria-label="5 estrelas">★★★★★</p>
-      <p class="test-quote">"Foi a primeira vez que consegui deixar meu bebê tranquila em um ambiente fora de casa."</p>
-    </article>
-    <article class="test-card">
-      <div class="test-header-row">
-        <div class="test-avatar" aria-hidden="true">RC</div>
-        <div>
-          <p class="test-name">Rafael Costa</p>
-          <p class="test-meta">pai da Helena, 11 meses</p>
+        <p class="t-stars" aria-label="5 estrelas">★★★★★</p>
+        <p class="t-quote">"Foi a primeira vez que consegui deixar meu bebê tranquila em um ambiente fora de casa."</p>
+      </article>
+      <article class="t-card gsap-reveal" style="transition-delay:.1s">
+        <div class="t-header-row">
+          <div class="t-avatar" aria-hidden="true">RC</div>
+          <div><p class="t-name">Rafael Costa</p><p class="t-meta">pai da Helena, 11 meses</p></div>
         </div>
-      </div>
-      <p class="test-stars" aria-label="5 estrelas">★★★★★</p>
-      <p class="test-quote">"O carinho da equipe fez toda diferença no processo de adaptação."</p>
-    </article>
-    <article class="test-card">
-      <div class="test-header-row">
-        <div class="test-avatar" aria-hidden="true">JM</div>
-        <div>
-          <p class="test-name">Juliana Mendes</p>
-          <p class="test-meta">mãe do Theo, 14 meses</p>
+        <p class="t-stars" aria-label="5 estrelas">★★★★★</p>
+        <p class="t-quote">"O carinho da equipe fez toda diferença no processo de adaptação. A Helena se apegou rápido."</p>
+      </article>
+      <article class="t-card gsap-reveal" style="transition-delay:.2s">
+        <div class="t-header-row">
+          <div class="t-avatar" aria-hidden="true">JM</div>
+          <div><p class="t-name">Juliana Mendes</p><p class="t-meta">mãe do Theo, 14 meses</p></div>
         </div>
-      </div>
-      <p class="test-stars" aria-label="5 estrelas">★★★★★</p>
-      <p class="test-quote">"Meu bebê entra sorrindo e sai sorrindo. Não precisa de mais do que isso."</p>
-    </article>
-    <article class="test-card">
-      <div class="test-header-row">
-        <div class="test-avatar" aria-hidden="true">FS</div>
-        <div>
-          <p class="test-name">Fernanda Souza</p>
-          <p class="test-meta">mãe do Miguel, 8 meses</p>
+        <p class="t-stars" aria-label="5 estrelas">★★★★★</p>
+        <p class="t-quote">"Meu bebê entra sorrindo e sai sorrindo. Não precisa de mais do que isso."</p>
+      </article>
+      <article class="t-card gsap-reveal" style="transition-delay:.3s">
+        <div class="t-header-row">
+          <div class="t-avatar" aria-hidden="true">FS</div>
+          <div><p class="t-name">Fernanda Souza</p><p class="t-meta">mãe do Miguel, 8 meses</p></div>
         </div>
-      </div>
-      <p class="test-stars" aria-label="5 estrelas">★★★★★</p>
-      <p class="test-quote">"A comunicação com a equipe é constante. Me sinto parte do dia do meu filho mesmo à distância."</p>
-    </article>
-    <article class="test-card">
-      <div class="test-header-row">
-        <div class="test-avatar" aria-hidden="true">PL</div>
-        <div>
-          <p class="test-name">Patrícia Lima</p>
-          <p class="test-meta">mãe da Alice, 10 meses</p>
+        <p class="t-stars" aria-label="5 estrelas">★★★★★</p>
+        <p class="t-quote">"A câmera ao vivo mudou tudo pra mim. Me sinto presente mesmo trabalhando longe."</p>
+      </article>
+      <article class="t-card gsap-reveal" style="transition-delay:.4s">
+        <div class="t-header-row">
+          <div class="t-avatar" aria-hidden="true">PL</div>
+          <div><p class="t-name">Patrícia Lima</p><p class="t-meta">mãe da Alice, 10 meses</p></div>
         </div>
-      </div>
-      <p class="test-stars" aria-label="5 estrelas">★★★★★</p>
-      <p class="test-quote">"A adaptação foi muito mais tranquila do que eu esperava. Sentimos isso desde o primeiro dia."</p>
-    </article>
-    <article class="test-card">
-      <div class="test-header-row">
-        <div class="test-avatar" aria-hidden="true">CM</div>
-        <div>
-          <p class="test-name">Camila Martins</p>
-          <p class="test-meta">mãe do Arthur, 7 meses</p>
+        <p class="t-stars" aria-label="5 estrelas">★★★★★</p>
+        <p class="t-quote">"A adaptação foi muito mais tranquila do que eu esperava. Sentimos isso desde o primeiro dia."</p>
+      </article>
+      <article class="t-card gsap-reveal" style="transition-delay:.5s">
+        <div class="t-header-row">
+          <div class="t-avatar" aria-hidden="true">CM</div>
+          <div><p class="t-name">Camila Martins</p><p class="t-meta">mãe do Arthur, 7 meses</p></div>
         </div>
-      </div>
-      <p class="test-stars" aria-label="5 estrelas">★★★★★</p>
-      <p class="test-quote">"Nunca imaginei me sentir tão segura deixando meu bebê. A Grow nos surpreendeu desde o início."</p>
-    </article>
+        <p class="t-stars" aria-label="5 estrelas">★★★★★</p>
+        <p class="t-quote">"Nunca imaginei me sentir tão segura deixando meu bebê. A Grow nos surpreendeu desde o início."</p>
+      </article>
+    </div>
   </div>
 </section>
 
-<!-- S08 CONVERSÃO — WHATSAPP -->
+<!-- ══ CONVERSÃO WhatsApp ══ -->
 <section class="s-convert" id="whatsapp">
-  <div class="section-head">
-  <span class="s-urgency-badge">● Vagas limitadas · turmas 2026</span>
-  <h2 class="s-urgency-h2">O berçário certo para seu bebê <em>não espera.</em></h2>
-  <p class="s-urgency-lead">Cada semana, mais famílias visitam a Grow Up. Quanto antes você conhecer o espaço, mais tranquila fica a decisão — com informação, não com pressa vazia.</p>
-  </div>
-  <p class="s-urgency-lead" style="text-align:center"><strong>Chame no WhatsApp.</strong> Você vê o berçário, tira dúvidas e sente se é o lugar certo para o seu bebê.</p>
-  <div class="convert-card reveal">
-    <p class="section-label">Fale conosco</p>
-    <h2 class="section-h2">Venha nos conhecer.</h2>
-    <p class="section-body">Nossa equipe atende pelo WhatsApp — tiramos suas dúvidas e combinamos uma visita quando fizer sentido para você.</p>
-    <a href="https://wa.me/5511939466440?text=Oi!%20Gostaria%20de%20conhecer%20o%20Berçário%20Grow%20Up%20e%20combinar%20uma%20visita." class="btn-primary btn-primary--lg" target="_blank" rel="noopener">Agendar visita</a>
-    <a href="https://wa.me/5511939466440?text=Oi!%20Gostaria%20de%20conhecer%20o%20Berçário%20Grow%20Up%20e%20combinar%20uma%20visita." class="btn-wpp" target="_blank" rel="noopener" aria-label="Abrir WhatsApp para conhecer o berçário">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      <span class="btn-wpp-text">
-        <span class="btn-wpp-title">Chamar no WhatsApp</span>
-        <span class="btn-wpp-hint">Toque aqui — conversa direta com nossa equipe</span>
-      </span>
-    </a>
-    <p class="wpp-cta-note">Sem formulário. Você fala com a gente no seu ritmo.</p>
+  <div class="convert-orb co-1" aria-hidden="true"></div>
+  <div class="convert-orb co-2" aria-hidden="true"></div>
+  <div class="container">
+    <div class="convert-inner gsap-reveal">
+      <span class="urgency-badge">● Vagas limitadas · turmas 2026</span>
+      <h2 class="convert-title">O berçário certo<br>não espera.</h2>
+      <p class="convert-sub">
+        Cada semana, mais famílias visitam a Grow Up. A visita é sem compromisso — você vê o espaço, conhece a equipe e decide com informação, não com pressa.
+      </p>
+      <div class="convert-card">
+        <a href="https://wa.me/5511939466440?text=Oi!%20Gostaria%20de%20conhecer%20o%20Berç%C3%A1rio%20Grow%20Up%20e%20combinar%20uma%20visita."
+           class="btn-wpp-green" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp para agendar visita">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chamar no WhatsApp
+        </a>
+        <a href="#" class="btn-visit-white" onclick="document.getElementById('whatsapp').scrollIntoView({behavior:'smooth'});return false">
+          Agendar visita presencial
+        </a>
+        <p class="convert-note">Sem formulário. Você fala com a gente no seu ritmo.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- FAQ — imediatamente antes do rodapé -->
+<!-- ══ FAQ ══ -->
 <section class="s-faq" id="faq">
-  <div class="section-head">
-    <p class="section-label">Tirando dúvidas</p>
-    <h2 class="section-h2">Perguntas frequentes.</h2>
-  </div>
-  <div class="faq-list" id="faqList">
-    <div class="faq-item">
-      <button class="faq-q" type="button" aria-expanded="false">
-        O berçário tem inglês?
-        <span class="faq-chevron-wrap" aria-hidden="true"><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">O berçário foca no desenvolvimento, no vínculo e na confiança. O inglês começa no Kids — aqui mesmo na Grow Up, quando a criança está pronta. Tudo no tempo certo.</div></div>
+  <div class="container">
+    <div class="faq-head gsap-reveal">
+      <p class="section-label sl-muted-light">Tirando dúvidas</p>
+      <h2 class="section-title st-light" style="margin-top:12px">Perguntas frequentes.</h2>
     </div>
-    <div class="faq-item">
-      <button class="faq-q" type="button" aria-expanded="false">
-        Como funciona o acesso às câmeras?
-        <span class="faq-chevron-wrap" aria-hidden="true"><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">Você recebe acesso pelo celular no primeiro dia. As câmeras cobrem todas as salas do berçário e funcionam em tempo real.</div></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" type="button" aria-expanded="false">
-        Meu bebê pode começar ainda pequeno?
-        <span class="faq-chevron-wrap" aria-hidden="true"><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">Sim. Recebemos bebês a partir de 4 meses em ambiente preparado para a primeira infância.</div></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" type="button" aria-expanded="false">
-        Como funciona a adaptação?
-        <span class="faq-chevron-wrap" aria-hidden="true"><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">Gradual e respeitosa, no ritmo do bebê e da família. Você participa ativamente nas primeiras semanas.</div></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" type="button" aria-expanded="false">
-        Como os pais acompanham o dia?
-        <span class="faq-chevron-wrap" aria-hidden="true"><svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">Além das câmeras ao vivo, mantemos comunicação próxima e constante. Você sempre sabe o que aconteceu no dia do seu bebê.</div></div>
+    <div class="faq-wrap" id="faqList">
+      <div class="faq-item gsap-reveal">
+        <button class="faq-q" type="button" aria-expanded="false">
+          A partir de quantos meses o berçário aceita bebês?
+          <span class="faq-arr" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner">Recebemos bebês a partir de 4 meses em um ambiente totalmente preparado para a primeira infância, com equipe especializada e rotina pensada para cada fase.</div></div>
+      </div>
+      <div class="faq-item gsap-reveal" style="transition-delay:.06s">
+        <button class="faq-q" type="button" aria-expanded="false">
+          Como funciona o acesso às câmeras ao vivo?
+          <span class="faq-arr" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner">Você recebe o acesso pelo celular no primeiro dia. As câmeras cobrem todas as salas do berçário e funcionam em tempo real, via aplicativo no Android ou iPhone.</div></div>
+      </div>
+      <div class="faq-item gsap-reveal" style="transition-delay:.12s">
+        <button class="faq-q" type="button" aria-expanded="false">
+          Como funciona a adaptação?
+          <span class="faq-arr" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner">A adaptação é gradual e respeitosa, no ritmo do bebê e da família. Você participa ativamente nas primeiras semanas, e nossa equipe acompanha cada etapa com atenção.</div></div>
+      </div>
+      <div class="faq-item gsap-reveal" style="transition-delay:.18s">
+        <button class="faq-q" type="button" aria-expanded="false">
+          Como os pais acompanham o dia do bebê?
+          <span class="faq-arr" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner">Além das câmeras ao vivo, mantemos comunicação próxima e constante. Você sempre sabe o que aconteceu no dia — refeições, sono, momentos especiais.</div></div>
+      </div>
+      <div class="faq-item gsap-reveal" style="transition-delay:.24s">
+        <button class="faq-q" type="button" aria-expanded="false">
+          O berçário tem inglês?
+          <span class="faq-arr" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner">No berçário, o foco é o vínculo, o desenvolvimento e a confiança. O inglês começa no Kids — aqui mesmo na Grow Up, quando a criança está pronta. Tudo no tempo certo.</div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -1337,16 +1257,19 @@ button{font-family:inherit}
 <!-- FOOTER -->
 <footer class="footer" id="contato">
   <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="../images/logo.png" alt="Grow Up"/>
+    </div>
     <p class="footer-addr">
       Santo André, SP — Brasil<br>
       <a href="https://wa.me/5511939466440">(11) 93946-6440</a> · Seg–Sex, 7h–17h
     </p>
     <div class="footer-social">
       <a href="https://www.instagram.com/growupescola/" target="_blank" rel="noopener" aria-label="Instagram @growupescola">
-        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
       </a>
       <a href="https://www.facebook.com/growupescola" target="_blank" rel="noopener" aria-label="Facebook Grow Up">
-        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
       </a>
     </div>
     <p class="footer-handle"><a href="https://www.instagram.com/growupescola/" target="_blank" rel="noopener">@growupescola</a></p>
@@ -1356,109 +1279,142 @@ button{font-family:inherit}
 
 <!-- STICKY BAR -->
 <div class="sticky-bar" id="stickyBar" role="region" aria-label="Ações rápidas">
-  <a href="#whatsapp" class="btn-primary">Agendar visita</a>
-  <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Berçário%20Grow%20Up" class="btn-wpp" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <button class="btn-red-sm" onclick="document.getElementById('whatsapp').scrollIntoView({behavior:'smooth'})">
+    Agendar visita
+  </button>
+  <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Berç%C3%A1rio%20Grow%20Up"
+     class="btn-wpp-sm" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     WhatsApp
   </a>
 </div>
 
 <script>
-(function(){
-  /* Hero — palavras entrando (GSAP leve, sem Lenis/cursor) */
-  function splitLineChars(el) {
+(function () {
+  'use strict';
+
+  /* ── Hero entrance ── */
+  function splitChars(el) {
     if (!el) return;
-    var target = el.querySelector('.hl-yellow') || el;
-    var text = target.textContent;
-    target.innerHTML = text.split('').map(function(c) {
+    var text = el.textContent;
+    el.innerHTML = text.split('').map(function (c) {
       return c === ' ' ? ' ' : '<span class="split-char">' + c + '</span>';
     }).join('');
   }
-  function showHeroFallback() {
-    ['heroBadges','heroSub','heroPhoto','heroStats','heroCtas'].forEach(function(id) {
+
+  function heroFallback() {
+    ['heroEyebrow', 'heroSub', 'heroVisual', 'heroCtas', 'heroScarcity', 'scrollHint'].forEach(function (id) {
       var el = document.getElementById(id);
       if (el) { el.style.opacity = '1'; el.style.transform = 'none'; }
     });
-    document.querySelectorAll('.split-char').forEach(function(c) {
-      c.style.transform = 'translateY(0)';
+    document.querySelectorAll('.split-char').forEach(function (c) {
+      c.style.transform = 'none';
     });
   }
-  window.addEventListener('load', function() {
-    splitLineChars(document.getElementById('hl-1'));
-    splitLineChars(document.getElementById('hl-2'));
-    splitLineChars(document.getElementById('hl-3'));
-    if (typeof gsap === 'undefined') {
-      showHeroFallback();
-      return;
-    }
-    var tl = gsap.timeline({ delay: 0.08 });
-    tl.to('#hl-1 .split-char', { y: '0%', duration: 0.65, stagger: 0.035, ease: 'power3.out' })
-      .to('#hl-2 .split-char', { y: '0%', duration: 0.65, stagger: 0.035, ease: 'power3.out' }, '-=0.45')
-      .to('#hl-3 .split-char', { y: '0%', duration: 0.65, stagger: 0.04, ease: 'power3.out' }, '-=0.45')
-      .to('#heroBadges', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.25')
-      .to('#heroSub', { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, '-=0.35')
-      .to('#heroCtas', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.4')
-      .to('#heroPhoto', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.35')
-      .to('#heroStats', { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, '-=0.45');
+
+  window.addEventListener('load', function () {
+    splitChars(document.getElementById('hl-1'));
+    splitChars(document.getElementById('hl-2'));
+    splitChars(document.getElementById('hl-3'));
+
+    if (typeof gsap === 'undefined') { heroFallback(); return; }
+
+    var tl = gsap.timeline({ delay: 0.1, defaults: { ease: 'power3.out' } });
+
+    tl.to('#hl-1 .split-char', { y: '0%', duration: 0.7, stagger: 0.032 })
+      .to('#hl-2 .split-char', { y: '0%', duration: 0.7, stagger: 0.032 }, '-=0.5')
+      .to('#hl-3 .split-char', { y: '0%', duration: 0.7, stagger: 0.038 }, '-=0.5')
+      .to('#heroEyebrow',  { opacity: 1, duration: 0.5 }, '-=0.55')
+      .to('#heroSub',      { opacity: 1, y: 0, duration: 0.55 }, '-=0.4')
+      .to('#heroVisual',   { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' }, '-=0.4')
+      .to('#heroCtas',     { opacity: 1, y: 0, duration: 0.5 }, '-=0.35')
+      .to('#heroScarcity', { opacity: 1, duration: 0.4 }, '-=0.3')
+      .to('#scrollHint',   { opacity: 1, duration: 0.4 }, '-=0.2');
   });
 
-  /* Entrada suave nas seções */
+  /* ── Scroll reveals (IntersectionObserver) ── */
   if ('IntersectionObserver' in window) {
-    var revealObs = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
+    var revealObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
         if (en.isIntersecting) {
           en.target.classList.add('visible');
+          if (typeof gsap !== 'undefined') {
+            gsap.to(en.target, { opacity: 1, y: 0, x: 0, duration: 0.65, ease: 'power3.out',
+              delay: parseFloat(en.target.style.transitionDelay || 0) });
+          } else {
+            en.target.style.opacity = '1';
+            en.target.style.transform = 'none';
+          }
           revealObs.unobserve(en.target);
         }
       });
-    }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
-    document.querySelectorAll('section, .convert-card, .ticker').forEach(function(el){
-      el.classList.add('reveal');
+    }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+
+    document.querySelectorAll('.gsap-reveal').forEach(function (el) {
       revealObs.observe(el);
     });
-    document.querySelector('.hero').classList.remove('reveal');
-    if (document.querySelector('.hero')) document.querySelector('.hero').classList.add('visible');
   } else {
-    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
+    document.querySelectorAll('.gsap-reveal').forEach(function (el) {
+      el.style.opacity = '1'; el.style.transform = 'none';
+    });
   }
 
-  /* Sticky bar após 300px */
-  const stickyBar = document.getElementById('stickyBar');
-  window.addEventListener('scroll', function(){
-    stickyBar.classList.toggle('visible', window.scrollY > 300);
-  }, {passive:true});
+  /* ── Navbar ── */
+  var nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', function () {
+    nav.classList.toggle('pinned', window.scrollY > 60);
+  }, { passive: true });
 
-  /* Galeria — carrossel rotativo */
+  /* ── Scroll progress bar ── */
+  var bar = document.getElementById('progressBar');
+  window.addEventListener('scroll', function () {
+    var pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+    bar.style.width = pct + '%';
+  }, { passive: true });
+
+  /* ── Sticky bar ── */
+  var sticky = document.getElementById('stickyBar');
+  window.addEventListener('scroll', function () {
+    sticky.classList.toggle('visible', window.scrollY > 320);
+  }, { passive: true });
+
+  /* ── Gallery carousel ── */
   var carousel = document.getElementById('galleryCarousel');
   var dotsWrap = document.getElementById('galleryDots');
   if (carousel && dotsWrap) {
     var slides = carousel.querySelectorAll('.gallery-slide');
     var idx = 0;
-    slides.forEach(function(_, i){
+    slides.forEach(function (_, i) {
       var dot = document.createElement('button');
       dot.type = 'button';
       dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
       dot.setAttribute('aria-label', 'Foto ' + (i + 1));
-      dot.addEventListener('click', function(){ goSlide(i); });
+      dot.addEventListener('click', function () { goSlide(i); });
       dotsWrap.appendChild(dot);
     });
     function goSlide(n) {
+      slides[idx].classList.remove('active');
+      dotsWrap.children[idx].classList.remove('active');
       idx = n;
-      slides.forEach(function(s, i){ s.classList.toggle('active', i === idx); });
-      dotsWrap.querySelectorAll('.gallery-dot').forEach(function(d, i){ d.classList.toggle('active', i === idx); });
+      slides[idx].classList.add('active');
+      dotsWrap.children[idx].classList.add('active');
     }
-    setInterval(function(){ goSlide((idx + 1) % slides.length); }, 4000);
+    var autoTimer = setInterval(function () { goSlide((idx + 1) % slides.length); }, 4200);
+    carousel.addEventListener('mouseenter', function () { clearInterval(autoTimer); });
+    carousel.addEventListener('mouseleave', function () {
+      autoTimer = setInterval(function () { goSlide((idx + 1) % slides.length); }, 4200);
+    });
   }
 
-  /* FAQ accordion */
-  document.querySelectorAll('.faq-q').forEach(function(btn){
-    btn.addEventListener('click', function(){
+  /* ── FAQ accordion ── */
+  document.querySelectorAll('.faq-q').forEach(function (btn) {
+    btn.addEventListener('click', function () {
       var item = btn.closest('.faq-item');
-      var body = item.querySelector('.faq-a');
+      var body = item.querySelector('.faq-body');
       var isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(function(open){
+      document.querySelectorAll('.faq-item.open').forEach(function (open) {
         open.classList.remove('open');
-        open.querySelector('.faq-a').style.maxHeight = '0';
+        open.querySelector('.faq-body').style.maxHeight = '0';
         open.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
       });
       if (!isOpen) {
@@ -1469,18 +1425,33 @@ button{font-family:inherit}
     });
   });
 
-  /* Âncoras com offset da navbar */
-  document.querySelectorAll('a[href^="#"]').forEach(function(a){
-    a.addEventListener('click', function(e){
+  /* ── Anchor smooth scroll with nav offset ── */
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
       var id = a.getAttribute('href');
       if (id === '#') return;
       var target = document.querySelector(id);
       if (!target) return;
       e.preventDefault();
-      var top = target.getBoundingClientRect().top + window.scrollY - 50;
-      window.scrollTo({top: top, behavior: 'smooth'});
+      var offset = window.scrollY + target.getBoundingClientRect().top - 56;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
     });
   });
+
+  /* ── Nav WhatsApp CTA hover tilt (subtle) ── */
+  var navWpp = document.querySelector('.nav-wpp');
+  if (navWpp && window.matchMedia('(hover:hover)').matches) {
+    navWpp.addEventListener('mousemove', function (e) {
+      var r = navWpp.getBoundingClientRect();
+      var x = ((e.clientX - r.left) / r.width - 0.5) * 8;
+      var y = ((e.clientY - r.top) / r.height - 0.5) * 8;
+      navWpp.style.transform = 'translateY(-2px) rotateX(' + (-y) + 'deg) rotateY(' + x + 'deg)';
+    });
+    navWpp.addEventListener('mouseleave', function () {
+      navWpp.style.transform = '';
+    });
+  }
+
 })();
 </script>
 </body>
