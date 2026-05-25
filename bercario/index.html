@@ -13,7 +13,7 @@
 html{scroll-behavior:smooth}
 body{
   font-family:'Nunito Sans',sans-serif;
-  background:var(--white);
+  background:var(--bg-page);
   color:var(--text-primary);
   line-height:var(--lh-body);
   padding-bottom:72px;
@@ -23,29 +23,32 @@ a{text-decoration:none;color:inherit}
 button{font-family:inherit}
 
 :root{
-  --white:#FFFFFF;
-  --off-white:#F6F9F6;
-  --border:#E0EDE8;
-  --green-dark:#2D6A4F;
-  --green-light:#EAF3DE;
-  --green-border:#97C459;
+  --white:#FFFCF8;
+  --off-white:#EEF5F0;
+  --bg-page:#E8F0EA;
+  --border:#C5D9CC;
+  --green-dark:#1B5E3F;
+  --green-mid:#2D6A4F;
+  --green-light:#D8EDD8;
+  --green-border:#6BAF4A;
   --blue:#1635A0;
   --red:#E8593C;
-  --yellow:#FFD700;
+  --red-dark:#C94A32;
+  --yellow:#F5C518;
   --wpp:#25D366;
-  --text-primary:#1A1A1A;
-  --text-secondary:#555555;
-  --text-muted:#888888;
-  --pastel-yellow:#FFF8DC;
-  --pastel-blue:#EEF2FF;
-  --pastel-red:#FFF0EE;
-  --pastel-green:#EEF8F2;
-  --h1-mobile:34px;
-  --h2-mobile:26px;
-  --h3-mobile:18px;
-  --body-mobile:16px;
-  --small:13px;
-  --tiny:11px;
+  --text-primary:#142018;
+  --text-secondary:#3D4F44;
+  --text-muted:#5C6F62;
+  --pastel-yellow:#FFF4D6;
+  --pastel-blue:#E3EBFF;
+  --pastel-red:#FFE8E2;
+  --pastel-green:#E2F5E8;
+  --h1-mobile:36px;
+  --h2-mobile:28px;
+  --h3-mobile:19px;
+  --body-mobile:17px;
+  --small:14px;
+  --tiny:12px;
   --weight-regular:400;
   --weight-semibold:600;
   --weight-bold:700;
@@ -99,7 +102,7 @@ button{font-family:inherit}
 }
 .section-h2--light{color:#fff}
 .section-body{
-  font-size:15px;
+  font-size:var(--body-mobile);
   color:var(--text-secondary);
   line-height:var(--lh-body);
 }
@@ -121,19 +124,21 @@ button{font-family:inherit}
   transition:opacity .2s ease;
 }
 .btn-wpp:hover{opacity:.92}
-.btn-outline{
-  display:flex;align-items:center;justify-content:center;
+.btn-agendar-hero{
+  display:flex;align-items:center;justify-content:center;gap:8px;
   width:100%;
-  background:transparent;
-  color:var(--text-secondary);
-  font-size:15px;
-  font-weight:500;
-  padding:13px;
+  background:var(--red);
+  color:#fff;
+  font-size:var(--body-mobile);
+  font-weight:var(--weight-bold);
+  padding:14px;
   border-radius:10px;
-  border:0.5px solid var(--border);
-  transition:border-color .2s ease,background .2s ease;
+  border:none;
+  box-shadow:0 4px 14px rgba(232,89,60,.35);
+  transition:background .2s ease,transform .15s ease;
 }
-.btn-outline:hover{border-color:var(--green-dark)}
+.btn-agendar-hero:hover{background:var(--red-dark)}
+.btn-agendar-hero:active{transform:scale(.98)}
 .btn-submit{
   width:100%;
   background:var(--green-dark);
@@ -149,8 +154,8 @@ button{font-family:inherit}
 
 /* ══ HERO ══ */
 .hero{
-  background:var(--off-white);
-  padding:24px 20px 12px;
+  background:linear-gradient(165deg,var(--pastel-green) 0%,var(--white) 45%,var(--off-white) 100%);
+  padding:24px 20px 20px;
   max-width:480px;margin:0 auto;
 }
 .hero-badges{
@@ -181,47 +186,72 @@ button{font-family:inherit}
   margin-bottom:10px;
 }
 .hero-sub{
-  font-size:15px;
+  font-size:var(--body-mobile);
   color:var(--text-secondary);
-  line-height:1.6;
-  margin-bottom:14px;
+  line-height:1.65;
+  margin-bottom:16px;
 }
-.hero-photo{
+.hero-photo-card{
   width:100%;
-  height:200px;
+  max-width:340px;
+  margin:0 auto 16px;
+  aspect-ratio:1/1;
+  border-radius:16px;
+  overflow:hidden;
+  border:2px solid var(--green-border);
+  box-shadow:0 12px 32px rgba(27,94,63,.18);
+  background:var(--pastel-green);
+}
+.hero-photo-card img{
+  width:100%;
+  height:100%;
   object-fit:cover;
-  border-radius:12px;
-  margin-bottom:14px;
 }
 .hero-stats{
   display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  border:0.5px solid var(--border);
-  border-radius:10px;
-  overflow:hidden;
-  margin-bottom:14px;
+  grid-template-columns:1fr;
+  gap:10px;
+  margin-bottom:16px;
 }
 .stat-cell{
-  padding:12px 8px;
-  text-align:center;
-  border-right:0.5px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 16px;
+  text-align:left;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:12px;
+  box-shadow:0 2px 8px rgba(20,32,24,.06);
 }
-.stat-cell:last-child{border-right:none}
+.stat-cell--highlight{
+  background:linear-gradient(135deg,var(--pastel-green) 0%,var(--white) 100%);
+  border-color:var(--green-border);
+}
+.stat-icon{
+  flex-shrink:0;
+  width:40px;height:40px;
+  border-radius:10px;
+  background:var(--green-light);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+}
+.stat-text{flex:1;min-width:0}
 .stat-num{
   display:block;
-  font-size:18px;
+  font-size:17px;
   font-weight:var(--weight-bold);
   color:var(--green-dark);
-  line-height:1.2;
+  line-height:1.25;
 }
 .stat-label{
   display:block;
-  font-size:10px;
-  color:var(--text-muted);
+  font-size:var(--small);
+  color:var(--text-secondary);
   margin-top:2px;
-  line-height:1.3;
+  line-height:1.35;
 }
-.hero-ctas{display:flex;flex-direction:column;gap:8px}
+.hero-ctas{display:flex;flex-direction:column;gap:10px}
 
 /* ══ TICKER ══ */
 .ticker{
@@ -283,17 +313,60 @@ button{font-family:inherit}
   padding:48px 20px;
   max-width:480px;margin:0 auto;
 }
-.gallery-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
+.gallery-carousel-wrap{
   margin-top:24px;
+  position:relative;
+  padding:8px 0 20px;
 }
-.gallery-grid img{
-  width:100%;
-  aspect-ratio:3/4;
+.gallery-carousel{
+  position:relative;
+  width:min(280px,78vw);
+  margin:0 auto;
+  aspect-ratio:1/1;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 16px 40px rgba(20,32,24,.2);
+  border:3px solid var(--white);
+}
+.gallery-slide{
+  position:absolute;inset:0;
+  opacity:0;
+  transform:scale(1.04);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.gallery-slide.active{
+  opacity:1;
+  transform:scale(1);
+  z-index:1;
+}
+.gallery-slide img{
+  width:100%;height:100%;
   object-fit:cover;
-  border-radius:10px;
+}
+.gallery-dots{
+  display:flex;justify-content:center;gap:8px;
+  margin-top:14px;
+}
+.gallery-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--border);
+  border:none;padding:0;cursor:pointer;
+  transition:background .2s ease,transform .2s ease;
+}
+.gallery-dot.active{background:var(--green-dark);transform:scale(1.2)}
+.gallery-float-badge{
+  position:absolute;
+  bottom:-8px;left:50%;
+  transform:translateX(-50%);
+  z-index:2;
+  background:var(--green-dark);
+  color:#fff;
+  font-size:var(--tiny);
+  font-weight:var(--weight-bold);
+  padding:6px 14px;
+  border-radius:100px;
+  white-space:nowrap;
+  box-shadow:0 4px 12px rgba(27,94,63,.3);
 }
 
 /* ══ S04 CÂMERA ══ */
@@ -383,7 +456,7 @@ button{font-family:inherit}
   margin-bottom:4px;
 }
 .act-card p{
-  font-size:12px;
+  font-size:var(--small);
   color:var(--text-secondary);
   line-height:1.5;
 }
@@ -499,21 +572,22 @@ button{font-family:inherit}
   font-style:italic;
 }
 
-/* ══ S08 FAQ ══ */
+/* ══ FAQ (antes do rodapé) ══ */
 .s-faq{
   background:var(--off-white);
-  padding:48px 20px;
+  padding:40px 20px 48px;
   max-width:480px;margin:0 auto;
+  border-top:1px solid var(--border);
 }
 .faq-list{margin-top:8px}
-.faq-item{border-bottom:0.5px solid var(--border)}
+.faq-item{border-bottom:1px solid var(--border)}
 .faq-q{
   width:100%;
   display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:16px 0;
+  padding:18px 0;
   background:none;border:none;
   text-align:left;
-  font-size:15px;
+  font-size:var(--body-mobile);
   font-weight:var(--weight-semibold);
   color:var(--text-primary);
   cursor:pointer;
@@ -531,19 +605,64 @@ button{font-family:inherit}
   transition:max-height .2s ease;
 }
 .faq-a-inner{
-  font-size:14px;
+  font-size:var(--small);
   color:var(--text-secondary);
   line-height:var(--lh-body);
-  padding-bottom:16px;
+  padding-bottom:18px;
 }
 
-/* ══ S09 CONVERSÃO + FORM ══ */
+/* ══ URGÊNCIA + FORM ══ */
 .s-convert{
-  background:var(--white);
-  padding:48px 20px 56px;
+  background:linear-gradient(180deg,var(--pastel-red) 0%,var(--white) 28%);
+  padding:48px 20px 40px;
   max-width:480px;margin:0 auto;
 }
-.form-block{margin-top:40px;padding-top:32px;border-top:0.5px solid var(--border)}
+.s-urgency-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--red);
+  color:#fff;
+  font-size:var(--tiny);
+  font-weight:var(--weight-bold);
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  padding:8px 14px;
+  border-radius:100px;
+  margin-bottom:14px;
+}
+.s-urgency-h2{
+  font-size:var(--h2-mobile);
+  font-weight:var(--weight-bold);
+  line-height:var(--lh-headline);
+  color:var(--text-primary);
+  margin-bottom:12px;
+}
+.s-urgency-h2 em{font-style:normal;color:var(--red)}
+.s-urgency-lead{
+  font-size:var(--body-mobile);
+  color:var(--text-secondary);
+  line-height:var(--lh-body);
+  margin-bottom:8px;
+}
+.s-urgency-fast{
+  display:flex;align-items:flex-start;gap:10px;
+  background:var(--white);
+  border:1px solid var(--green-border);
+  border-radius:12px;
+  padding:14px 16px;
+  margin:20px 0 0;
+  font-size:var(--small);
+  color:var(--text-secondary);
+  line-height:1.5;
+}
+.s-urgency-fast strong{color:var(--green-dark);display:block;font-size:var(--body-mobile);margin-bottom:2px}
+.form-block{
+  margin-top:32px;
+  padding:24px 20px 28px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:16px;
+  box-shadow:0 8px 24px rgba(20,32,24,.08);
+}
 .form-group{margin-bottom:16px}
 .form-label{
   display:block;
@@ -632,6 +751,16 @@ button{font-family:inherit}
   transition:color .2s ease;
 }
 .footer-links a:hover{color:#fff}
+.footer-btn-agendar{
+  display:inline-flex;
+  margin-top:4px;
+  background:var(--red);
+  color:#fff!important;
+  font-size:13px;
+  font-weight:var(--weight-bold);
+  padding:10px 16px;
+  border-radius:8px;
+}
 .footer-contact{list-style:none}
 .footer-contact li{
   display:flex;gap:8px;
@@ -675,13 +804,13 @@ button{font-family:inherit}
 .sticky-btn:hover{opacity:.92}
 
 @media(min-width:481px){
-  body{background:var(--off-white)}
-  .nav-inner,.hero,.s-mirror,.s-gallery,.s-camera,.s-dev,.s-dif,.s-testimonials,.s-faq,.s-convert,.footer-inner{
-    background:inherit;
-  }
-  .hero,.s-gallery,.s-dev,.s-testimonials,.s-convert{background:var(--white)}
+  body{background:var(--bg-page)}
+  .nav{background:var(--white)}
+  .hero,.s-gallery,.s-dev,.s-testimonials{background:var(--white)}
   .s-mirror{background:var(--blue)}
-  .s-camera,.s-dif,.s-faq{background:var(--off-white)}
+  .s-camera,.s-dif{background:var(--off-white)}
+  .s-convert{background:linear-gradient(180deg,var(--pastel-red) 0%,var(--white) 35%)}
+  .s-faq{background:var(--off-white)}
 }
 </style>
 </head>
@@ -705,19 +834,30 @@ button{font-family:inherit}
   </div>
   <h1 class="hero-h1">Seu bebê<br>em <span class="accent-green">boas mãos.</span></h1>
   <p class="hero-sub">Berçário com cuidado individual, rotina pensada para cada bebê e câmeras ao vivo — você acompanha o dia do seu filho de onde estiver.</p>
-  <img class="hero-photo" src="../images/bercario/hero.jpg" alt="Bebê acolhido no Berçário Grow Up" width="390" height="200" fetchpriority="high"/>
+  <div class="hero-photo-card">
+    <img src="../images/bercario/hero.jpg" alt="Bebê acolhido no Berçário Grow Up" width="340" height="340" fetchpriority="high"/>
+  </div>
   <div class="hero-stats" aria-label="Destaques do berçário">
-    <div class="stat-cell">
-      <span class="stat-num">4m+</span>
-      <span class="stat-label">aceita bebês</span>
+    <div class="stat-cell stat-cell--highlight">
+      <span class="stat-icon" aria-hidden="true">👶</span>
+      <div class="stat-text">
+        <span class="stat-num">A partir de 4 meses</span>
+        <span class="stat-label">Aceitamos bebês pequenos com equipe e ambiente preparados</span>
+      </div>
     </div>
     <div class="stat-cell">
-      <span class="stat-num">0–2 anos</span>
-      <span class="stat-label">de idade</span>
+      <span class="stat-icon" aria-hidden="true">🎂</span>
+      <div class="stat-text">
+        <span class="stat-num">0 a 2 anos</span>
+        <span class="stat-label">Berçário completo na primeira infância</span>
+      </div>
     </div>
     <div class="stat-cell">
-      <span class="stat-num">ao vivo</span>
-      <span class="stat-label">câmera no celular</span>
+      <span class="stat-icon" aria-hidden="true">📱</span>
+      <div class="stat-text">
+        <span class="stat-num">Câmera ao vivo</span>
+        <span class="stat-label">Acompanhe seu bebê pelo celular, a qualquer hora</span>
+      </div>
     </div>
   </div>
   <div class="hero-ctas">
@@ -725,7 +865,7 @@ button{font-family:inherit}
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Falar no WhatsApp
     </a>
-    <a href="#agendar" class="btn-outline" aria-label="Agendar visita presencial">Agendar visita</a>
+    <a href="#agendar" class="btn-agendar-hero" aria-label="Agendar visita ao berçário">📅 Agendar visita</a>
   </div>
 </section>
 
@@ -780,11 +920,15 @@ button{font-family:inherit}
   <p class="section-label">Nossa escola</p>
   <h2 class="section-h2">Momentos reais do Berçário Grow Up.</h2>
   <p class="section-body">Nenhuma foto de banco de imagem. O nosso espaço, as nossas crianças.</p>
-  <div class="gallery-grid">
-    <img src="../images/bercario/Galeria1.jpg" alt="Sala do berçário Grow Up" loading="lazy" width="400" height="533"/>
-    <img src="../images/bercario/Galeria2.jpg" alt="Atividades no berçário Grow Up" loading="lazy" width="400" height="533"/>
-    <img src="../images/bercario/Galeria3.jpg" alt="Ambiente acolhedor do berçário" loading="lazy" width="400" height="533"/>
-    <img src="../images/bercario/Galeria4.jpg" alt="Crianças no berçário Grow Up" loading="lazy" width="400" height="533"/>
+  <div class="gallery-carousel-wrap">
+    <div class="gallery-carousel" id="galleryCarousel" aria-label="Galeria de fotos do berçário" aria-live="polite">
+      <div class="gallery-slide active"><img src="../images/bercario/Galeria1.jpg" alt="Sala do berçário Grow Up" loading="lazy" width="400" height="400"/></div>
+      <div class="gallery-slide"><img src="../images/bercario/Galeria2.jpg" alt="Atividades no berçário Grow Up" loading="lazy" width="400" height="400"/></div>
+      <div class="gallery-slide"><img src="../images/bercario/Galeria3.jpg" alt="Ambiente acolhedor do berçário" loading="lazy" width="400" height="400"/></div>
+      <div class="gallery-slide"><img src="../images/bercario/Galeria4.jpg" alt="Crianças no berçário Grow Up" loading="lazy" width="400" height="400"/></div>
+      <span class="gallery-float-badge">Fotos reais · sem banco de imagem</span>
+    </div>
+    <div class="gallery-dots" id="galleryDots" aria-hidden="true"></div>
   </div>
 </section>
 
@@ -984,7 +1128,51 @@ button{font-family:inherit}
   </div>
 </section>
 
-<!-- S08 FAQ -->
+<!-- S08 URGÊNCIA + FORM -->
+<section class="s-convert" id="agendar">
+  <span class="s-urgency-badge">● Vagas limitadas · turmas 2026</span>
+  <h2 class="s-urgency-h2">O berçário certo para seu bebê <em>não espera.</em></h2>
+  <p class="s-urgency-lead">Cada semana, mais famílias visitam a Grow Up. Quanto antes você conhecer o espaço, mais tranquila fica a decisão — com informação, não com pressa vazia.</p>
+  <p class="s-urgency-lead"><strong>Agende sua visita agora.</strong> Você vê o berçário, tira dúvidas e sente se é o lugar certo para o seu bebê.</p>
+  <div class="s-urgency-fast" role="note">
+    <span aria-hidden="true">⚡</span>
+    <div>
+      <strong>Resposta em até 5 minutos</strong>
+      Nossa equipe (com apoio de IA) retorna pelo WhatsApp assim que você enviar o formulário — geralmente em poucos minutos.
+    </div>
+  </div>
+  <div class="form-block">
+    <p class="section-label">Agendar visita</p>
+    <h2 class="section-h2">Venha nos conhecer.</h2>
+    <p class="section-body" style="margin-bottom:24px">Preencha abaixo — falamos com você em até <strong>5 minutos</strong> pelo WhatsApp.</p>
+    <form id="visitForm" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="parentName">Seu nome *</label>
+        <input class="form-input" type="text" id="parentName" name="parentName" placeholder="Como você se chama?" autocomplete="name" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="whatsapp">WhatsApp *</label>
+        <input class="form-input" type="tel" id="whatsapp" name="whatsapp" placeholder="(11) 99999-9999" autocomplete="tel" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="childAge">Idade do bebê <span>(opcional)</span></label>
+        <select class="form-select" id="childAge" name="childAge">
+          <option value="" selected>Selecione</option>
+          <option value="4 meses">4 meses</option>
+          <option value="6 meses">6 meses</option>
+          <option value="8 meses">8 meses</option>
+          <option value="1 ano">1 ano</option>
+          <option value="1 ano e meio">1 ano e meio</option>
+          <option value="2 anos">2 anos</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-submit" id="formBtn" aria-label="Enviar pedido de agendamento de visita">Quero agendar minha visita</button>
+      <p class="form-note">Seus dados estão seguros. Retorno rápido pelo WhatsApp — em até <strong>5 minutos</strong> em horário comercial.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FAQ — imediatamente antes do rodapé -->
 <section class="s-faq" id="faq">
   <p class="section-label">Tirando dúvidas</p>
   <h2 class="section-h2">Perguntas frequentes.</h2>
@@ -1027,41 +1215,6 @@ button{font-family:inherit}
   </div>
 </section>
 
-<!-- S09 PRÉ-CONVERSÃO + FORM -->
-<section class="s-convert" id="agendar">
-  <h2 class="section-h2">Você não precisa<br>decidir hoje.</h2>
-  <p class="section-body">Só precisa conhecer um lugar onde seu bebê possa crescer com cuidado, segurança e acolhimento.</p>
-  <div class="form-block">
-    <p class="section-label">Agendar visita</p>
-    <h2 class="section-h2">Venha nos conhecer.</h2>
-    <p class="section-body" style="margin-bottom:24px">Preencha abaixo — nossa equipe entra em contato em até 24h pelo WhatsApp.</p>
-    <form id="visitForm" novalidate>
-      <div class="form-group">
-        <label class="form-label" for="parentName">Seu nome *</label>
-        <input class="form-input" type="text" id="parentName" name="parentName" placeholder="Como você se chama?" autocomplete="name" required/>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="whatsapp">WhatsApp *</label>
-        <input class="form-input" type="tel" id="whatsapp" name="whatsapp" placeholder="(11) 99999-9999" autocomplete="tel" required/>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="childAge">Idade do bebê <span>(opcional)</span></label>
-        <select class="form-select" id="childAge" name="childAge">
-          <option value="" selected>Selecione</option>
-          <option value="4 meses">4 meses</option>
-          <option value="6 meses">6 meses</option>
-          <option value="8 meses">8 meses</option>
-          <option value="1 ano">1 ano</option>
-          <option value="1 ano e meio">1 ano e meio</option>
-          <option value="2 anos">2 anos</option>
-        </select>
-      </div>
-      <button type="submit" class="btn-submit" id="formBtn" aria-label="Enviar pedido de agendamento de visita">Quero agendar minha visita</button>
-      <p class="form-note">Seus dados estão seguros. Nossa equipe retorna em até 24h pelo WhatsApp.</p>
-    </form>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer class="footer" id="contato">
   <div class="footer-inner">
@@ -1085,7 +1238,7 @@ button{font-family:inherit}
           <li><a href="#diferenciais">Diferenciais</a></li>
           <li><a href="#depoimentos">Depoimentos</a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="#agendar">Agendar visita</a></li>
+          <li><a href="#agendar" class="footer-btn-agendar">Agendar visita</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1123,6 +1276,28 @@ button{font-family:inherit}
   window.addEventListener('scroll', function(){
     stickyBar.classList.toggle('visible', window.scrollY > 300);
   }, {passive:true});
+
+  /* Galeria — carrossel rotativo */
+  var carousel = document.getElementById('galleryCarousel');
+  var dotsWrap = document.getElementById('galleryDots');
+  if (carousel && dotsWrap) {
+    var slides = carousel.querySelectorAll('.gallery-slide');
+    var idx = 0;
+    slides.forEach(function(_, i){
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Foto ' + (i + 1));
+      dot.addEventListener('click', function(){ goSlide(i); });
+      dotsWrap.appendChild(dot);
+    });
+    function goSlide(n) {
+      idx = n;
+      slides.forEach(function(s, i){ s.classList.toggle('active', i === idx); });
+      dotsWrap.querySelectorAll('.gallery-dot').forEach(function(d, i){ d.classList.toggle('active', i === idx); });
+    }
+    setInterval(function(){ goSlide((idx + 1) % slides.length); }, 4000);
+  }
 
   /* FAQ accordion */
   document.querySelectorAll('.faq-q').forEach(function(btn){
