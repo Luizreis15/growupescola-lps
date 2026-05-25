@@ -7,7 +7,8 @@
 <meta name="description" content="Berçário Grow Up em São Paulo: cuidado individual, rotina pensada e câmeras ao vivo. Bebês de 4 meses a 2 anos. Fale conosco no WhatsApp."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -108,9 +109,41 @@ button{font-family:inherit}
 }
 .section-body--light{color:rgba(255,255,255,.75)}
 .accent-green{color:var(--green-dark)}
-.accent-yellow{color:var(--yellow)}
 .accent-blue{color:var(--blue)}
 .accent-red{color:var(--red)}
+.hl-yellow{
+  color:var(--blue);
+  background:var(--yellow);
+  padding:0 .15em;
+  border-radius:6px;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+}
+.section-head{text-align:center}
+.section-head .section-body{max-width:340px;margin-left:auto;margin-right:auto}
+
+/* split headline (hero) */
+.hero-headline{
+  font-family:'Nunito',sans-serif;
+  font-weight:900;
+  font-size:var(--h1-mobile);
+  line-height:var(--lh-headline);
+  color:var(--text-primary);
+  text-align:center;
+  margin-bottom:12px;
+}
+.hero-headline .line{
+  display:block;
+  overflow:hidden;
+  padding-bottom:.06em;
+}
+.split-char{display:inline-block;transform:translateY(110%)}
+.hero-intro{text-align:center}
+.hero-intro .hero-badges{justify-content:center}
+.hero-intro .hero-sub{max-width:340px;margin-left:auto;margin-right:auto;text-align:center}
+.hero-intro .hero-photo-card{margin-left:auto;margin-right:auto}
+.hero-intro .hero-stats{max-width:360px;margin-left:auto;margin-right:auto}
+.hero-fade{opacity:0;transform:translateY(18px)}
 
 @keyframes pulse-red{
   0%,100%{box-shadow:0 4px 16px rgba(243,38,38,.4)}
@@ -138,6 +171,8 @@ button{font-family:inherit}
 }
 @media (prefers-reduced-motion:reduce){
   .btn-wpp,.hero-photo-card,.badge-dot,.live-badge,.ticker-track,.reveal{animation:none!important;transition:none!important}
+  .split-char{transform:none!important}
+  .hero-fade{opacity:1!important;transform:none!important}
 }
 
 /* ── BOTÃO WHATSAPP (único CTA) ── */
@@ -186,8 +221,8 @@ button{font-family:inherit}
 .hero{
   position:relative;
   overflow:hidden;
-  background:linear-gradient(145deg,var(--pastel-blue) 0%,var(--white) 35%,var(--pastel-yellow) 100%);
-  padding:24px 20px 20px;
+  background:linear-gradient(165deg,#E8EEFF 0%,#FFFFFF 42%,#FFF6D6 100%);
+  padding:28px 20px 32px;
   max-width:480px;margin:0 auto;
 }
 .hero::before,.hero::after{
@@ -239,13 +274,6 @@ button{font-family:inherit}
   font-size:var(--tiny);
   font-weight:var(--weight-bold);
   animation:float-y 3s ease-in-out infinite;
-}
-.hero-h1{
-  font-size:var(--h1-mobile);
-  font-weight:var(--weight-bold);
-  line-height:var(--lh-headline);
-  color:var(--text-primary);
-  margin-bottom:10px;
 }
 .hero-sub{
   font-size:var(--body-mobile);
@@ -360,7 +388,7 @@ button{font-family:inherit}
   position:relative;
   overflow:hidden;
   background:linear-gradient(160deg,var(--blue) 0%,var(--blue-light) 100%);
-  padding:48px 24px;
+  padding:56px 24px;
   max-width:480px;margin:0 auto;
 }
 .s-mirror::after{
@@ -396,26 +424,28 @@ button{font-family:inherit}
 
 /* ══ S03 GALERIA ══ */
 .s-gallery{
-  background:var(--white);
-  padding:48px 20px;
+  background:#FFFFFF;
+  padding:56px 20px;
   max-width:480px;margin:0 auto;
 }
+.s-gallery .section-label{color:var(--blue)}
+.s-gallery .section-h2{color:var(--text-primary)}
 .gallery-carousel-wrap{
-  margin-top:24px;
+  margin-top:28px;
   position:relative;
-  padding:8px 0 20px;
+  padding:4px 0 24px;
 }
 .gallery-carousel{
   position:relative;
-  width:min(280px,78vw);
+  width:min(100%,400px);
   margin:0 auto;
   aspect-ratio:1/1;
   border-radius:20px;
   overflow:hidden;
-  box-shadow:0 16px 40px rgba(22,53,160,.25);
-  border:3px solid var(--blue);
-  outline:3px solid var(--yellow);
-  outline-offset:2px;
+  box-shadow:0 20px 48px rgba(22,53,160,.28);
+  border:4px solid var(--blue);
+  outline:4px solid var(--yellow);
+  outline-offset:3px;
 }
 .gallery-slide{
   position:absolute;inset:0;
@@ -443,27 +473,13 @@ button{font-family:inherit}
   transition:background .2s ease,transform .2s ease;
 }
 .gallery-dot.active{background:var(--red);transform:scale(1.2)}
-.gallery-float-badge{
-  position:absolute;
-  bottom:-8px;left:50%;
-  transform:translateX(-50%);
-  z-index:2;
-  background:var(--red);
-  color:#fff;
-  font-size:var(--tiny);
-  font-weight:var(--weight-bold);
-  padding:6px 14px;
-  border-radius:100px;
-  white-space:nowrap;
-  box-shadow:0 4px 12px rgba(27,94,63,.3);
-}
 
 /* ══ S04 CÂMERA ══ */
 .s-camera{
-  background:linear-gradient(180deg,var(--pastel-blue) 0%,var(--off-white) 40%);
-  padding:48px 24px;
+  background:#E8EEFF;
+  color:var(--text-primary);
+  padding:56px 24px;
   max-width:480px;margin:0 auto;
-  border-top:4px solid var(--blue);
 }
 .s-camera .section-label{color:var(--blue)}
 .s-camera .section-h2 .accent-blue{color:var(--blue)}
@@ -516,9 +532,15 @@ button{font-family:inherit}
 
 /* ══ S05 DESENVOLVIMENTO ══ */
 .s-dev{
-  background:var(--white);
-  padding:48px 20px;
+  background:#FFF6D6;
+  padding:56px 20px;
   max-width:480px;margin:0 auto;
+}
+.s-dev .section-label{color:var(--blue)}
+.s-dev > .section-body,.s-camera > .section-body{
+  text-align:center;
+  max-width:340px;
+  margin:0 auto 24px;
 }
 .act-grid{
   display:grid;
@@ -577,10 +599,9 @@ button{font-family:inherit}
 
 /* ══ S06 DIFERENCIAIS ══ */
 .s-dif{
-  background:var(--off-white);
-  padding:48px 20px;
+  background:#FFFFFF;
+  padding:56px 20px;
   max-width:480px;margin:0 auto;
-  border-top:4px solid var(--yellow);
 }
 .s-dif .section-label{color:var(--blue)}
 .dif-list{margin-top:24px}
@@ -610,8 +631,8 @@ button{font-family:inherit}
 
 /* ══ S07 DEPOIMENTOS ══ */
 .s-testimonials{
-  background:var(--white);
-  padding:48px 20px;
+  background:#E8F5EC;
+  padding:56px 20px;
   max-width:480px;margin:0 auto;
 }
 .test-carousel{
@@ -675,10 +696,9 @@ button{font-family:inherit}
 
 /* ══ FAQ (antes do rodapé) ══ */
 .s-faq{
-  background:var(--off-white);
-  padding:40px 20px 48px;
+  background:#FFFFFF;
+  padding:48px 20px 56px;
   max-width:480px;margin:0 auto;
-  border-top:1px solid var(--border);
 }
 .faq-list{margin-top:8px}
 .faq-item{border-bottom:1px solid var(--border)}
@@ -712,12 +732,11 @@ button{font-family:inherit}
   padding-bottom:18px;
 }
 
-/* ══ URGÊNCIA + FORM ══ */
+/* ══ CONVERSÃO WHATSAPP ══ */
 .s-convert{
-  background:linear-gradient(180deg,var(--pastel-red) 0%,var(--pastel-yellow) 18%,var(--white) 45%);
-  padding:48px 20px 40px;
+  background:linear-gradient(180deg,#FFE8E2 0%,#FFF6D6 35%,#FFFFFF 70%);
+  padding:56px 20px 48px;
   max-width:480px;margin:0 auto;
-  border-top:4px solid var(--red);
 }
 .s-urgency-badge{
   display:inline-flex;align-items:center;gap:6px;
@@ -767,85 +786,49 @@ button{font-family:inherit}
   line-height:var(--lh-body);
 }
 
-/* ══ FOOTER ══ */
+/* ══ FOOTER CURTO ══ */
 .footer{
-  background:var(--text-primary);
-  color:rgba(255,255,255,.65);
-  padding:40px 20px 32px;
+  background:#F0F4F8;
+  color:var(--text-secondary);
+  padding:28px 20px 24px;
+  text-align:center;
+  border-top:1px solid var(--border);
 }
 .footer-inner{max-width:480px;margin:0 auto}
-.footer-logo img{
-  height:36px;
-  filter:brightness(0) invert(1);
+.footer-addr{
+  font-size:var(--small);
+  line-height:1.6;
   margin-bottom:16px;
+  color:var(--text-primary);
 }
-.footer-tagline{
-  font-size:14px;
-  line-height:var(--lh-body);
-  margin-bottom:24px;
-  max-width:320px;
-}
-.footer-social{display:flex;gap:12px;margin-bottom:32px}
-.footer-social a{
-  width:40px;height:40px;
-  border-radius:10px;
-  background:rgba(255,255,255,.1);
-  display:flex;align-items:center;justify-content:center;
-  color:#fff;
-  transition:background .2s ease;
-}
-.footer-social a:hover{background:rgba(255,255,255,.2)}
-.footer-cols{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:32px;
-  margin-bottom:32px;
-}
-.footer-col h4{
-  font-size:var(--tiny);
-  font-weight:var(--weight-semibold);
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:#fff;
+.footer-addr a{color:var(--blue);font-weight:var(--weight-semibold)}
+.footer-social{
+  display:flex;
+  justify-content:center;
+  gap:14px;
   margin-bottom:14px;
 }
-.footer-links{list-style:none}
-.footer-links li{margin-bottom:10px}
-.footer-links a,.footer-contact li{
-  font-size:14px;
-  color:rgba(255,255,255,.55);
-  transition:color .2s ease;
+.footer-social a{
+  width:44px;height:44px;
+  border-radius:12px;
+  background:var(--white);
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--blue);
+  transition:transform .2s ease,background .2s ease,border-color .2s ease;
 }
-.footer-links a:hover{color:#fff}
-.footer-btn-wpp{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  margin-top:8px;
-  background:var(--wpp)!important;
-  color:#fff!important;
-  font-size:14px;
-  font-weight:var(--weight-bold);
-  padding:12px 18px;
-  border-radius:10px;
-  box-shadow:0 4px 14px rgba(37,211,102,.35);
+.footer-social a:hover{
+  transform:translateY(-2px);
+  background:var(--pastel-blue);
+  border-color:var(--blue);
 }
-.footer-contact{list-style:none}
-.footer-contact li{
-  display:flex;gap:8px;
-  margin-bottom:12px;
-  line-height:var(--lh-body);
+.footer-handle{
+  font-size:var(--tiny);
+  color:var(--text-muted);
+  margin-bottom:10px;
 }
-.footer-bottom{
-  border-top:0.5px solid rgba(255,255,255,.12);
-  padding-top:24px;
-  font-size:12px;
-  color:rgba(255,255,255,.4);
-}
-.footer-bottom p{margin-bottom:10px}
-.footer-legal{display:flex;gap:16px}
-.footer-legal a{color:rgba(255,255,255,.4);transition:color .2s ease}
-.footer-legal a:hover{color:#fff}
+.footer-handle a{color:var(--blue);font-weight:var(--weight-semibold)}
+.footer-copy{font-size:11px;color:var(--text-muted)}
 
 /* ══ STICKY BAR ══ */
 .sticky-bar{
@@ -880,13 +863,7 @@ button{font-family:inherit}
 }
 
 @media(min-width:481px){
-  body{background:var(--bg-page)}
-  .nav{background:var(--white)}
-  .hero,.s-gallery,.s-dev,.s-testimonials{background:var(--white)}
-  .s-mirror{background:var(--blue)}
-  .s-camera,.s-dif{background:var(--off-white)}
-  .s-convert{background:linear-gradient(180deg,var(--pastel-red) 0%,var(--white) 35%)}
-  .s-faq{background:var(--off-white)}
+  body{background:#E8EEFF}
 }
 </style>
 </head>
@@ -907,16 +884,21 @@ button{font-family:inherit}
 
 <!-- S01 HERO -->
 <section class="hero" id="inicio">
-  <div class="hero-badges">
+  <div class="hero-intro">
+  <div class="hero-badges hero-fade" id="heroBadges">
     <span class="badge-pill badge-pill--green"><span class="badge-dot" aria-hidden="true"></span> Matrículas 2026 abertas</span>
     <span class="badge-pill badge-pill--yellow">vagas limitadas</span>
   </div>
-  <h1 class="hero-h1">Seu bebê<br>em <span class="accent-green">boas</span> <span class="accent-yellow">mãos.</span></h1>
-  <p class="hero-sub">Berçário com cuidado individual, rotina pensada para cada bebê e câmeras ao vivo — você acompanha o dia do seu filho de onde estiver.</p>
-  <div class="hero-photo-card">
+  <h1 class="hero-headline" id="heroHeadline" aria-label="Seu bebê em boas mãos.">
+    <span class="line" id="hl-1">Seu bebê</span>
+    <span class="line accent-green" id="hl-2">em boas</span>
+    <span class="line" id="hl-3"><span class="hl-yellow">mãos.</span></span>
+  </h1>
+  <p class="hero-sub hero-fade" id="heroSub">Berçário com cuidado individual, rotina pensada para cada bebê e câmeras ao vivo — você acompanha o dia do seu filho de onde estiver.</p>
+  <div class="hero-photo-card hero-fade" id="heroPhoto">
     <img src="../images/bercario/hero.jpg" alt="Bebê acolhido no Berçário Grow Up" width="340" height="340" fetchpriority="high"/>
   </div>
-  <div class="hero-stats" aria-label="Destaques do berçário">
+  <div class="hero-stats hero-fade" id="heroStats" aria-label="Destaques do berçário">
     <div class="stat-cell stat-cell--highlight">
       <span class="stat-icon stat-icon--yellow" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4"/><path d="M6 20v-1a6 6 0 0112 0v1"/></svg>
@@ -945,7 +927,7 @@ button{font-family:inherit}
       </div>
     </div>
   </div>
-  <div class="hero-ctas">
+  <div class="hero-ctas hero-fade" id="heroCtas">
     <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Berçário%20Grow%20Up" class="btn-wpp btn-wpp--hero" target="_blank" rel="noopener" aria-label="Falar no WhatsApp sobre o berçário">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       <span class="btn-wpp-text">
@@ -953,6 +935,7 @@ button{font-family:inherit}
         <span class="btn-wpp-hint">Tire dúvidas ou combine uma visita ao berçário</span>
       </span>
     </a>
+  </div>
   </div>
 </section>
 
@@ -975,7 +958,7 @@ button{font-family:inherit}
 <!-- S02 ESPELHO EMOCIONAL -->
 <section class="s-mirror" id="sobre">
   <p class="section-label section-label--light">Para os pais</p>
-  <h2 class="section-h2 section-h2--light">Você não procura<br>apenas uma <span class="accent-yellow">escola.</span></h2>
+  <h2 class="section-h2 section-h2--light">Você não procura<br>apenas uma <span class="hl-yellow">escola.</span></h2>
   <p class="section-body section-body--light">Você procura um lugar onde seu bebê seja acolhido, respeitado e cuidado com atenção de verdade. Sabemos o quanto essa decisão mexe com o coração dos pais. Por isso, cada detalhe da Grow Up foi pensado para trazer segurança, tranquilidade e confiança para toda a família.</p>
   <ul class="pillar-list">
     <li class="pillar-item">
@@ -1004,16 +987,16 @@ button{font-family:inherit}
 
 <!-- S03 GALERIA -->
 <section class="s-gallery" id="galeria">
-  <p class="section-label">Nossa escola</p>
-  <h2 class="section-h2">Momentos reais do Berçário Grow Up.</h2>
-  <p class="section-body">Nenhuma foto de banco de imagem. O nosso espaço, as nossas crianças.</p>
+  <div class="section-head">
+    <p class="section-label">Nossa escola</p>
+    <h2 class="section-h2">Momentos reais do Berçário Grow Up.</h2>
+  </div>
   <div class="gallery-carousel-wrap">
     <div class="gallery-carousel" id="galleryCarousel" aria-label="Galeria de fotos do berçário" aria-live="polite">
       <div class="gallery-slide active"><img src="../images/bercario/Galeria1.jpg" alt="Sala do berçário Grow Up" loading="lazy" width="400" height="400"/></div>
       <div class="gallery-slide"><img src="../images/bercario/Galeria2.jpg" alt="Atividades no berçário Grow Up" loading="lazy" width="400" height="400"/></div>
       <div class="gallery-slide"><img src="../images/bercario/Galeria3.jpg" alt="Ambiente acolhedor do berçário" loading="lazy" width="400" height="400"/></div>
       <div class="gallery-slide"><img src="../images/bercario/Galeria4.jpg" alt="Crianças no berçário Grow Up" loading="lazy" width="400" height="400"/></div>
-      <span class="gallery-float-badge">Fotos reais · sem banco de imagem</span>
     </div>
     <div class="gallery-dots" id="galleryDots" aria-hidden="true"></div>
   </div>
@@ -1021,8 +1004,10 @@ button{font-family:inherit}
 
 <!-- S04 CÂMERA AO VIVO -->
 <section class="s-camera" id="camera">
-  <p class="section-label">Transparência total</p>
-  <h2 class="section-h2">Veja seu bebê<br>de <span class="accent-blue">onde você estiver.</span></h2>
+  <div class="section-head">
+    <p class="section-label">Transparência total</p>
+    <h2 class="section-h2">Veja seu bebê<br>de <span class="accent-blue">onde você estiver.</span></h2>
+  </div>
   <p class="section-body">A Grow Up tem câmeras ao vivo em todas as salas do berçário. Você acessa pelo celular, a qualquer hora, e vê exatamente o que está acontecendo com o seu bebê. Nenhum segredo. Nenhuma dúvida.</p>
   <div class="phone-mockup">
     <span class="live-badge" aria-hidden="true">● AO VIVO</span>
@@ -1037,8 +1022,10 @@ button{font-family:inherit}
 
 <!-- S05 DESENVOLVIMENTO -->
 <section class="s-dev" id="atividades">
-  <p class="section-label">Desenvolvimento com presença</p>
-  <h2 class="section-h2">Cada bebê tem<br>seu <span class="accent-green">tempo.</span></h2>
+  <div class="section-head">
+    <p class="section-label">Desenvolvimento com presença</p>
+    <h2 class="section-h2">Cada bebê tem<br>seu <span class="accent-green">tempo.</span></h2>
+  </div>
   <p class="section-body">Na Grow Up, a rotina é construída para incentivar descobertas, fortalecer vínculos e acompanhar cada criança individualmente. Sem comparações, sem pressão.</p>
   <div class="act-grid">
     <article class="act-card">
@@ -1092,9 +1079,11 @@ button{font-family:inherit}
 
 <!-- S06 DIFERENCIAIS -->
 <section class="s-dif" id="diferenciais">
-  <p class="section-label">Por que a Grow?</p>
-  <h2 class="section-h2">Aqui, seu bebê<br>não é <span class="accent-red">só mais um.</span></h2>
-  <p class="section-body">Turmas reduzidas permitem um olhar mais atento, mais presença e mais acolhimento para cada criança.</p>
+  <div class="section-head">
+    <p class="section-label">Por que a Grow?</p>
+    <h2 class="section-h2">Aqui, seu bebê<br>não é <span class="accent-red">só mais um.</span></h2>
+    <p class="section-body">Turmas reduzidas permitem um olhar mais atento, mais presença e mais acolhimento para cada criança.</p>
+  </div>
   <ul class="dif-list">
     <li class="dif-item">
       <svg class="dif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
@@ -1143,8 +1132,10 @@ button{font-family:inherit}
 
 <!-- S07 DEPOIMENTOS -->
 <section class="s-testimonials" id="depoimentos">
-  <p class="section-label">Famílias Grow</p>
-  <h2 class="section-h2">Quem já está aqui conta.</h2>
+  <div class="section-head">
+    <p class="section-label">Famílias Grow</p>
+    <h2 class="section-h2">Quem já está aqui conta.</h2>
+  </div>
   <div class="test-carousel" aria-label="Depoimentos de famílias">
     <article class="test-card">
       <div class="test-header-row">
@@ -1217,11 +1208,13 @@ button{font-family:inherit}
 
 <!-- S08 CONVERSÃO — WHATSAPP -->
 <section class="s-convert" id="whatsapp">
+  <div class="section-head">
   <span class="s-urgency-badge">● Vagas limitadas · turmas 2026</span>
   <h2 class="s-urgency-h2">O berçário certo para seu bebê <em>não espera.</em></h2>
   <p class="s-urgency-lead">Cada semana, mais famílias visitam a Grow Up. Quanto antes você conhecer o espaço, mais tranquila fica a decisão — com informação, não com pressa vazia.</p>
-  <p class="s-urgency-lead"><strong>Chame no WhatsApp.</strong> Você vê o berçário, tira dúvidas e sente se é o lugar certo para o seu bebê.</p>
-  <div class="wpp-cta-box">
+  </div>
+  <p class="s-urgency-lead" style="text-align:center"><strong>Chame no WhatsApp.</strong> Você vê o berçário, tira dúvidas e sente se é o lugar certo para o seu bebê.</p>
+  <div class="wpp-cta-box reveal">
     <p class="section-label">Fale conosco</p>
     <h2 class="section-h2">Venha nos conhecer.</h2>
     <p class="section-body">Nossa equipe atende pelo WhatsApp — tiramos suas dúvidas e combinamos uma visita quando fizer sentido para você.</p>
@@ -1238,8 +1231,10 @@ button{font-family:inherit}
 
 <!-- FAQ — imediatamente antes do rodapé -->
 <section class="s-faq" id="faq">
-  <p class="section-label">Tirando dúvidas</p>
-  <h2 class="section-h2">Perguntas frequentes.</h2>
+  <div class="section-head">
+    <p class="section-label">Tirando dúvidas</p>
+    <h2 class="section-h2">Perguntas frequentes.</h2>
+  </div>
   <div class="faq-list" id="faqList">
     <div class="faq-item">
       <button class="faq-q" type="button" aria-expanded="false">
@@ -1282,45 +1277,20 @@ button{font-family:inherit}
 <!-- FOOTER -->
 <footer class="footer" id="contato">
   <div class="footer-inner">
-    <a href="#" class="footer-logo" aria-label="Grow Up">
-      <img src="../images/logo.png" alt="Grow Up Educação Infantil"/>
-    </a>
-    <p class="footer-tagline">Educação Infantil onde cada criança aprende brincando, cresce com leveza e vive a infância que merece.</p>
+    <p class="footer-addr">
+      São Paulo, SP — Brasil<br>
+      <a href="https://wa.me/5511939466440">(11) 93946-6440</a> · Seg–Sex, 7h–17h
+    </p>
     <div class="footer-social">
-      <a href="#" aria-label="Instagram da Grow Up">
-        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      <a href="https://www.instagram.com/growupescola/" target="_blank" rel="noopener" aria-label="Instagram @growupescola">
+        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
       </a>
-      <a href="#" aria-label="Facebook da Grow Up">
-        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      <a href="https://www.facebook.com/growupescola" target="_blank" rel="noopener" aria-label="Facebook Grow Up">
+        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
       </a>
     </div>
-    <div class="footer-cols">
-      <div class="footer-col">
-        <h4>Links</h4>
-        <ul class="footer-links">
-          <li><a href="#atividades">Atividades</a></li>
-          <li><a href="#diferenciais">Diferenciais</a></li>
-          <li><a href="#depoimentos">Depoimentos</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Berçário%20Grow%20Up" class="footer-btn-wpp" target="_blank" rel="noopener">WhatsApp</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contato</h4>
-        <ul class="footer-contact">
-          <li><span aria-hidden="true">📍</span><span>São Paulo, SP — Brasil</span></li>
-          <li><span aria-hidden="true">📱</span><a href="https://wa.me/5511939466440">(11) 93946-6440</a></li>
-          <li><span aria-hidden="true">🕐</span><span>Seg–Sex, 7h–17h</span></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2026 Grow Up Educação Infantil. Todos os direitos reservados.</p>
-      <div class="footer-legal">
-        <a href="#">Privacidade</a>
-        <a href="#">Termos</a>
-      </div>
-    </div>
+    <p class="footer-handle"><a href="https://www.instagram.com/growupescola/" target="_blank" rel="noopener">@growupescola</a></p>
+    <p class="footer-copy">© 2026 Grow Up Educação Infantil</p>
   </div>
 </footer>
 
@@ -1337,6 +1307,43 @@ button{font-family:inherit}
 
 <script>
 (function(){
+  /* Hero — palavras entrando (GSAP leve, sem Lenis/cursor) */
+  function splitLineChars(el) {
+    if (!el) return;
+    var target = el.querySelector('.hl-yellow') || el;
+    var text = target.textContent;
+    target.innerHTML = text.split('').map(function(c) {
+      return c === ' ' ? ' ' : '<span class="split-char">' + c + '</span>';
+    }).join('');
+  }
+  function showHeroFallback() {
+    ['heroBadges','heroSub','heroPhoto','heroStats','heroCtas'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) { el.style.opacity = '1'; el.style.transform = 'none'; }
+    });
+    document.querySelectorAll('.split-char').forEach(function(c) {
+      c.style.transform = 'translateY(0)';
+    });
+  }
+  window.addEventListener('load', function() {
+    splitLineChars(document.getElementById('hl-1'));
+    splitLineChars(document.getElementById('hl-2'));
+    splitLineChars(document.getElementById('hl-3'));
+    if (typeof gsap === 'undefined') {
+      showHeroFallback();
+      return;
+    }
+    var tl = gsap.timeline({ delay: 0.08 });
+    tl.to('#hl-1 .split-char', { y: '0%', duration: 0.65, stagger: 0.035, ease: 'power3.out' })
+      .to('#hl-2 .split-char', { y: '0%', duration: 0.65, stagger: 0.035, ease: 'power3.out' }, '-=0.45')
+      .to('#hl-3 .split-char', { y: '0%', duration: 0.65, stagger: 0.04, ease: 'power3.out' }, '-=0.45')
+      .to('#heroBadges', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.25')
+      .to('#heroSub', { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, '-=0.35')
+      .to('#heroPhoto', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4')
+      .to('#heroStats', { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, '-=0.45')
+      .to('#heroCtas', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.4');
+  });
+
   /* Entrada suave nas seções */
   if ('IntersectionObserver' in window) {
     var revealObs = new IntersectionObserver(function(entries){
