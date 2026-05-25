@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Grow Up — Berçário | Seu bebê em boas mãos</title>
-<meta name="description" content="Berçário Grow Up em São Paulo: cuidado individual, rotina pensada e câmeras ao vivo. Bebês de 4 meses a 2 anos. Agende sua visita."/>
+<meta name="description" content="Berçário Grow Up em São Paulo: cuidado individual, rotina pensada e câmeras ao vivo. Bebês de 4 meses a 2 anos. Fale conosco no WhatsApp."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
@@ -23,26 +23,28 @@ a{text-decoration:none;color:inherit}
 button{font-family:inherit}
 
 :root{
-  --white:#FFFCF8;
-  --off-white:#EEF5F0;
-  --bg-page:#E8F0EA;
-  --border:#C5D9CC;
-  --green-dark:#1B5E3F;
+  --white:#FFFFFF;
+  --off-white:#F6F9F6;
+  --bg-page:#EEF2FF;
+  --border:#D8E4F0;
+  --green-dark:#2D6A4F;
   --green-mid:#2D6A4F;
-  --green-light:#D8EDD8;
-  --green-border:#6BAF4A;
+  --green-light:#EAF3DE;
+  --green-border:#97C459;
   --blue:#1635A0;
-  --red:#E8593C;
-  --red-dark:#C94A32;
-  --yellow:#F5C518;
+  --blue-light:#2A4FC7;
+  --red:#F32626;
+  --red-dark:#D41F1F;
+  --yellow:#FFD700;
+  --yellow-dark:#E6B800;
   --wpp:#25D366;
   --text-primary:#142018;
   --text-secondary:#3D4F44;
   --text-muted:#5C6F62;
-  --pastel-yellow:#FFF4D6;
-  --pastel-blue:#E3EBFF;
-  --pastel-red:#FFE8E2;
-  --pastel-green:#E2F5E8;
+  --pastel-yellow:#FFF8DC;
+  --pastel-blue:#EEF2FF;
+  --pastel-red:#FFF0EE;
+  --pastel-green:#EEF8F2;
   --h1-mobile:36px;
   --h2-mobile:28px;
   --h3-mobile:19px;
@@ -71,17 +73,15 @@ button{font-family:inherit}
   display:flex;align-items:center;justify-content:space-between;
 }
 .nav-logo img{height:32px;width:auto}
-.btn-agendar-nav{
-  background:var(--red);
-  color:#fff;
-  font-size:14px;
-  font-weight:var(--weight-bold);
-  padding:8px 16px;
-  border-radius:8px;
-  border:none;
-  transition:opacity .2s ease;
+.nav-inner .btn-wpp--nav{
+  width:auto;
+  flex-shrink:0;
+  font-size:13px;
+  padding:9px 14px;
+  border-radius:100px;
+  gap:6px;
 }
-.btn-agendar-nav:hover{opacity:.9}
+.nav-inner .btn-wpp--nav svg{width:18px;height:18px}
 
 /* ── LABELS ── */
 .section-label{
@@ -109,55 +109,108 @@ button{font-family:inherit}
 .section-body--light{color:rgba(255,255,255,.75)}
 .accent-green{color:var(--green-dark)}
 .accent-yellow{color:var(--yellow)}
+.accent-blue{color:var(--blue)}
+.accent-red{color:var(--red)}
 
-/* ── BUTTONS ── */
+@keyframes pulse-red{
+  0%,100%{box-shadow:0 4px 16px rgba(243,38,38,.4)}
+  50%{box-shadow:0 6px 22px rgba(243,38,38,.65)}
+}
+@keyframes float-y{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+@keyframes badge-blink{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.5;transform:scale(1.25)}
+}
+@keyframes live-pulse{
+  0%,100%{opacity:1}
+  50%{opacity:.45}
+}
+@keyframes shimmer{
+  0%{background-position:0% 50%}
+  100%{background-position:200% 50%}
+}
+@keyframes pulse-wpp{
+  0%,100%{box-shadow:0 6px 20px rgba(37,211,102,.4)}
+  50%{box-shadow:0 10px 28px rgba(37,211,102,.65)}
+}
+@media (prefers-reduced-motion:reduce){
+  .btn-wpp,.hero-photo-card,.badge-dot,.live-badge,.ticker-track,.reveal{animation:none!important;transition:none!important}
+}
+
+/* ── BOTÃO WHATSAPP (único CTA) ── */
 .btn-wpp{
-  display:flex;align-items:center;justify-content:center;gap:8px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
   width:100%;
   background:var(--wpp);
   color:#fff;
   font-size:var(--body-mobile);
   font-weight:var(--weight-bold);
-  padding:14px;
-  border-radius:10px;
+  padding:14px 18px;
+  border-radius:12px;
   border:none;
-  transition:opacity .2s ease;
+  box-shadow:0 6px 20px rgba(37,211,102,.45);
+  animation:pulse-wpp 2.2s ease-in-out infinite;
+  transition:transform .15s ease,opacity .2s ease;
+  text-align:left;
 }
-.btn-wpp:hover{opacity:.92}
-.btn-agendar-hero{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  width:100%;
-  background:var(--red);
-  color:#fff;
-  font-size:var(--body-mobile);
-  font-weight:var(--weight-bold);
-  padding:14px;
-  border-radius:10px;
-  border:none;
-  box-shadow:0 4px 14px rgba(232,89,60,.35);
-  transition:background .2s ease,transform .15s ease;
+.btn-wpp:hover{transform:scale(1.02);opacity:.95}
+.btn-wpp:active{transform:scale(.98)}
+.btn-wpp svg{flex-shrink:0}
+.btn-wpp-text{display:flex;flex-direction:column;align-items:flex-start;line-height:1.25}
+.btn-wpp-title{font-size:inherit;font-weight:var(--weight-bold)}
+.btn-wpp-hint{
+  font-size:var(--small);
+  font-weight:var(--weight-semibold);
+  opacity:.92;
+  margin-top:2px;
 }
-.btn-agendar-hero:hover{background:var(--red-dark)}
-.btn-agendar-hero:active{transform:scale(.98)}
-.btn-submit{
-  width:100%;
-  background:var(--green-dark);
-  color:#fff;
-  font-size:var(--body-mobile);
-  font-weight:var(--weight-bold);
-  padding:16px;
-  border-radius:10px;
-  border:none;
-  transition:background .2s ease;
+.btn-wpp--hero{
+  padding:20px 22px;
+  font-size:18px;
+  border-radius:14px;
+  gap:14px;
 }
-.btn-submit:hover{background:#245a42}
+.btn-wpp--hero svg{width:32px;height:32px}
+.btn-wpp--hero .btn-wpp-hint{font-size:14px}
+.btn-wpp--xl{
+  padding:22px 24px;
+  font-size:18px;
+  border-radius:14px;
+}
+.btn-wpp--xl svg{width:30px;height:30px}
 
 /* ══ HERO ══ */
 .hero{
-  background:linear-gradient(165deg,var(--pastel-green) 0%,var(--white) 45%,var(--off-white) 100%);
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(145deg,var(--pastel-blue) 0%,var(--white) 35%,var(--pastel-yellow) 100%);
   padding:24px 20px 20px;
   max-width:480px;margin:0 auto;
 }
+.hero::before,.hero::after{
+  content:'';
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+  filter:blur(50px);
+  opacity:.55;
+}
+.hero::before{
+  width:180px;height:180px;
+  background:rgba(22,53,160,.25);
+  top:-40px;right:-30px;
+  animation:float-y 5s ease-in-out infinite;
+}
+.hero::after{
+  width:140px;height:140px;
+  background:rgba(255,215,0,.35);
+  bottom:80px;left:-40px;
+  animation:float-y 6s ease-in-out infinite reverse;
+}
+.hero > *{position:relative;z-index:1}
 .hero-badges{
   display:flex;flex-wrap:wrap;gap:8px;
   margin-bottom:14px;
@@ -172,11 +225,20 @@ button{font-family:inherit}
   border:0.5px solid var(--green-border);
   color:var(--green-dark);
 }
+.badge-pill--green .badge-dot{
+  display:inline-block;
+  width:7px;height:7px;
+  background:var(--green-border);
+  border-radius:50%;
+  animation:badge-blink 1.8s ease infinite;
+}
 .badge-pill--yellow{
-  background:var(--pastel-yellow);
-  border:0.5px solid #EF9F27;
-  color:#633806;
+  background:var(--yellow);
+  border:0.5px solid var(--yellow-dark);
+  color:#3D2E00;
   font-size:var(--tiny);
+  font-weight:var(--weight-bold);
+  animation:float-y 3s ease-in-out infinite;
 }
 .hero-h1{
   font-size:var(--h1-mobile);
@@ -198,9 +260,10 @@ button{font-family:inherit}
   aspect-ratio:1/1;
   border-radius:16px;
   overflow:hidden;
-  border:2px solid var(--green-border);
-  box-shadow:0 12px 32px rgba(27,94,63,.18);
-  background:var(--pastel-green);
+  border:3px solid var(--blue);
+  box-shadow:0 16px 40px rgba(22,53,160,.22),0 0 0 4px var(--yellow);
+  background:var(--pastel-blue);
+  animation:float-y 4.5s ease-in-out infinite;
 }
 .hero-photo-card img{
   width:100%;
@@ -225,17 +288,26 @@ button{font-family:inherit}
   box-shadow:0 2px 8px rgba(20,32,24,.06);
 }
 .stat-cell--highlight{
-  background:linear-gradient(135deg,var(--pastel-green) 0%,var(--white) 100%);
-  border-color:var(--green-border);
+  background:linear-gradient(135deg,var(--pastel-yellow) 0%,var(--white) 100%);
+  border-color:var(--yellow-dark);
+}
+.stat-cell--blue{
+  background:linear-gradient(135deg,var(--pastel-blue) 0%,var(--white) 100%);
+  border-color:rgba(22,53,160,.25);
 }
 .stat-icon{
   flex-shrink:0;
   width:40px;height:40px;
   border-radius:10px;
-  background:var(--green-light);
   display:flex;align-items:center;justify-content:center;
-  font-size:20px;
 }
+.stat-icon svg{width:22px;height:22px;stroke-width:2}
+.stat-icon--green{background:var(--green-light);color:var(--green-dark)}
+.stat-icon--green svg{stroke:var(--green-dark)}
+.stat-icon--yellow{background:var(--yellow);color:#3D2E00}
+.stat-icon--yellow svg{stroke:#3D2E00}
+.stat-icon--blue{background:var(--pastel-blue);color:var(--blue)}
+.stat-icon--blue svg{stroke:var(--blue)}
 .stat-text{flex:1;min-width:0}
 .stat-num{
   display:block;
@@ -251,28 +323,30 @@ button{font-family:inherit}
   margin-top:2px;
   line-height:1.35;
 }
-.hero-ctas{display:flex;flex-direction:column;gap:10px}
+.hero-ctas{margin-top:4px}
 
 /* ══ TICKER ══ */
 .ticker{
-  background:var(--green-light);
-  border-top:0.5px solid var(--border);
-  border-bottom:0.5px solid var(--border);
-  padding:10px 0;
+  background:var(--yellow);
+  border-top:2px solid var(--blue);
+  border-bottom:2px solid var(--blue);
+  padding:12px 0;
   overflow:hidden;
 }
 .ticker-track{
   display:flex;
   width:max-content;
-  animation:ticker 28s linear infinite;
+  animation:ticker 22s linear infinite;
 }
 .ticker:hover .ticker-track{animation-play-state:paused}
 .ticker-item{
   font-size:var(--small);
-  font-weight:var(--weight-semibold);
-  color:var(--green-dark);
+  font-weight:var(--weight-bold);
+  color:var(--blue);
   padding:0 20px;
   white-space:nowrap;
+  text-transform:uppercase;
+  letter-spacing:.04em;
 }
 .ticker-item::after{content:' · ';opacity:.5}
 .ticker-item:last-child::after{content:''}
@@ -283,10 +357,23 @@ button{font-family:inherit}
 
 /* ══ S02 ESPELHO ══ */
 .s-mirror{
-  background:var(--blue);
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(160deg,var(--blue) 0%,var(--blue-light) 100%);
   padding:48px 24px;
   max-width:480px;margin:0 auto;
 }
+.s-mirror::after{
+  content:'';
+  position:absolute;
+  width:200px;height:200px;
+  background:rgba(255,215,0,.15);
+  border-radius:50%;
+  bottom:-60px;right:-40px;
+  filter:blur(30px);
+  animation:float-y 7s ease-in-out infinite;
+}
+.s-mirror > *{position:relative;z-index:1}
 .pillar-list{margin-top:32px;display:flex;flex-direction:column;gap:24px}
 .pillar-item{display:flex;gap:14px;align-items:flex-start}
 .pillar-icon{
@@ -325,8 +412,10 @@ button{font-family:inherit}
   aspect-ratio:1/1;
   border-radius:20px;
   overflow:hidden;
-  box-shadow:0 16px 40px rgba(20,32,24,.2);
-  border:3px solid var(--white);
+  box-shadow:0 16px 40px rgba(22,53,160,.25);
+  border:3px solid var(--blue);
+  outline:3px solid var(--yellow);
+  outline-offset:2px;
 }
 .gallery-slide{
   position:absolute;inset:0;
@@ -353,13 +442,13 @@ button{font-family:inherit}
   border:none;padding:0;cursor:pointer;
   transition:background .2s ease,transform .2s ease;
 }
-.gallery-dot.active{background:var(--green-dark);transform:scale(1.2)}
+.gallery-dot.active{background:var(--red);transform:scale(1.2)}
 .gallery-float-badge{
   position:absolute;
   bottom:-8px;left:50%;
   transform:translateX(-50%);
   z-index:2;
-  background:var(--green-dark);
+  background:var(--red);
   color:#fff;
   font-size:var(--tiny);
   font-weight:var(--weight-bold);
@@ -371,10 +460,13 @@ button{font-family:inherit}
 
 /* ══ S04 CÂMERA ══ */
 .s-camera{
-  background:var(--off-white);
+  background:linear-gradient(180deg,var(--pastel-blue) 0%,var(--off-white) 40%);
   padding:48px 24px;
   max-width:480px;margin:0 auto;
+  border-top:4px solid var(--blue);
 }
+.s-camera .section-label{color:var(--blue)}
+.s-camera .section-h2 .accent-blue{color:var(--blue)}
 .phone-mockup{
   position:relative;
   margin:28px auto;
@@ -401,12 +493,14 @@ button{font-family:inherit}
 .live-badge{
   position:absolute;
   top:12px;right:12px;
-  background:rgba(0,0,0,.45);
-  color:var(--red);
+  background:var(--red);
+  color:#fff;
   font-size:10px;
   font-weight:var(--weight-bold);
-  padding:4px 10px;
+  padding:5px 11px;
   border-radius:100px;
+  animation:live-pulse 1.2s ease infinite;
+  box-shadow:0 2px 10px rgba(243,38,38,.5);
 }
 .benefit-list{margin-top:8px;list-style:none;display:flex;flex-direction:column;gap:12px}
 .benefit-list li{
@@ -437,7 +531,9 @@ button{font-family:inherit}
   border:0.5px solid var(--border);
   border-radius:12px;
   padding:16px;
+  transition:transform .2s ease,box-shadow .2s ease;
 }
+.act-card:active{transform:scale(.98)}
 .act-icon{
   width:32px;height:32px;
   border-radius:8px;
@@ -484,7 +580,9 @@ button{font-family:inherit}
   background:var(--off-white);
   padding:48px 20px;
   max-width:480px;margin:0 auto;
+  border-top:4px solid var(--yellow);
 }
+.s-dif .section-label{color:var(--blue)}
 .dif-list{margin-top:24px}
 .dif-item{
   display:flex;gap:14px;
@@ -496,7 +594,7 @@ button{font-family:inherit}
 .dif-icon{
   flex-shrink:0;
   width:22px;height:22px;
-  color:var(--green-dark);
+  color:var(--blue);
 }
 .dif-item h3{
   font-size:15px;
@@ -532,8 +630,17 @@ button{font-family:inherit}
   scroll-snap-align:center;
   background:var(--white);
   border:0.5px solid var(--border);
+  border-left:4px solid var(--yellow);
   border-radius:12px;
   padding:20px;
+  box-shadow:0 4px 16px rgba(22,53,160,.08);
+}
+.test-stars{
+  color:var(--yellow);
+  font-size:16px;
+  letter-spacing:3px;
+  margin-bottom:12px;
+  text-shadow:0 1px 0 rgba(230,184,0,.5);
 }
 .test-header-row{
   display:flex;align-items:center;gap:12px;
@@ -558,12 +665,6 @@ button{font-family:inherit}
   font-size:12px;
   color:var(--text-muted);
   margin-top:2px;
-}
-.test-stars{
-  color:var(--yellow);
-  font-size:14px;
-  letter-spacing:2px;
-  margin-bottom:12px;
 }
 .test-quote{
   font-size:15px;
@@ -613,9 +714,10 @@ button{font-family:inherit}
 
 /* ══ URGÊNCIA + FORM ══ */
 .s-convert{
-  background:linear-gradient(180deg,var(--pastel-red) 0%,var(--white) 28%);
+  background:linear-gradient(180deg,var(--pastel-red) 0%,var(--pastel-yellow) 18%,var(--white) 45%);
   padding:48px 20px 40px;
   max-width:480px;margin:0 auto;
+  border-top:4px solid var(--red);
 }
 .s-urgency-badge{
   display:inline-flex;align-items:center;gap:6px;
@@ -628,6 +730,7 @@ button{font-family:inherit}
   padding:8px 14px;
   border-radius:100px;
   margin-bottom:14px;
+  animation:pulse-red 2s ease-in-out infinite;
 }
 .s-urgency-h2{
   font-size:var(--h2-mobile);
@@ -643,61 +746,24 @@ button{font-family:inherit}
   line-height:var(--lh-body);
   margin-bottom:8px;
 }
-.s-urgency-fast{
-  display:flex;align-items:flex-start;gap:10px;
+.wpp-cta-box{
+  margin-top:28px;
+  padding:28px 22px;
   background:var(--white);
-  border:1px solid var(--green-border);
-  border-radius:12px;
-  padding:14px 16px;
-  margin:20px 0 0;
-  font-size:var(--small);
-  color:var(--text-secondary);
-  line-height:1.5;
-}
-.s-urgency-fast strong{color:var(--green-dark);display:block;font-size:var(--body-mobile);margin-bottom:2px}
-.form-block{
-  margin-top:32px;
-  padding:24px 20px 28px;
-  background:var(--white);
-  border:1px solid var(--border);
+  border:2px solid var(--wpp);
   border-radius:16px;
-  box-shadow:0 8px 24px rgba(20,32,24,.08);
-}
-.form-group{margin-bottom:16px}
-.form-label{
-  display:block;
-  font-size:var(--small);
-  font-weight:var(--weight-semibold);
-  color:var(--text-primary);
-  margin-bottom:8px;
-}
-.form-label span{font-weight:var(--weight-regular);color:var(--text-muted)}
-.form-input,.form-select{
-  width:100%;
-  padding:14px 16px;
-  font-size:15px;
-  font-family:inherit;
-  color:var(--text-primary);
-  background:var(--white);
-  border:0.5px solid var(--border);
-  border-radius:8px;
-  outline:none;
-  appearance:none;
-  transition:border-color .2s ease;
-}
-.form-input:focus,.form-select:focus{border-color:var(--green-dark)}
-.form-input::placeholder{color:var(--text-muted)}
-.form-select{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%232D6A4F' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;
-  background-position:right 16px center;
-  padding-right:40px;
-}
-.form-note{
-  margin-top:14px;
-  font-size:12px;
-  color:var(--text-muted);
+  box-shadow:0 12px 32px rgba(37,211,102,.18);
   text-align:center;
+}
+.wpp-cta-box .section-label{color:var(--green-dark)}
+.wpp-cta-box .section-h2{margin-bottom:12px}
+.wpp-cta-box .section-body{margin-bottom:22px}
+.wpp-cta-box .btn-wpp{justify-content:center;text-align:center}
+.wpp-cta-box .btn-wpp-text{align-items:center}
+.wpp-cta-note{
+  margin-top:14px;
+  font-size:var(--small);
+  color:var(--text-muted);
   line-height:var(--lh-body);
 }
 
@@ -751,15 +817,18 @@ button{font-family:inherit}
   transition:color .2s ease;
 }
 .footer-links a:hover{color:#fff}
-.footer-btn-agendar{
+.footer-btn-wpp{
   display:inline-flex;
-  margin-top:4px;
-  background:var(--red);
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+  background:var(--wpp)!important;
   color:#fff!important;
-  font-size:13px;
+  font-size:14px;
   font-weight:var(--weight-bold);
-  padding:10px 16px;
-  border-radius:8px;
+  padding:12px 18px;
+  border-radius:10px;
+  box-shadow:0 4px 14px rgba(37,211,102,.35);
 }
 .footer-contact{list-style:none}
 .footer-contact li{
@@ -789,19 +858,26 @@ button{font-family:inherit}
   transition:transform .2s ease;
 }
 .sticky-bar.visible{transform:translateY(0)}
-.sticky-btn{
-  flex:1;
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  font-size:14px;
-  font-weight:var(--weight-bold);
-  padding:12px;
-  border-radius:10px;
-  border:none;
-  transition:opacity .2s ease;
+.sticky-bar .btn-wpp{
+  border-radius:12px;
+  padding:15px 18px;
+  font-size:16px;
 }
-.sticky-btn--red{background:var(--red);color:#fff}
-.sticky-btn--wpp{background:var(--wpp);color:#fff}
-.sticky-btn:hover{opacity:.92}
+.sticky-bar .btn-wpp svg{width:22px;height:22px}
+.sticky-bar .btn-wpp-hint{display:none}
+@media(min-width:400px){
+  .sticky-bar .btn-wpp-hint{display:block}
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .5s ease,transform .5s ease;
+}
+.reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
 
 @media(min-width:481px){
   body{background:var(--bg-page)}
@@ -822,50 +898,61 @@ button{font-family:inherit}
     <a href="#" class="nav-logo" aria-label="Grow Up — página inicial">
       <img src="../images/logo.png" alt="Grow Up"/>
     </a>
-    <a href="#agendar" class="btn-agendar-nav" aria-label="Agendar visita ao berçário">Agendar visita</a>
+    <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Berçário%20Grow%20Up" class="btn-wpp btn-wpp--nav" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
   </div>
 </header>
 
 <!-- S01 HERO -->
 <section class="hero" id="inicio">
   <div class="hero-badges">
-    <span class="badge-pill badge-pill--green">● Matrículas 2026 abertas</span>
+    <span class="badge-pill badge-pill--green"><span class="badge-dot" aria-hidden="true"></span> Matrículas 2026 abertas</span>
     <span class="badge-pill badge-pill--yellow">vagas limitadas</span>
   </div>
-  <h1 class="hero-h1">Seu bebê<br>em <span class="accent-green">boas mãos.</span></h1>
+  <h1 class="hero-h1">Seu bebê<br>em <span class="accent-green">boas</span> <span class="accent-yellow">mãos.</span></h1>
   <p class="hero-sub">Berçário com cuidado individual, rotina pensada para cada bebê e câmeras ao vivo — você acompanha o dia do seu filho de onde estiver.</p>
   <div class="hero-photo-card">
     <img src="../images/bercario/hero.jpg" alt="Bebê acolhido no Berçário Grow Up" width="340" height="340" fetchpriority="high"/>
   </div>
   <div class="hero-stats" aria-label="Destaques do berçário">
     <div class="stat-cell stat-cell--highlight">
-      <span class="stat-icon" aria-hidden="true">👶</span>
+      <span class="stat-icon stat-icon--yellow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4"/><path d="M6 20v-1a6 6 0 0112 0v1"/></svg>
+      </span>
       <div class="stat-text">
         <span class="stat-num">A partir de 4 meses</span>
         <span class="stat-label">Aceitamos bebês pequenos com equipe e ambiente preparados</span>
       </div>
     </div>
     <div class="stat-cell">
-      <span class="stat-icon" aria-hidden="true">🎂</span>
+      <span class="stat-icon stat-icon--green" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+      </span>
       <div class="stat-text">
         <span class="stat-num">0 a 2 anos</span>
         <span class="stat-label">Berçário completo na primeira infância</span>
       </div>
     </div>
-    <div class="stat-cell">
-      <span class="stat-icon" aria-hidden="true">📱</span>
+    <div class="stat-cell stat-cell--blue">
+      <span class="stat-icon stat-icon--blue" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+      </span>
       <div class="stat-text">
-        <span class="stat-num">Câmera ao vivo</span>
+        <span class="stat-num accent-blue">Câmera ao vivo</span>
         <span class="stat-label">Acompanhe seu bebê pelo celular, a qualquer hora</span>
       </div>
     </div>
   </div>
   <div class="hero-ctas">
-    <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Berçário%20Grow%20Up" class="btn-wpp" target="_blank" rel="noopener" aria-label="Falar no WhatsApp sobre o berçário">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Falar no WhatsApp
+    <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Berçário%20Grow%20Up" class="btn-wpp btn-wpp--hero" target="_blank" rel="noopener" aria-label="Falar no WhatsApp sobre o berçário">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span class="btn-wpp-text">
+        <span class="btn-wpp-title">Falar no WhatsApp</span>
+        <span class="btn-wpp-hint">Tire dúvidas ou combine uma visita ao berçário</span>
+      </span>
     </a>
-    <a href="#agendar" class="btn-agendar-hero" aria-label="Agendar visita ao berçário">📅 Agendar visita</a>
   </div>
 </section>
 
@@ -935,7 +1022,7 @@ button{font-family:inherit}
 <!-- S04 CÂMERA AO VIVO -->
 <section class="s-camera" id="camera">
   <p class="section-label">Transparência total</p>
-  <h2 class="section-h2">Veja seu bebê<br>de onde você estiver.</h2>
+  <h2 class="section-h2">Veja seu bebê<br>de <span class="accent-blue">onde você estiver.</span></h2>
   <p class="section-body">A Grow Up tem câmeras ao vivo em todas as salas do berçário. Você acessa pelo celular, a qualquer hora, e vê exatamente o que está acontecendo com o seu bebê. Nenhum segredo. Nenhuma dúvida.</p>
   <div class="phone-mockup">
     <span class="live-badge" aria-hidden="true">● AO VIVO</span>
@@ -1006,7 +1093,7 @@ button{font-family:inherit}
 <!-- S06 DIFERENCIAIS -->
 <section class="s-dif" id="diferenciais">
   <p class="section-label">Por que a Grow?</p>
-  <h2 class="section-h2">Aqui, seu bebê<br>não é só mais um.</h2>
+  <h2 class="section-h2">Aqui, seu bebê<br>não é <span class="accent-red">só mais um.</span></h2>
   <p class="section-body">Turmas reduzidas permitem um olhar mais atento, mais presença e mais acolhimento para cada criança.</p>
   <ul class="dif-list">
     <li class="dif-item">
@@ -1128,47 +1215,24 @@ button{font-family:inherit}
   </div>
 </section>
 
-<!-- S08 URGÊNCIA + FORM -->
-<section class="s-convert" id="agendar">
+<!-- S08 CONVERSÃO — WHATSAPP -->
+<section class="s-convert" id="whatsapp">
   <span class="s-urgency-badge">● Vagas limitadas · turmas 2026</span>
   <h2 class="s-urgency-h2">O berçário certo para seu bebê <em>não espera.</em></h2>
   <p class="s-urgency-lead">Cada semana, mais famílias visitam a Grow Up. Quanto antes você conhecer o espaço, mais tranquila fica a decisão — com informação, não com pressa vazia.</p>
-  <p class="s-urgency-lead"><strong>Agende sua visita agora.</strong> Você vê o berçário, tira dúvidas e sente se é o lugar certo para o seu bebê.</p>
-  <div class="s-urgency-fast" role="note">
-    <span aria-hidden="true">⚡</span>
-    <div>
-      <strong>Resposta em até 5 minutos</strong>
-      Nossa equipe (com apoio de IA) retorna pelo WhatsApp assim que você enviar o formulário — geralmente em poucos minutos.
-    </div>
-  </div>
-  <div class="form-block">
-    <p class="section-label">Agendar visita</p>
+  <p class="s-urgency-lead"><strong>Chame no WhatsApp.</strong> Você vê o berçário, tira dúvidas e sente se é o lugar certo para o seu bebê.</p>
+  <div class="wpp-cta-box">
+    <p class="section-label">Fale conosco</p>
     <h2 class="section-h2">Venha nos conhecer.</h2>
-    <p class="section-body" style="margin-bottom:24px">Preencha abaixo — falamos com você em até <strong>5 minutos</strong> pelo WhatsApp.</p>
-    <form id="visitForm" novalidate>
-      <div class="form-group">
-        <label class="form-label" for="parentName">Seu nome *</label>
-        <input class="form-input" type="text" id="parentName" name="parentName" placeholder="Como você se chama?" autocomplete="name" required/>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="whatsapp">WhatsApp *</label>
-        <input class="form-input" type="tel" id="whatsapp" name="whatsapp" placeholder="(11) 99999-9999" autocomplete="tel" required/>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="childAge">Idade do bebê <span>(opcional)</span></label>
-        <select class="form-select" id="childAge" name="childAge">
-          <option value="" selected>Selecione</option>
-          <option value="4 meses">4 meses</option>
-          <option value="6 meses">6 meses</option>
-          <option value="8 meses">8 meses</option>
-          <option value="1 ano">1 ano</option>
-          <option value="1 ano e meio">1 ano e meio</option>
-          <option value="2 anos">2 anos</option>
-        </select>
-      </div>
-      <button type="submit" class="btn-submit" id="formBtn" aria-label="Enviar pedido de agendamento de visita">Quero agendar minha visita</button>
-      <p class="form-note">Seus dados estão seguros. Retorno rápido pelo WhatsApp — em até <strong>5 minutos</strong> em horário comercial.</p>
-    </form>
+    <p class="section-body">Nossa equipe atende pelo WhatsApp — tiramos suas dúvidas e combinamos uma visita quando fizer sentido para você.</p>
+    <a href="https://wa.me/5511939466440?text=Oi!%20Gostaria%20de%20conhecer%20o%20Berçário%20Grow%20Up%20e%20combinar%20uma%20visita." class="btn-wpp btn-wpp--xl" target="_blank" rel="noopener" aria-label="Abrir WhatsApp para conhecer o berçário">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span class="btn-wpp-text">
+        <span class="btn-wpp-title">Chamar no WhatsApp</span>
+        <span class="btn-wpp-hint">Toque aqui — conversa direta com nossa equipe</span>
+      </span>
+    </a>
+    <p class="wpp-cta-note">Sem formulário. Você fala com a gente no seu ritmo.</p>
   </div>
 </section>
 
@@ -1238,7 +1302,7 @@ button{font-family:inherit}
           <li><a href="#diferenciais">Diferenciais</a></li>
           <li><a href="#depoimentos">Depoimentos</a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="#agendar" class="footer-btn-agendar">Agendar visita</a></li>
+          <li><a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Berçário%20Grow%20Up" class="footer-btn-wpp" target="_blank" rel="noopener">WhatsApp</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1261,16 +1325,38 @@ button{font-family:inherit}
 </footer>
 
 <!-- STICKY BAR -->
-<div class="sticky-bar" id="stickyBar" role="region" aria-label="Ações rápidas">
-  <a href="#agendar" class="sticky-btn sticky-btn--red" aria-label="Agendar visita">Agendar visita</a>
-  <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Berçário%20Grow%20Up" class="sticky-btn sticky-btn--wpp" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    WhatsApp
+<div class="sticky-bar" id="stickyBar" role="region" aria-label="Falar no WhatsApp">
+  <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Berçário%20Grow%20Up" class="btn-wpp" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span class="btn-wpp-text">
+      <span class="btn-wpp-title">Falar no WhatsApp</span>
+      <span class="btn-wpp-hint">Conversa direta com a equipe</span>
+    </span>
   </a>
 </div>
 
 <script>
 (function(){
+  /* Entrada suave nas seções */
+  if ('IntersectionObserver' in window) {
+    var revealObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) {
+          en.target.classList.add('visible');
+          revealObs.unobserve(en.target);
+        }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('section, .wpp-cta-box, .ticker').forEach(function(el){
+      el.classList.add('reveal');
+      revealObs.observe(el);
+    });
+    document.querySelector('.hero').classList.remove('reveal');
+    if (document.querySelector('.hero')) document.querySelector('.hero').classList.add('visible');
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
+  }
+
   /* Sticky bar após 300px */
   const stickyBar = document.getElementById('stickyBar');
   window.addEventListener('scroll', function(){
@@ -1317,44 +1403,6 @@ button{font-family:inherit}
       }
     });
   });
-
-  /* Máscara WhatsApp */
-  var wppInput = document.getElementById('whatsapp');
-  if (wppInput) {
-    wppInput.addEventListener('input', function(e){
-      var v = e.target.value.replace(/\D/g,'').slice(0,11);
-      if (v.length > 10) v = v.replace(/^(\d{2})(\d{5})(\d{4})/,'($1) $2-$3');
-      else if (v.length > 6) v = v.replace(/^(\d{2})(\d{4})(\d*)/,'($1) $2-$3');
-      else if (v.length > 2) v = v.replace(/^(\d{2})(\d*)/,'($1) $2');
-      e.target.value = v;
-    });
-  }
-
-  /* Formulário → WhatsApp */
-  var form = document.getElementById('visitForm');
-  var formBtn = document.getElementById('formBtn');
-  if (form) {
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var name = document.getElementById('parentName').value.trim();
-      var wpp = document.getElementById('whatsapp').value.trim();
-      var age = document.getElementById('childAge').value;
-      if (!name || !wpp) {
-        formBtn.textContent = 'Preencha nome e WhatsApp';
-        setTimeout(function(){ formBtn.textContent = 'Quero agendar minha visita'; }, 2500);
-        return;
-      }
-      var msg = 'Olá! Gostaria de agendar uma visita ao Berçário Grow Up.\n\n';
-      msg += '*Nome:* ' + name + '\n';
-      msg += '*WhatsApp:* ' + wpp;
-      if (age) msg += '\n*Idade do bebê:* ' + age;
-      formBtn.textContent = 'Abrindo WhatsApp...';
-      setTimeout(function(){
-        window.open('https://wa.me/5511939466440?text=' + encodeURIComponent(msg), '_blank');
-        formBtn.textContent = 'Quero agendar minha visita';
-      }, 400);
-    });
-  }
 
   /* Âncoras com offset da navbar */
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
