@@ -3,1555 +3,678 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Grow Up — Fundamental I | Aprender de Verdade</title>
-<meta name="description" content="No Grow Up Fundamental I, seu filho aprende com profundidade, pratica inglês com fluência e desenvolve o amor pelo conhecimento. Do 1º ao 5º ano."/>
+<title>Grow Up — Fundamental I | Além do básico</title>
+<meta name="description" content="Fundamental I Grow Up em Santo André: currículo bilíngue, turmas reduzidas e formação integral do 1º ao 5º ano. Inglês fluente, BNCC+ e autonomia real."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js" defer></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{overflow-x:hidden}
-body{
-  font-family:'Nunito Sans',sans-serif;
-  background:#04102B;
-  color:#fff;
-  overflow-x:hidden;
-  cursor:none;
-}
-a,button{cursor:none}
+body{font-family:'Nunito Sans',sans-serif;background:#04102B;color:#fff;overflow-x:hidden}
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
-
-/* ── TOKENS ── */
+button{font-family:inherit;cursor:pointer}
 :root{
-  --blue:#0047C6;
-  --blue-dark:#0037A3;
-  --blue-deep:#04102B;
-  --red:#F32626;
-  --yellow:#FFC928;
-  --green:#27C24C;
-  --white:#fff;
-  --offwhite:#F4F6FC;
+  --blue:#0047C6;--blue-dark:#0037A3;--blue-deep:#04102B;
+  --red:#F32626;--yellow:#FFC928;--green:#27C24C;
+  --white:#fff;--offwhite:#F4F6FC;
   --ease-out-expo:cubic-bezier(0.16,1,0.3,1);
   --ease-in-out:cubic-bezier(0.76,0,0.24,1);
 }
-
-/* ── NOISE OVERLAY ── */
-.noise{
-  position:fixed;inset:0;z-index:9999;
-  pointer-events:none;opacity:.025;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:128px 128px;
-}
-
-/* ── CURSOR ── */
-#cursor{
-  position:fixed;top:0;left:0;z-index:10000;
-  pointer-events:none;mix-blend-mode:difference;
-}
-.cursor-dot{
-  position:absolute;
-  width:8px;height:8px;
-  background:#fff;
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-  transition:width .2s var(--ease-out-expo),height .2s var(--ease-out-expo);
-}
-.cursor-ring{
-  position:absolute;
-  width:40px;height:40px;
-  border:1.5px solid rgba(255,255,255,.6);
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-  transition:width .3s var(--ease-out-expo),height .3s var(--ease-out-expo),opacity .3s;
-}
-body.cursor-hover .cursor-dot{width:48px;height:48px;background:var(--yellow);opacity:.85}
-body.cursor-hover .cursor-ring{opacity:0}
-
-/* ── NAVBAR ── */
-.nav{
-  position:fixed;top:0;left:0;right:0;z-index:500;
-  padding:28px 0;
-  transition:padding .4s var(--ease-out-expo),background .4s;
-}
-.nav.pinned{
-  padding:16px 0;
-  background:rgba(4,16,43,.88);
-  backdrop-filter:blur(24px);
-  -webkit-backdrop-filter:blur(24px);
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-.nav-inner{
-  max-width:1200px;margin:0 auto;
-  padding:0 20px;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:16px;
-}
-@media(min-width:600px){.nav-inner{padding:0 32px;gap:24px}}
-.logo img{height:36px;width:auto;display:block}
-@media(min-width:600px){.logo img{height:42px}}
-.nav-links{
-  display:none;
-  gap:32px;list-style:none;
-}
-@media(min-width:900px){.nav-links{display:flex}}
-.nav-links a{
-  font-size:.85rem;font-weight:700;
-  color:rgba(255,255,255,.65);
-  letter-spacing:.04em;text-transform:uppercase;
-  transition:color .2s;
-}
-.nav-links a:hover{color:#fff}
-.nav-ctas{display:flex;gap:8px}
-.nav-ctas .btn-ghost{display:none}
-@media(min-width:600px){.nav-ctas{gap:12px}.nav-ctas .btn-ghost{display:inline-flex}}
-
-/* ── BUTTONS ── */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  font-family:'Nunito',sans-serif;font-weight:800;
-  border-radius:100px;
-  transition:transform .3s var(--ease-out-expo),box-shadow .3s;
-  position:relative;overflow:hidden;
-  white-space:nowrap;
-}
-.btn::after{
-  content:'';
-  position:absolute;inset:0;
-  background:rgba(255,255,255,.1);
-  opacity:0;
-  transition:opacity .2s;
-}
-.btn:hover::after{opacity:1}
-.btn-sm{font-size:.8rem;padding:10px 22px}
-.btn-md{font-size:.95rem;padding:14px 32px}
-.btn-lg{font-size:1rem;padding:18px 44px}
-.btn-xl{font-size:1.1rem;padding:20px 52px}
-.btn-red{background:var(--red);color:#fff;box-shadow:0 8px 32px rgba(243,38,38,.35)}
-.btn-red:hover{box-shadow:0 12px 40px rgba(243,38,38,.5);transform:translateY(-3px)}
-.btn-blue{background:var(--blue);color:#fff;box-shadow:0 8px 32px rgba(0,71,198,.35)}
-.btn-blue:hover{box-shadow:0 12px 40px rgba(0,71,198,.5);transform:translateY(-3px)}
-.btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1.5px solid rgba(255,255,255,.2)}
-.btn-ghost:hover{background:rgba(255,255,255,.14);transform:translateY(-2px)}
-.btn-outline-yellow{background:transparent;color:var(--yellow);border:2px solid var(--yellow)}
-.btn-outline-yellow:hover{background:var(--yellow);color:#04102B;transform:translateY(-2px)}
-.btn-full{width:100%}
-
-/* magnetic wrapper */
-.mag{display:inline-block}
-
-/* ── SPLIT TEXT ── */
-.split-word{display:inline-block;overflow:hidden;vertical-align:bottom}
+.noise{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px 128px}
+.progress-bar{position:fixed;top:0;left:0;z-index:1000;height:3px;width:0%;background:linear-gradient(90deg,var(--blue),var(--yellow));transition:width .1s linear}
+.nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:20px 0;transition:padding .4s var(--ease-out-expo),background .4s}
+.nav.pinned{padding:12px 0;background:rgba(4,16,43,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+@media(min-width:600px){.nav-inner{padding:0 32px}}
+.nav-logo img{height:32px;width:auto;filter:brightness(0) invert(1)}
+@media(min-width:600px){.nav-logo img{height:38px}}
+.nav-wpp{display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#fff;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:800;padding:9px 18px;border-radius:100px;box-shadow:0 4px 18px rgba(39,194,76,.4);transition:transform .25s var(--ease-out-expo),box-shadow .25s;white-space:nowrap}
+.nav-wpp:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(39,194,76,.5)}
+.nav-wpp svg{width:14px;height:14px;fill:#fff}
+.hero{min-height:100svh;background:var(--blue-deep);padding:100px 0 64px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none}
+.orb-1{width:700px;height:700px;background:rgba(0,71,198,.5);top:-220px;right:-180px;animation:orbMove 14s ease-in-out infinite}
+.orb-2{width:450px;height:450px;background:rgba(255,201,40,.1);bottom:-120px;left:-120px;animation:orbMove 20s ease-in-out infinite reverse 4s}
+.orb-3{width:300px;height:300px;background:rgba(39,194,76,.07);top:45%;left:32%;animation:orbMove 18s ease-in-out infinite 8s}
+@keyframes orbMove{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(35px,-25px) scale(1.07)}66%{transform:translate(-22px,18px) scale(.94)}}
+.hero-inner{max-width:1200px;margin:0 auto;padding:0 20px;position:relative;z-index:2}
+@media(min-width:600px){.hero-inner{padding:0 32px}}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:0}
+@media(min-width:900px){.hero-grid{grid-template-columns:1fr 1fr;column-gap:72px;align-items:center}}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;background:rgba(255,201,40,.1);border:1px solid rgba(255,201,40,.25);border-radius:100px;padding:8px 20px;font-size:.75rem;font-weight:800;color:var(--yellow);letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px;opacity:0}
+.eyebrow-dot{width:7px;height:7px;background:var(--yellow);border-radius:50%;animation:eyebrowPulse 2s infinite;flex-shrink:0}
+@keyframes eyebrowPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+.hero-headline{font-family:'Nunito',sans-serif;font-weight:900;font-size:clamp(2.8rem,9vw,6.5rem);line-height:.97;letter-spacing:-.03em;margin-bottom:24px}
+.hero-headline .line{display:block;overflow:hidden;padding:.18em 0 .06em;margin-top:-.18em}
 .split-char{display:inline-block;transform:translateY(110%)}
-
-/* ── SECTION BASE ── */
-section{position:relative;overflow:hidden}
-.container{max-width:1200px;margin:0 auto;padding:0 32px}
-@media(max-width:600px){.container{padding:0 20px}}
-
-/* ════════════════════════════════════════
-   HERO
-════════════════════════════════════════ */
-.hero{
-  min-height:100svh;
-  background:var(--blue-deep);
-  display:flex;flex-direction:column;
-  justify-content:center;
-  padding:120px 0 80px;
-}
-/* animated gradient orb */
-.hero-orb{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(120px);
-  pointer-events:none;
-}
-.orb-1{width:700px;height:700px;background:rgba(0,71,198,.55);top:-200px;right:-200px;animation:orbMove 14s ease-in-out infinite}
-.orb-2{width:500px;height:500px;background:rgba(255,201,40,.12);bottom:-100px;left:-150px;animation:orbMove 18s ease-in-out infinite reverse 3s}
-.orb-3{width:350px;height:350px;background:rgba(243,38,38,.1);top:40%;left:35%;animation:orbMove 22s ease-in-out infinite 6s}
-@keyframes orbMove{
-  0%,100%{transform:translate(0,0) scale(1)}
-  33%{transform:translate(40px,-30px) scale(1.08)}
-  66%{transform:translate(-25px,20px) scale(.94)}
-}
-
-/* eyebrow */
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:10px;
-  background:rgba(255,201,40,.1);
-  border:1px solid rgba(255,201,40,.25);
-  border-radius:100px;padding:8px 20px;
-  font-size:.8rem;font-weight:800;
-  color:var(--yellow);letter-spacing:.08em;text-transform:uppercase;
-  margin-bottom:32px;opacity:0;
-}
-.eyebrow-dot{width:7px;height:7px;background:var(--yellow);border-radius:50%;animation:eyebrowPulse 2s infinite}
-@keyframes eyebrowPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
-
-/* headline */
-.hero-headline{
-  font-family:'Nunito',sans-serif;
-  font-weight:900;
-  font-size:clamp(3.5rem,9vw,8rem);
-  line-height:1.08;
-  letter-spacing:-.03em;
-  margin-bottom:32px;
-}
-.hero-headline .line{display:block;overflow:hidden;padding-bottom:.08em}
 .accent-yellow{color:var(--yellow)}
-.accent-red{color:var(--red)}
-
-/* sub */
-.hero-sub{
-  font-size:clamp(1rem,2vw,1.2rem);
-  color:rgba(255,255,255,.65);
-  line-height:1.7;
-  max-width:500px;
-  margin-bottom:44px;
-  opacity:0;transform:translateY(24px);
-}
-
-/* ctas */
-.hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:56px;opacity:0;transform:translateY(20px)}
-
-/* scarcity pill */
-.scarcity{
-  display:inline-flex;align-items:center;gap:10px;
-  background:rgba(243,38,38,.12);
-  border:1px solid rgba(243,38,38,.3);
-  border-radius:100px;padding:10px 20px;
-  font-size:.82rem;font-weight:700;color:#ff8a8a;
-  opacity:0;
-}
-
-/* hero layout — flat grid */
-.hero-brand{display:block;margin-bottom:20px}
-.hero-brand img{height:48px;width:auto;filter:brightness(0) invert(1)}
-.hero-grid{display:grid;grid-template-columns:1fr;row-gap:0;position:relative;z-index:2}
-@media(min-width:900px){
-  .hero-grid{
-    grid-template-columns:1fr 1fr;
-    grid-template-areas:
-      "brand  visual"
-      "eyebrow visual"
-      "headline visual"
-      "sub    visual"
-      "ctas   visual"
-      "scarcity visual";
-    column-gap:80px;
-  }
-  .hero-brand   {grid-area:brand}
-  .hero-eyebrow {grid-area:eyebrow}
-  .hero-headline{grid-area:headline}
-  .hero-visual  {grid-area:visual;align-self:center}
-  .hero-sub     {grid-area:sub}
-  .hero-ctas    {grid-area:ctas}
-  #heroScarcity {grid-area:scarcity}
-}
-
-.hero-visual{position:relative;opacity:0;transform:translateY(40px)}
-.hero-img-frame{
-  border-radius:40% 60% 55% 45% / 45% 40% 60% 55%;
-  overflow:hidden;
-  aspect-ratio:4/5;
-  background:linear-gradient(135deg,rgba(0,71,198,.4),rgba(255,201,40,.2));
-  box-shadow:0 40px 100px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.08);
-  animation:morphFrame 10s ease-in-out infinite;
-}
-@keyframes morphFrame{
-  0%,100%{border-radius:40% 60% 55% 45% / 45% 40% 60% 55%}
-  25%{border-radius:55% 45% 40% 60% / 60% 55% 45% 40%}
-  50%{border-radius:45% 55% 60% 40% / 40% 60% 55% 45%}
-  75%{border-radius:60% 40% 45% 55% / 55% 45% 40% 60%}
-}
-.hero-img-inner{
-  width:100%;height:100%;
-  display:block;
-  min-height:400px;
-}
-.hero-img-inner img{
-  width:100%;height:100%;
-  object-fit:cover;display:block;
-}
-
-/* floating badges */
-.badge-float{
-  position:absolute;
-  background:rgba(255,255,255,.95);
-  backdrop-filter:blur(20px);
-  border-radius:16px;padding:14px 18px;
-  box-shadow:0 20px 60px rgba(0,0,0,.3);
-  display:flex;align-items:center;gap:12px;
-  color:#04102B;
-}
-.badge-float .icon{font-size:1.6rem}
-.badge-float .text{line-height:1.2}
-.badge-float .text strong{display:block;font-size:.88rem;font-weight:800}
-.badge-float .text span{font-size:.75rem;color:#6b7a99}
-.bf-1{bottom:24px;left:-28px;animation:badgeFloat 5s ease-in-out infinite}
-.bf-2{top:28px;right:-20px;animation:badgeFloat 6.5s ease-in-out infinite 1.5s}
-@media(max-width:900px){.bf-1{left:12px;bottom:12px}.bf-2{right:12px;top:12px}}
-@keyframes badgeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-
-/* scroll indicator */
-.scroll-hint{
-  display:flex;align-items:center;gap:12px;
-  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
-  font-size:.75rem;font-weight:700;color:rgba(255,255,255,.35);
-  letter-spacing:.1em;text-transform:uppercase;
-  opacity:0;
-}
-.scroll-line{
-  width:40px;height:1px;
-  background:rgba(255,255,255,.2);
-  position:relative;overflow:hidden;
-}
-.scroll-line::after{
-  content:'';position:absolute;
-  top:0;left:-100%;width:100%;height:100%;
-  background:#fff;
-  animation:scrollLine 2s ease-in-out infinite 1s;
-}
-@keyframes scrollLine{0%{left:-100%}100%{left:100%}}
-
-/* ════════════════════════════════════════
-   MARQUEE TICKER
-════════════════════════════════════════ */
-.ticker{
-  background:var(--yellow);
-  padding:18px 0;overflow:hidden;
-  white-space:nowrap;
-}
-.ticker-track{
-  display:inline-flex;gap:0;
-  animation:tickerScroll 30s linear infinite;
-}
-.ticker-item{
-  display:inline-flex;align-items:center;gap:12px;
-  padding:0 40px;
-  font-family:'Nunito',sans-serif;
-  font-weight:900;font-size:.88rem;
-  color:#04102B;letter-spacing:.02em;
-  text-transform:uppercase;
-}
-.ticker-sep{width:6px;height:6px;background:#04102B;border-radius:50%;opacity:.4}
-@keyframes tickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.hero-sub{font-size:clamp(1rem,2.5vw,1.15rem);color:rgba(255,255,255,.65);line-height:1.75;max-width:480px;margin-bottom:28px;opacity:0;transform:translateY(20px)}
+.hero-visual{position:relative;margin-bottom:28px;opacity:0;transform:translateY(30px)}
+@media(min-width:900px){.hero-visual{margin-bottom:0}}
+.hero-img-frame{border-radius:40% 60% 55% 45% / 45% 40% 60% 55%;overflow:hidden;aspect-ratio:4/5;max-width:380px;margin:0 auto;box-shadow:0 40px 100px rgba(0,0,0,.55),inset 0 0 0 1.5px rgba(255,255,255,.08);animation:morphFrame 10s ease-in-out infinite}
+@media(min-width:480px){.hero-img-frame{max-width:420px}}
+@media(min-width:900px){.hero-img-frame{max-width:none;aspect-ratio:4/5}}
+@keyframes morphFrame{0%,100%{border-radius:40% 60% 55% 45% / 45% 40% 60% 55%}25%{border-radius:55% 45% 40% 60% / 60% 55% 45% 40%}50%{border-radius:45% 55% 60% 40% / 40% 60% 55% 45%}75%{border-radius:60% 40% 45% 55% / 55% 45% 40% 60%}}
+.hero-img-frame img{width:100%;height:100%;object-fit:cover;display:block}
+.badge-float{position:absolute;background:rgba(255,255,255,.94);backdrop-filter:blur(20px);border-radius:16px;padding:12px 16px;box-shadow:0 18px 48px rgba(0,0,0,.28);display:flex;align-items:center;gap:10px;color:#04102B}
+.badge-float .icon{font-size:1.4rem;flex-shrink:0}
+.badge-float .text strong{display:block;font-size:.82rem;font-weight:800;line-height:1.2}
+.badge-float .text span{font-size:.7rem;color:#6b7a99}
+.bf-ing{bottom:-12px;right:8px;animation:badgeFloat 5.5s ease-in-out infinite}
+.bf-book{top:20px;left:-8px;animation:badgeFloat 6.5s ease-in-out infinite 1.2s}
+@media(min-width:480px){.bf-ing{right:16px}.bf-book{left:-16px}}
+@keyframes badgeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.hero-ctas{display:flex;flex-direction:column;gap:12px;max-width:440px;margin-bottom:20px;opacity:0;transform:translateY(16px)}
+@media(min-width:480px){.hero-ctas{flex-direction:row}}
+.hero-scarcity{display:inline-flex;align-items:center;gap:8px;background:rgba(243,38,38,.1);border:1px solid rgba(243,38,38,.25);border-radius:100px;padding:8px 18px;font-size:.78rem;font-weight:700;color:#ff8a8a;opacity:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:'Nunito',sans-serif;font-weight:800;border-radius:100px;border:none;transition:transform .3s var(--ease-out-expo),box-shadow .3s;position:relative;overflow:hidden;white-space:nowrap;cursor:pointer}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.12);opacity:0;transition:opacity .2s}
+.btn:hover::after{opacity:1}
+.btn-red{background:var(--red);color:#fff;box-shadow:0 8px 28px rgba(243,38,38,.4)}
+.btn-red:hover{box-shadow:0 14px 40px rgba(243,38,38,.55);transform:translateY(-3px)}
+.btn-red:active{transform:scale(.97)}
+.btn-ghost{background:rgba(255,255,255,.07);color:#fff;border:1.5px solid rgba(255,255,255,.2)}
+.btn-ghost:hover{background:rgba(255,255,255,.13);transform:translateY(-2px)}
+.btn-lg{font-size:1rem;padding:17px 36px}
+.btn-md{font-size:.92rem;padding:14px 28px}
+.btn-full{width:100%;border-radius:14px}
+.ticker{background:var(--yellow);padding:17px 0;overflow:hidden;white-space:nowrap;border-top:2px solid rgba(4,16,43,.08)}
+.ticker-track{display:inline-flex;animation:tickerScroll 28s linear infinite}
 .ticker:hover .ticker-track{animation-play-state:paused}
-
-/* ════════════════════════════════════════
-   SECTION — EMPATHY  (light bg)
-════════════════════════════════════════ */
-.s-empathy{background:var(--offwhite);color:#04102B;padding:80px 0}
-.eyebrow-dark{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(0,71,198,.08);border:1px solid rgba(0,71,198,.15);
-  border-radius:100px;padding:6px 16px;
-  font-size:.75rem;font-weight:800;color:var(--blue);
-  letter-spacing:.08em;text-transform:uppercase;
-  margin-bottom:20px;
-}
-.section-title{
-  font-family:'Nunito',sans-serif;
-  font-weight:900;
-  font-size:clamp(2rem,5vw,3.5rem);
-  line-height:1.08;
-  letter-spacing:-.02em;
-}
-.empathy-grid{
-  display:grid;gap:64px;
-  grid-template-columns:1fr;
-  align-items:center;
-}
-@media(min-width:900px){.empathy-grid{grid-template-columns:1fr 1fr}}
-
-.empathy-text .section-title{margin-bottom:20px}
-.empathy-text p{
-  font-size:1.1rem;color:#4a5568;
-  line-height:1.75;max-width:460px;
-  margin-bottom:36px;
-}
-.e-cards{display:flex;flex-direction:column;gap:16px}
-.e-card{
-  background:#fff;
-  border-radius:20px;
-  padding:28px;
-  display:flex;align-items:flex-start;gap:18px;
-  box-shadow:0 2px 24px rgba(0,71,198,.07);
-  border:1.5px solid rgba(0,71,198,.06);
-  transition:transform .4s var(--ease-out-expo),box-shadow .4s;
-}
-.e-card:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 16px 48px rgba(0,71,198,.14)}
-.e-icon{
-  width:52px;height:52px;border-radius:14px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.5rem;flex-shrink:0;
-}
-.e-icon.y{background:rgba(255,201,40,.15)}
-.e-icon.b{background:rgba(0,71,198,.1)}
-.e-icon.g{background:rgba(39,194,76,.12)}
-.e-body h3{font-size:1rem;font-weight:800;margin-bottom:6px;color:#04102B}
-.e-body p{font-size:.88rem;color:#6b7a99;line-height:1.55}
-
-/* ════════════════════════════════════════
-   SECTION — ATIVIDADES  (dark)
-════════════════════════════════════════ */
-.s-activities{background:#04102B;padding:80px 0}
-.act-header{text-align:center;margin-bottom:48px}
-.act-header p{font-size:1.05rem;color:rgba(255,255,255,.5);max-width:500px;margin:16px auto 0;line-height:1.65}
-
-.act-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
-}
-@media(min-width:600px){.act-grid{grid-template-columns:repeat(3,1fr)}}
-@media(min-width:900px){.act-grid{grid-template-columns:repeat(4,1fr)}}
-
-.act-card{
-  border-radius:24px;
-  padding:32px 24px;
-  display:flex;flex-direction:column;gap:14px;
-  transition:transform .4s var(--ease-out-expo);
-  transform-style:preserve-3d;
-  position:relative;
-}
-.act-card .icon{font-size:2rem}
-.act-card h3{font-family:'Nunito',sans-serif;font-weight:900;font-size:.95rem}
-.act-card p{font-size:.8rem;line-height:1.55;opacity:.65}
-.ac-1{background:rgba(0,71,198,.35);border:1px solid rgba(0,71,198,.5)}
-.ac-2{background:rgba(255,201,40,.45);border:1px solid rgba(255,201,40,.6);color:#04102B}
-.ac-2 h3,.ac-2 p{color:#04102B}
-.ac-2 p{opacity:.8}
-.ac-3{background:rgba(39,194,76,.28);border:1px solid rgba(39,194,76,.4)}
-.ac-4{background:rgba(243,38,38,.25);border:1px solid rgba(243,38,38,.4)}
-.ac-5{background:rgba(255,201,40,.3);border:1px solid rgba(255,201,40,.45)}
-.ac-6{background:rgba(0,71,198,.3);border:1px solid rgba(0,71,198,.45)}
-.ac-7{background:rgba(243,38,38,.2);border:1px solid rgba(243,38,38,.35)}
-.ac-8{background:rgba(39,194,76,.25);border:1px solid rgba(39,194,76,.38)}
-
-/* pinned large card */
-.act-card.wide{
-  background:linear-gradient(135deg,var(--blue) 0%,#0056e0 100%);
-  border:none;
-  grid-column:span 2;
-}
-@media(min-width:900px){.act-card.wide{grid-column:span 1}}
-.act-card.wide h3,.act-card.wide p{color:#fff}
-.act-card.wide p{opacity:.75}
-
-/* ════════════════════════════════════════
-   SECTION — INGLÊS  (split)
-════════════════════════════════════════ */
-.s-english{background:var(--offwhite);color:#04102B;padding:80px 0}
-.eng-grid{
-  display:grid;gap:80px;
-  grid-template-columns:1fr;align-items:center;
-}
-@media(min-width:900px){.eng-grid{grid-template-columns:1fr 1fr}}
-.eng-visual{
-  background:linear-gradient(135deg,var(--blue) 0%,#0056E0 100%);
-  border-radius:40px;
-  padding:48px 32px;
-  color:#fff;
-  position:relative;overflow:hidden;
-}
-@media(min-width:600px){.eng-visual{padding:64px 48px}}
-.eng-visual::before{
-  content:'';position:absolute;
-  width:350px;height:350px;
-  background:rgba(255,201,40,.12);
-  border-radius:50%;top:-100px;right:-80px;
-  filter:blur(60px);
-}
-.eng-big-num{
-  font-family:'Nunito',sans-serif;
-  font-weight:900;font-size:6rem;
-  color:rgba(255,255,255,.08);
-  line-height:1;position:relative;z-index:1;
-  margin-bottom:-20px;
-}
-.eng-visual h3{font-family:'Nunito',sans-serif;font-weight:900;font-size:2rem;margin-bottom:12px;position:relative;z-index:1}
-.eng-visual p{font-size:.95rem;color:rgba(255,255,255,.75);line-height:1.7;position:relative;z-index:1}
-.eng-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;position:relative;z-index:1}
-.eng-tag{
-  background:rgba(255,255,255,.12);
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:100px;padding:7px 16px;
-  font-size:.8rem;font-weight:700;
-}
-.eng-text .section-title{margin-bottom:16px}
-.eng-text p{font-size:1.05rem;color:#4a5568;line-height:1.75;margin-bottom:32px}
-.check-list{list-style:none;display:flex;flex-direction:column;gap:14px}
-.check-list li{
-  display:flex;align-items:flex-start;gap:14px;
-  font-size:.95rem;font-weight:600;color:#04102B;
-}
-.check-list li::before{
-  content:'✓';width:24px;height:24px;
-  background:var(--green);color:#fff;
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:.72rem;font-weight:900;flex-shrink:0;margin-top:2px;
-}
-
-/* ════════════════════════════════════════
-   SECTION — DIFERENCIAIS  (dark)
-════════════════════════════════════════ */
-.s-dif{background:#04102B;padding:80px 0}
-.dif-header{text-align:center;margin-bottom:48px}
-.dif-header p{font-size:1.05rem;color:rgba(255,255,255,.45);max-width:480px;margin:16px auto 0;line-height:1.65}
-.dif-grid{
-  display:grid;gap:20px;
-  grid-template-columns:1fr;
-}
-@media(min-width:600px){.dif-grid{grid-template-columns:repeat(2,1fr)}}
+.ticker-item{display:inline-flex;align-items:center;gap:10px;padding:0 36px;font-family:'Nunito',sans-serif;font-weight:900;font-size:.85rem;color:#04102B;letter-spacing:.02em;text-transform:uppercase}
+.ticker-sep{width:5px;height:5px;background:#04102B;border-radius:50%;opacity:.35}
+@keyframes tickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+section{position:relative;overflow:hidden}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+@media(min-width:600px){.container{padding:0 32px}}
+.section-label{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+.sl-yellow{color:var(--yellow)}.sl-blue{color:var(--blue)}.sl-muted-light{color:rgba(255,255,255,.45)}
+.section-title{font-family:'Nunito',sans-serif;font-weight:900;font-size:clamp(1.9rem,5vw,3.2rem);line-height:1.08;letter-spacing:-.02em;margin-bottom:16px}
+.st-light{color:#fff}.st-dark{color:#04102B}
+.section-body{font-size:1rem;line-height:1.75;margin-bottom:24px}
+.sb-light{color:rgba(255,255,255,.6)}.sb-dark{color:#4a5568}
+.gsap-reveal{opacity:0;transform:translateY(32px)}
+/* S-MIRROR */
+.s-mirror{background:#04102B;padding:96px 0}
+.mirror-orb{position:absolute;width:500px;height:500px;background:rgba(0,71,198,.12);border-radius:50%;filter:blur(100px);bottom:-200px;right:-120px;pointer-events:none}
+.mirror-grid{display:grid;gap:56px;align-items:center}
+@media(min-width:900px){.mirror-grid{grid-template-columns:1fr 1fr}}
+.pillar-list{display:flex;flex-direction:column;gap:14px;margin-top:32px}
+.pillar-card{display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:22px 20px;transition:background .3s,border-color .3s,transform .4s var(--ease-out-expo)}
+.pillar-card:hover{background:rgba(255,255,255,.09);border-color:rgba(0,71,198,.4);transform:translateX(6px)}
+.pillar-icon-wrap{flex-shrink:0;width:46px;height:46px;border-radius:13px;background:rgba(255,201,40,.15);display:flex;align-items:center;justify-content:center}
+.pillar-icon{width:22px;height:22px;color:var(--yellow)}
+.pillar-title{font-size:1rem;font-weight:800;color:#fff;margin-bottom:5px}
+.pillar-desc{font-size:.86rem;color:rgba(255,255,255,.58);line-height:1.6}
+.stat-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.07);border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.08);margin-top:40px}
+.stat-cell{background:#04102B;padding:24px 20px;text-align:center}
+.stat-num{font-family:'Nunito',sans-serif;font-weight:900;font-size:1.6rem;color:var(--yellow);display:block;line-height:1;margin-bottom:6px}
+.stat-label{font-size:.75rem;color:rgba(255,255,255,.45);font-weight:600;line-height:1.35}
+/* S-GALLERY */
+.s-gallery{background:var(--offwhite);color:#04102B;padding:96px 0}
+.gallery-head{text-align:center;margin-bottom:40px}
+.gallery-carousel{position:relative;width:100%;max-width:460px;margin:0 auto;aspect-ratio:4/5;border-radius:28px;overflow:hidden;box-shadow:0 32px 80px rgba(4,16,43,.18);border:3px solid var(--blue);outline:3px solid var(--yellow);outline-offset:3px}
+.gallery-slide{position:absolute;inset:0;opacity:0;transform:scale(1.05);transition:opacity .8s ease,transform .8s ease}
+.gallery-slide.active{opacity:1;transform:scale(1);z-index:1}
+.gallery-slide img{width:100%;height:100%;object-fit:cover}
+.gallery-dots{display:flex;justify-content:center;gap:9px;margin-top:16px}
+.gallery-dot{width:8px;height:8px;border-radius:50%;background:rgba(4,16,43,.18);border:none;padding:0;cursor:pointer;transition:background .2s,transform .2s}
+.gallery-dot.active{background:var(--red);transform:scale(1.3)}
+/* S-INGLES */
+.s-ingles{background:#04102B;padding:96px 0}
+.ingles-orb{position:absolute;width:450px;height:450px;background:rgba(0,71,198,.14);border-radius:50%;filter:blur(90px);top:-100px;left:-100px;pointer-events:none}
+.ingles-grid{display:grid;gap:56px;align-items:center}
+@media(min-width:800px){.ingles-grid{grid-template-columns:1fr 1fr}}
+.lang-visual{display:flex;justify-content:center;align-items:center;position:relative;min-height:280px}
+.lang-glow{position:absolute;width:260px;height:260px;background:rgba(0,71,198,.3);border-radius:50%;filter:blur(70px);animation:langGlow 5s ease-in-out infinite}
+@keyframes langGlow{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.85;transform:scale(1.12)}}
+.lang-bubble-wrap{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:13px;justify-content:center;max-width:320px}
+.lang-bubble{display:inline-flex;align-items:center;gap:8px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;padding:14px 22px;border-radius:100px;border:1.5px solid}
+.lb-1{background:rgba(255,201,40,.12);border-color:rgba(255,201,40,.4);color:#fff;animation:badgeFloat 5.5s ease-in-out infinite 0s}
+.lb-2{background:rgba(0,71,198,.2);border-color:rgba(0,71,198,.5);color:#fff;animation:badgeFloat 6.5s ease-in-out infinite .8s}
+.lb-3{background:rgba(39,194,76,.12);border-color:rgba(39,194,76,.4);color:#fff;animation:badgeFloat 5s ease-in-out infinite 1.5s}
+.lb-4{background:rgba(243,38,38,.1);border-color:rgba(243,38,38,.35);color:#fff;animation:badgeFloat 7s ease-in-out infinite .4s}
+.lb-5{background:rgba(255,201,40,.08);border-color:rgba(255,201,40,.3);color:#fff;animation:badgeFloat 6s ease-in-out infinite 1.2s}
+.benefit-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.benefit-item{display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:18px 18px;transition:background .25s,transform .3s var(--ease-out-expo)}
+.benefit-item:hover{background:rgba(255,255,255,.09);transform:translateX(4px)}
+.benefit-icon{flex-shrink:0;width:42px;height:42px;border-radius:11px;background:rgba(0,71,198,.3);display:flex;align-items:center;justify-content:center}
+.benefit-icon svg{width:19px;height:19px;stroke:var(--yellow);stroke-width:2;fill:none}
+.benefit-title{font-size:.93rem;font-weight:800;color:#fff;margin-bottom:3px}
+.benefit-desc{font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.55}
+/* S-DEV */
+.s-dev{background:var(--offwhite);color:#04102B;padding:96px 0}
+.dev-head{text-align:center;margin-bottom:40px}
+.act-scroll{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;margin:0 -20px;padding:4px 20px 10px;scrollbar-width:none}
+.act-scroll::-webkit-scrollbar{display:none}
+@media(min-width:600px){.act-scroll{display:grid;grid-template-columns:repeat(2,1fr);overflow:visible;margin:0;padding:0}}
+@media(min-width:900px){.act-scroll{grid-template-columns:repeat(4,1fr)}}
+.act-card{flex:0 0 68%;scroll-snap-align:center;background:#fff;border:1px solid rgba(4,16,43,.08);border-radius:18px;padding:22px 18px;box-shadow:0 4px 20px rgba(4,16,43,.07);transition:transform .35s var(--ease-out-expo),box-shadow .35s}
+.act-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(4,16,43,.14)}
+.act-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.act-icon svg{width:20px;height:20px;stroke-width:1.75;fill:none}
+.ai-y{background:rgba(255,201,40,.15)}.ai-y svg{stroke:var(--blue)}
+.ai-g{background:rgba(39,194,76,.12)}.ai-g svg{stroke:var(--green)}
+.ai-b{background:rgba(0,71,198,.1)}.ai-b svg{stroke:var(--blue)}
+.ai-r{background:rgba(243,38,38,.08)}.ai-r svg{stroke:var(--red)}
+.act-card h3{font-size:.92rem;font-weight:800;color:#04102B;margin-bottom:5px}
+.act-card p{font-size:.8rem;color:#6b7a99;line-height:1.55}
+.dev-note{margin-top:28px;background:#fff;border:1px solid rgba(4,16,43,.08);border-left:4px solid var(--blue);border-radius:16px;padding:22px 22px;box-shadow:0 4px 20px rgba(4,16,43,.06)}
+.dev-note h4{font-size:1rem;font-weight:800;color:var(--blue);margin-bottom:7px}
+.dev-note p{font-size:.88rem;color:#6b7a99;line-height:1.7}
+/* S-DIF */
+.s-dif{background:#04102B;padding:96px 0}
+.dif-head{text-align:center;margin-bottom:48px}
+.dif-grid{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:600px){.dif-grid{grid-template-columns:1fr 1fr}}
 @media(min-width:900px){.dif-grid{grid-template-columns:repeat(3,1fr)}}
-
-.dif-card{
-  background:rgba(255,255,255,.09);
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:28px;padding:40px 32px;
-  transition:transform .4s var(--ease-out-expo),background .3s,border-color .3s,box-shadow .3s;
-  position:relative;overflow:hidden;
-}
-.dif-card::after{
-  content:'';position:absolute;
-  inset:0;opacity:0;
-  background:linear-gradient(135deg,rgba(0,71,198,.15),rgba(255,201,40,.06));
-  transition:opacity .3s;
-}
-.dif-card:hover{
-  transform:translateY(-8px);
-  background:rgba(255,255,255,.07);
-  border-color:rgba(0,71,198,.35);
-  box-shadow:0 24px 60px rgba(0,0,0,.3);
-}
-.dif-card:hover::after{opacity:1}
-.dif-card .icon{font-size:2.4rem;margin-bottom:20px;display:block;position:relative;z-index:1}
-.dif-card h3{font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:900;margin-bottom:10px;position:relative;z-index:1}
-.dif-card p{font-size:.88rem;color:rgba(255,255,255,.5);line-height:1.65;position:relative;z-index:1}
-.dif-card.featured{
-  background:var(--yellow);
-  border-color:transparent;
-}
+.dif-card{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:32px 28px;transition:transform .4s var(--ease-out-expo),background .3s,border-color .3s,box-shadow .3s;position:relative;overflow:hidden}
+.dif-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,71,198,.12),rgba(255,201,40,.04));opacity:0;transition:opacity .3s}
+.dif-card:hover{transform:translateY(-7px);background:rgba(255,255,255,.08);border-color:rgba(0,71,198,.4);box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.dif-card:hover::before{opacity:1}
+.dif-card.featured{background:var(--yellow);border-color:transparent}
+.dif-card.featured::before{display:none}
+.dif-card.featured:hover{box-shadow:0 24px 60px rgba(255,201,40,.25)}
+.dif-icon{font-size:2.2rem;margin-bottom:18px;display:block;position:relative;z-index:1}
+.dif-card h3{font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:900;margin-bottom:8px;position:relative;z-index:1}
+.dif-card p{font-size:.85rem;line-height:1.65;position:relative;z-index:1}
+.dif-card:not(.featured) h3{color:#fff}
+.dif-card:not(.featured) p{color:rgba(255,255,255,.5)}
 .dif-card.featured h3,.dif-card.featured p{color:#04102B}
 .dif-card.featured p{opacity:.75}
-.dif-card.featured:hover{box-shadow:0 24px 60px rgba(255,201,40,.25)}
-.dif-card.featured::after{display:none}
-
-/* ════════════════════════════════════════
-   SECTION — DEPOIMENTOS MARQUEE  (light)
-════════════════════════════════════════ */
-.s-testimonials{background:var(--offwhite);color:#04102B;padding:80px 0}
-.test-header{text-align:center;margin-bottom:48px}
-.test-header p{font-size:1.05rem;color:#6b7a99;max-width:480px;margin:16px auto 0}
-
-.test-marquee{overflow:clip;margin:0 -32px}
-.test-track{
-  display:flex;gap:24px;
-  animation:testScroll 40s linear infinite;
-  width:max-content;
-}
-.test-marquee:hover .test-track{animation-play-state:paused}
-@keyframes testScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-.t-card{
-  background:#fff;
-  border-radius:24px;padding:32px;
-  width:360px;flex-shrink:0;
-  border:1.5px solid rgba(0,71,198,.07);
-  box-shadow:0 4px 24px rgba(0,71,198,.06);
-  transition:transform .3s var(--ease-out-expo),box-shadow .3s;
-}
-.t-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,71,198,.12)}
-.stars{color:var(--yellow);font-size:.88rem;letter-spacing:3px;margin-bottom:16px}
-.t-card blockquote{
-  font-size:1rem;font-style:italic;
-  color:#1a2840;line-height:1.65;
-  font-weight:600;margin-bottom:24px;
-}
-.t-author{display:flex;align-items:center;gap:12px}
-.t-avatar{
-  width:44px;height:44px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-size:1.2rem;
-  flex-shrink:0;
-}
-.av-y{background:rgba(255,201,40,.2)}
-.av-b{background:rgba(0,71,198,.1)}
-.av-g{background:rgba(39,194,76,.15)}
-.t-info h4{font-size:.88rem;font-weight:800;color:#04102B}
-.t-info span{font-size:.78rem;color:#9aabb0}
-
-/* ════════════════════════════════════════
-   SECTION — NÚMEROS / TRUST  (dark)
-════════════════════════════════════════ */
-.s-trust{background:#04102B;padding:80px 0}
-.trust-grid{
-  display:grid;
-  grid-template-columns:1fr;gap:80px;align-items:center;
-}
-@media(min-width:900px){.trust-grid{grid-template-columns:1fr 1fr}}
-.trust-text .section-title{margin-bottom:16px}
-.trust-text p{font-size:1.05rem;color:rgba(255,255,255,.55);line-height:1.75;margin-bottom:32px}
-.t-list{list-style:none;display:flex;flex-direction:column;gap:16px}
-.t-item{display:flex;align-items:center;gap:14px;font-size:.95rem;font-weight:700}
-.t-ico{
-  width:44px;height:44px;
-  background:rgba(255,255,255,.05);
-  border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;flex-shrink:0;
-}
-
-.stats-box{
-  background:rgba(0,71,198,.2);
-  border:1px solid rgba(0,71,198,.35);
-  border-radius:32px;padding:48px 40px;
-}
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
-.stat{text-align:center}
-.stat-num{
-  font-family:'Nunito',sans-serif;font-weight:900;
-  font-size:3.5rem;color:var(--yellow);
-  display:block;line-height:1;
-}
-.stat-label{font-size:.82rem;color:rgba(255,255,255,.5);font-weight:600;margin-top:8px;display:block}
-
-/* ════════════════════════════════════════
-   SECTION — ESCASSEZ  (blue)
-════════════════════════════════════════ */
-.s-escassez{
-  background:linear-gradient(135deg,#0047C6 0%,#0056E0 50%,#003DA3 100%);
-  padding:72px 0;
-}
-.esc-inner{text-align:center;max-width:640px;margin:0 auto}
-.esc-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(243,38,38,.2);border:1px solid rgba(243,38,38,.4);
-  border-radius:100px;padding:8px 20px;
-  font-size:.8rem;font-weight:800;color:#ff8a8a;
-  margin-bottom:28px;letter-spacing:.06em;text-transform:uppercase;
-}
-.s-escassez .section-title{color:#fff;margin-bottom:16px}
-.s-escassez p{font-size:1.1rem;color:rgba(255,255,255,.7);line-height:1.65;margin-bottom:40px}
-.esc-ctas{display:flex;flex-direction:column;gap:14px;align-items:center}
-@media(min-width:480px){.esc-ctas{flex-direction:row;justify-content:center}}
-
-/* ════════════════════════════════════════
-   SECTION — FAQ
-════════════════════════════════════════ */
-.s-faq{background:#04102B;padding:80px 0}
-.faq-wrap{max-width:720px;margin:40px auto 0;display:flex;flex-direction:column;gap:12px}
-.faq-item{
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:18px;overflow:hidden;
-  transition:border-color .3s;
-}
-.faq-item.open{border-color:rgba(0,71,198,.4)}
-.faq-q{
-  width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;
-  padding:22px 24px;
-  font-family:'Nunito',sans-serif;font-weight:800;font-size:.97rem;
-  color:#fff;text-align:left;background:none;border:none;
-  transition:color .2s;
-}
+/* S-TESTIMONIALS */
+.s-testimonials{background:var(--offwhite);color:#04102B;padding:96px 0}
+.test-head{text-align:center;margin-bottom:48px}
+.test-scroll{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;margin:0 -20px;padding:4px 20px 12px;scrollbar-width:none}
+.test-scroll::-webkit-scrollbar{display:none}
+@media(min-width:900px){.test-scroll{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible;margin:0;padding:0}}
+.t-card{flex:0 0 calc(90% - 20px);scroll-snap-align:center;background:#fff;border:1.5px solid rgba(4,16,43,.07);border-left:4px solid var(--yellow);border-radius:20px;padding:28px 24px;box-shadow:0 4px 24px rgba(4,16,43,.07);transition:transform .35s var(--ease-out-expo),box-shadow .35s}
+.t-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(4,16,43,.12)}
+.t-stars{color:var(--yellow);font-size:.88rem;letter-spacing:2px;margin-bottom:14px}
+.t-header-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.t-avatar{width:44px;height:44px;border-radius:50%;background:rgba(0,71,198,.1);color:var(--blue);font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.t-name{font-size:.9rem;font-weight:700;color:#04102B}
+.t-meta{font-size:.75rem;color:#9aabb0;margin-top:2px}
+.t-quote{font-size:.95rem;color:#4a5568;line-height:1.7;font-style:italic}
+/* S-CONVERT */
+.s-convert{background:linear-gradient(135deg,#0047C6 0%,#0056E0 50%,#003DA3 100%);padding:96px 0;position:relative;overflow:hidden}
+.convert-orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.co-1{width:500px;height:500px;background:rgba(255,201,40,.12);top:-200px;right:-120px}
+.co-2{width:350px;height:350px;background:rgba(39,194,76,.1);bottom:-100px;left:-80px}
+.convert-inner{max-width:560px;margin:0 auto;text-align:center;position:relative;z-index:2}
+.urgency-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(243,38,38,.2);border:1px solid rgba(243,38,38,.4);border-radius:100px;padding:7px 18px;font-size:.73rem;font-weight:800;color:#ff8a8a;letter-spacing:.06em;text-transform:uppercase;margin-bottom:22px;animation:pulseBadge 2.5s ease-in-out infinite}
+@keyframes pulseBadge{0%,100%{box-shadow:none}50%{box-shadow:0 0 0 10px rgba(243,38,38,.07)}}
+.convert-title{font-family:'Nunito',sans-serif;font-weight:900;font-size:clamp(1.9rem,5vw,2.8rem);color:#fff;line-height:1.1;letter-spacing:-.02em;margin-bottom:14px}
+.convert-sub{font-size:1.05rem;color:rgba(255,255,255,.72);line-height:1.7;margin-bottom:36px}
+.convert-card{background:rgba(255,255,255,.1);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.2);border-radius:24px;padding:32px 28px;display:flex;flex-direction:column;gap:13px}
+.btn-wpp-green{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:var(--green);color:#fff;font-family:'Nunito',sans-serif;font-size:1.05rem;font-weight:800;padding:17px 20px;border-radius:14px;border:none;box-shadow:0 8px 28px rgba(39,194,76,.45);transition:transform .25s var(--ease-out-expo),box-shadow .25s;cursor:pointer}
+.btn-wpp-green:hover{transform:translateY(-3px);box-shadow:0 14px 44px rgba(39,194,76,.6)}
+.btn-wpp-green:active{transform:scale(.98)}
+.btn-wpp-green svg{width:22px;height:22px;fill:#fff;flex-shrink:0}
+.btn-visit-white{display:flex;align-items:center;justify-content:center;width:100%;background:rgba(255,255,255,.12);color:#fff;font-family:'Nunito',sans-serif;font-size:.93rem;font-weight:700;padding:14px 20px;border-radius:12px;border:1.5px solid rgba(255,255,255,.28);transition:background .2s,transform .2s;cursor:pointer}
+.btn-visit-white:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+.convert-note{font-size:.78rem;color:rgba(255,255,255,.5);margin-top:4px}
+/* S-FAQ */
+.s-faq{background:#04102B;padding:96px 0}
+.faq-head{text-align:center;margin-bottom:40px}
+.faq-wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.faq-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:18px;overflow:hidden;transition:border-color .3s}
+.faq-item.open{border-color:rgba(0,71,198,.45)}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:22px 22px;background:none;border:none;text-align:left;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;color:#fff;cursor:pointer;transition:color .2s}
 .faq-q:hover{color:var(--yellow)}
-.faq-arr{
-  width:32px;height:32px;
-  background:rgba(255,255,255,.07);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.7rem;color:rgba(255,255,255,.5);
-  transition:transform .4s var(--ease-out-expo),background .3s,color .3s;
-  flex-shrink:0;
-}
-.faq-item.open .faq-arr{transform:rotate(180deg);background:var(--blue);color:#fff}
+.faq-arr{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;transition:transform .4s var(--ease-out-expo),background .3s}
+.faq-arr svg{width:14px;height:14px;stroke:#fff;stroke-width:2;fill:none}
+.faq-item.open .faq-arr{transform:rotate(180deg);background:var(--blue)}
 .faq-body{max-height:0;overflow:hidden;transition:max-height .45s var(--ease-in-out)}
-.faq-body-inner{padding:0 24px 22px;font-size:.92rem;color:rgba(255,255,255,.5);line-height:1.75}
-
-/* ════════════════════════════════════════
-   SECTION — FORM
-════════════════════════════════════════ */
-.s-form{background:var(--offwhite);color:#04102B;padding:80px 0}
-.form-wrap{max-width:620px;margin:0 auto}
-.form-header{text-align:center;margin-bottom:32px}
-.form-header p{font-size:1rem;color:#6b7a99;margin-top:12px;line-height:1.65}
-.form-box{
-  background:#fff;
-  border-radius:32px;padding:48px 40px;
-  box-shadow:0 24px 80px rgba(0,71,198,.1);
-}
-@media(max-width:480px){.form-box{padding:28px 20px;border-radius:24px}}
-.form-row{display:grid;grid-template-columns:1fr;gap:16px}
-@media(min-width:480px){.form-row{grid-template-columns:1fr 1fr}}
-.form-group{display:flex;flex-direction:column;gap:8px}
-.form-group.full{grid-column:1/-1}
-.form-label{font-size:.82rem;font-weight:800;color:#04102B;letter-spacing:.02em}
-.form-input,.form-select{
-  width:100%;padding:14px 18px;
-  border-radius:12px;
-  border:2px solid rgba(0,71,198,.1);
-  background:#F4F6FC;
-  font-family:'Nunito Sans',sans-serif;
-  font-size:.95rem;color:#04102B;
-  outline:none;appearance:none;
-  transition:border-color .2s,box-shadow .2s;
-}
-.form-input:focus,.form-select:focus{
-  border-color:var(--blue);
-  box-shadow:0 0 0 4px rgba(0,71,198,.1);
-  background:#fff;
-}
-.form-input::placeholder{color:rgba(107,122,153,.5)}
-.form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230047C6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:44px}
-.form-note{text-align:center;margin-top:14px;font-size:.78rem;color:#9aabb0}
-.form-note a{color:var(--blue);font-weight:700}
-
-/* ════════════════════════════════════════
-   SECTION — CTA FINAL
-════════════════════════════════════════ */
-.s-final{
-  background:var(--blue-deep);
-  padding:80px 0;
-  position:relative;overflow:hidden;
-}
-.final-orb{
-  position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;
-}
-.fo-1{width:500px;height:500px;background:rgba(0,71,198,.5);top:-150px;right:-100px}
-.fo-2{width:350px;height:350px;background:rgba(255,201,40,.1);bottom:-80px;left:-80px}
-.final-inner{text-align:center;max-width:680px;margin:0 auto;position:relative;z-index:2}
-.final-inner .section-title{font-size:clamp(2.5rem,7vw,5rem);color:#fff;margin-bottom:24px}
-.final-inner p{font-size:1.15rem;color:rgba(255,255,255,.65);line-height:1.65;margin-bottom:48px}
-.final-ctas{display:flex;flex-direction:column;gap:14px;align-items:center}
-@media(min-width:480px){.final-ctas{flex-direction:row;justify-content:center}}
-
-/* ════════════════════════════════════════
-   FOOTER
-════════════════════════════════════════ */
-.footer{background:#020D20;color:rgba(255,255,255,.55);padding:72px 0 32px}
-.footer-grid{display:grid;gap:48px;grid-template-columns:1fr;margin-bottom:56px}
-@media(min-width:600px){.footer-grid{grid-template-columns:2fr 1fr 1fr}}
-.footer-brand .logo{color:#fff;display:inline-block;margin-bottom:16px;font-size:1.3rem}
-.footer-brand p{font-size:.88rem;line-height:1.65;max-width:280px}
-.f-social{display:flex;gap:12px;margin-top:24px}
-.f-soc-btn{
-  width:38px;height:38px;
-  background:rgba(255,255,255,.07);
-  border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.95rem;
-  transition:background .2s,transform .2s;
-}
-.f-soc-btn:hover{background:var(--blue);transform:translateY(-2px)}
-.footer-col h4{
-  font-size:.75rem;font-weight:800;
-  letter-spacing:.1em;text-transform:uppercase;
-  color:#fff;margin-bottom:20px;
-}
-.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
-.footer-links a{font-size:.88rem;color:rgba(255,255,255,.45);transition:color .2s}
-.footer-links a:hover{color:var(--yellow)}
-.f-contact{list-style:none;display:flex;flex-direction:column;gap:12px}
-.f-contact li{display:flex;align-items:flex-start;gap:10px;font-size:.85rem;line-height:1.5}
-.f-contact li span:first-child{flex-shrink:0;margin-top:1px}
-.footer-bottom{
-  border-top:1px solid rgba(255,255,255,.06);
-  padding-top:28px;
-  display:flex;flex-direction:column;gap:10px;
-  align-items:center;text-align:center;
-}
-@media(min-width:600px){.footer-bottom{flex-direction:row;justify-content:space-between;text-align:left}}
-.footer-bottom p{font-size:.8rem}
-.footer-btm-links{display:flex;gap:20px}
-.footer-btm-links a{font-size:.8rem;color:rgba(255,255,255,.3);transition:color .2s}
-.footer-btm-links a:hover{color:#fff}
-
-
-/* ════════════════════════════════════════
-   STICKY MOBILE
-════════════════════════════════════════ */
-.sticky-bar{
-  position:fixed;bottom:0;left:0;right:0;z-index:400;
-  background:rgba(4,16,43,.96);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  padding:12px 16px;
-  display:flex;gap:12px;
-  border-top:1px solid rgba(255,255,255,.07);
-  box-shadow:0 -4px 24px rgba(0,0,0,.3);
-}
-.sticky-bar .btn{flex:1;font-size:.88rem;padding:13px 10px}
-@media(min-width:768px){.sticky-bar{display:none}}
-
-/* ════════════════════════════════════════
-   SCROLL PROGRESS
-════════════════════════════════════════ */
-.progress-bar{
-  position:fixed;top:0;left:0;z-index:600;
-  height:3px;width:0%;
-  background:linear-gradient(90deg,var(--blue),var(--yellow));
-  transition:width .1s linear;
-}
-
-/* ════════════════════════════════════════
-   UTILITY
-════════════════════════════════════════ */
-.text-center{text-align:center}
-.mb-20{margin-bottom:20px}
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
-
-/* stagger helper */
-.stagger>*{opacity:0;transform:translateY(32px)}
-
-/* ── GALERIA ── */
-.s-gallery{padding:72px 0;background:var(--offwhite);color:#04102B}
-.s-gallery .gallery-header{text-align:center;margin-bottom:40px}
-.gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
-}
-@media(min-width:768px){
-  .gallery-grid{grid-template-columns:repeat(4,1fr);gap:20px}
-}
-.gallery-item{
-  border-radius:20px;overflow:hidden;
-  aspect-ratio:3/4;
-  box-shadow:0 8px 32px rgba(4,16,43,.12);
-  transition:transform .4s var(--ease-out-expo),box-shadow .4s;
-}
-.gallery-item:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(4,16,43,.2)}
-.gallery-item img{
-  width:100%;height:100%;
-  object-fit:cover;display:block;
-  transition:transform .6s var(--ease-out-expo);
-}
-.gallery-item:hover img{transform:scale(1.05)}
+.faq-body-inner{padding:0 22px 20px;font-size:.9rem;color:rgba(255,255,255,.52);line-height:1.8}
+/* FOOTER */
+.footer{background:#020D20;color:rgba(255,255,255,.5);padding:56px 20px 32px;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
+@media(min-width:600px){.footer{padding:56px 32px 32px}}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-logo img{height:28px;width:auto;margin:0 auto 18px;opacity:.65}
+.footer-addr{font-size:.83rem;line-height:1.75;margin-bottom:18px;color:rgba(255,255,255,.45)}
+.footer-addr a{color:var(--yellow);font-weight:700}
+.footer-social{display:flex;justify-content:center;gap:12px;margin-bottom:16px}
+.footer-social a{width:42px;height:42px;border-radius:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.45);transition:background .2s,color .2s,transform .2s}
+.footer-social a:hover{background:var(--blue);color:#fff;transform:translateY(-2px)}
+.footer-handle{font-size:.75rem;color:rgba(255,255,255,.3);margin-bottom:10px}
+.footer-handle a{color:rgba(255,201,40,.65);font-weight:700}
+.footer-copy{font-size:.72rem;color:rgba(255,255,255,.25)}
+/* STICKY BAR */
+.sticky-bar{position:fixed;bottom:0;left:0;right:0;z-index:600;background:rgba(4,16,43,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.07);padding:10px 16px calc(10px + env(safe-area-inset-bottom, 0px));display:flex;gap:10px;transform:translateY(110%);transition:transform .35s var(--ease-out-expo);box-shadow:0 -4px 24px rgba(0,0,0,.35)}
+.sticky-bar.visible{transform:translateY(0)}
+.sticky-bar .btn-red-sm{flex:1.1;display:flex;align-items:center;justify-content:center;background:var(--red);color:#fff;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:800;padding:12px 10px;border-radius:10px;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(243,38,38,.35);transition:transform .2s}
+.sticky-bar .btn-red-sm:hover{transform:scale(1.02)}
+.sticky-bar .btn-wpp-sm{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:var(--green);color:#fff;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:800;padding:12px 10px;border-radius:10px;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(39,194,76,.3);transition:transform .2s}
+.sticky-bar .btn-wpp-sm svg{width:17px;height:17px;fill:#fff}
+.sticky-bar .btn-wpp-sm:hover{transform:scale(1.02)}
+@media(prefers-reduced-motion:reduce){*{animation-duration:0.01ms!important;transition-duration:0.01ms!important}.split-char{transform:none!important}.hero-eyebrow,.hero-sub,.hero-visual,.hero-ctas,.hero-scarcity{opacity:1!important;transform:none!important}}
 </style>
 </head>
 <body>
-
-<!-- NOISE -->
 <div class="noise" aria-hidden="true"></div>
-
-<!-- SCROLL PROGRESS -->
 <div class="progress-bar" id="progressBar" role="progressbar" aria-hidden="true"></div>
 
-<!-- CURSOR -->
-<div id="cursor" aria-hidden="true">
-  <div class="cursor-ring" id="cursorRing"></div>
-  <div class="cursor-dot" id="cursorDot"></div>
-</div>
-
-<!-- NAV -->
-<nav class="nav" id="nav">
+<nav class="nav" id="mainNav">
   <div class="nav-inner">
-    <a href="#" class="logo mag"><img src="../images/logo.png" alt="Grow Up Bilingual School"></a>
-    <ul class="nav-links">
-      <li><a href="#sobre">Sobre</a></li>
-      <li><a href="#ingles">Inglês</a></li>
-      <li><a href="#depoimentos">Famílias</a></li>
-      <li><a href="#faq">FAQ</a></li>
-    </ul>
-    <div class="nav-ctas">
-      <a href="https://wa.me/5511939466440" class="btn btn-ghost btn-sm mag" target="_blank" rel="noopener">WhatsApp</a>
-      <a href="#agendar" class="btn btn-red btn-sm mag">Agendar visita</a>
-    </div>
+    <a href="#" class="nav-logo" aria-label="Grow Up — início">
+      <img src="../images/logo.png" alt="Grow Up"/>
+    </a>
+    <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Fundamental%20I%20Grow%20Up" class="nav-wpp" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
   </div>
 </nav>
 
-<!-- ══ HERO ══ -->
 <section class="hero" id="inicio">
   <div class="hero-orb orb-1" aria-hidden="true"></div>
   <div class="hero-orb orb-2" aria-hidden="true"></div>
   <div class="hero-orb orb-3" aria-hidden="true"></div>
-
-  <div class="container">
+  <div class="hero-inner">
     <div class="hero-grid">
-
-      <span class="hero-brand"><img src="../images/logo.png" alt="Grow Up Bilingual School"></span>
-
-      <div class="hero-eyebrow" id="heroEyebrow">
-        <span class="eyebrow-dot" aria-hidden="true"></span>
-        Matrículas 2026 abertas
+      <div class="hero-text-col">
+        <div class="hero-eyebrow" id="heroEyebrow">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          Fundamental I · Matrículas 2026 abertas
+        </div>
+        <h1 class="hero-headline" id="heroHeadline" aria-label="Seu filho pode ir além do básico.">
+          <span class="line" id="hl-1">SEU FILHO</span>
+          <span class="line" id="hl-2">PODE IR</span>
+          <span class="line accent-yellow" id="hl-3">ALÉM.</span>
+        </h1>
+        <p class="hero-sub" id="heroSub">
+          Do 1º ao 5º ano, com currículo bilíngue, formação integral e o preparo que seu filho merece para a vida — muito além do básico.
+        </p>
       </div>
-
-      <h1 class="hero-headline" id="heroHeadline" aria-label="Seu filho pode ir além do básico.">
-        <span class="line" id="hl-1">SEU FILHO</span>
-        <span class="line" id="hl-2">PODE IR ALÉM</span>
-        <span class="line accent-yellow" id="hl-3">DO BÁSICO.</span>
-      </h1>
-
       <div class="hero-visual" id="heroVisual">
         <div class="hero-img-frame">
-          <div class="hero-img-inner">
-            <img src="../images/fundamental1/Hero.jpg" alt="Aluno feliz no Fundamental I Grow Up" loading="eager" fetchpriority="high">
-          </div>
+          <img src="../images/fundamental1/Hero.jpg" alt="Aluno no Fundamental I Grow Up" width="480" height="600" fetchpriority="high"/>
         </div>
-        <div class="badge-float bf-1" aria-hidden="true">
-          <span class="icon">📚</span>
-          <div class="text"><strong>Aprendizagem real</strong><span>Método que funciona</span></div>
-        </div>
-        <div class="badge-float bf-2" aria-hidden="true">
+        <div class="badge-float bf-ing" aria-hidden="true">
           <span class="icon">🌍</span>
-          <div class="text"><strong>Inglês fluente</strong><span>Fluência de verdade</span></div>
+          <div class="text"><strong>Inglês fluente</strong><span>Integrado ao currículo</span></div>
+        </div>
+        <div class="badge-float bf-book" aria-hidden="true">
+          <span class="icon">📚</span>
+          <div class="text"><strong>BNCC + além</strong><span>Aprendizagem real</span></div>
         </div>
       </div>
-
-      <p class="hero-sub" id="heroSub">
-        Fundamental I com desenvolvimento acadêmico, vivência bilíngue e uma infância construída com confiança, autonomia e propósito.
-      </p>
-
       <div class="hero-ctas" id="heroCtas">
-        <a href="#agendar" class="btn btn-red btn-lg mag">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <a href="#whatsapp" class="btn btn-red btn-lg btn-full">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Agendar visita
         </a>
-        <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Fundamental%20I%20Grow%20Up" class="btn btn-ghost btn-lg mag" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Fundamental%20I%20Grow%20Up" class="btn btn-ghost btn-lg btn-full" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Falar no WhatsApp
         </a>
       </div>
-
-      <div class="scarcity" id="heroScarcity">
-        <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#ff8a8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Fundamental I — vagas limitadas para 2026
+      <div class="hero-scarcity" id="heroScarcity">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#ff8a8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Vagas limitadas · 1º ao 5º ano
       </div>
-
     </div>
-  </div>
-
-  <div class="scroll-hint" id="scrollHint" aria-hidden="true">
-    <div class="scroll-line"></div>
-    Scroll
-    <div class="scroll-line"></div>
   </div>
 </section>
 
-<!-- ══ TICKER ══ -->
 <div class="ticker" aria-hidden="true">
-  <div class="ticker-track" id="tickerTrack">
-    <span class="ticker-item">Inglês fluente <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Turmas reduzidas <span class="ticker-sep"></span></span>
+  <div class="ticker-track">
+    <span class="ticker-item">Bilíngue <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Currículo BNCC+ <span class="ticker-sep"></span></span>
     <span class="ticker-item">1º ao 5º ano <span class="ticker-sep"></span></span>
     <span class="ticker-item">Matrículas 2026 abertas <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Aprendizagem com propósito <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Confiança que dura <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Método que funciona <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Grow Up — Fundamental I <span class="ticker-sep"></span></span>
     <span class="ticker-item">Inglês fluente <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Autonomia e propósito <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Fundamental I Grow Up <span class="ticker-sep"></span></span>
     <span class="ticker-item">Turmas reduzidas <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Bilíngue <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Currículo BNCC+ <span class="ticker-sep"></span></span>
     <span class="ticker-item">1º ao 5º ano <span class="ticker-sep"></span></span>
     <span class="ticker-item">Matrículas 2026 abertas <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Aprendizagem com propósito <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Confiança que dura <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Método que funciona <span class="ticker-sep"></span></span>
-    <span class="ticker-item">Grow Up — Fundamental I <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Inglês fluente <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Autonomia e propósito <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Fundamental I Grow Up <span class="ticker-sep"></span></span>
+    <span class="ticker-item">Turmas reduzidas <span class="ticker-sep"></span></span>
   </div>
 </div>
 
-<!-- ══ EMPATIA ══ -->
-<section class="s-empathy" id="sobre">
+<section class="s-mirror" id="sobre">
+  <div class="mirror-orb" aria-hidden="true"></div>
   <div class="container">
-    <div class="empathy-grid">
-      <div class="empathy-text">
-        <div class="eyebrow-dark gsap-fade">Para os pais</div>
-        <h2 class="section-title gsap-split mb-20">
-          Você quer preparar seu<br><span style="color:var(--blue)">filho para o futuro.</span>
-        </h2>
-        <p class="gsap-fade">Na Grow Up, acreditamos que desenvolver uma criança vai muito além de ensinar conteúdo.</p>
-        <p class="gsap-fade" style="margin-top:12px">É estimular autonomia, fortalecer confiança, incentivar curiosidade e criar uma base sólida para os próximos ciclos da vida escolar.</p>
-        <a href="#agendar" class="btn btn-blue btn-md mag gsap-fade" style="margin-top:32px">Conhecer a escola</a>
+    <div class="mirror-grid">
+      <div class="gsap-reveal">
+        <p class="section-label sl-yellow">Para os pais</p>
+        <h2 class="section-title st-light">Você quer mais<br>do que<br>aprovação.</h2>
+        <p class="section-body sb-light">Você quer que seu filho aprenda a pensar, a se comunicar e a ser protagonista da própria vida. No Fundamental I da Grow Up, cada ano é construído para desenvolver não só o conteúdo — mas o caráter.</p>
+        <a href="#whatsapp" class="btn btn-red btn-md" style="border-radius:14px">Conhecer o Fundamental I</a>
       </div>
-      <div class="e-cards">
-        <div class="e-card gsap-card">
-          <div class="e-icon y" aria-hidden="true">🚀</div>
-          <div class="e-body">
-            <h3>Mais autonomia</h3>
-            <p>Crianças que tomam decisões, resolvem problemas e desenvolvem independência de forma natural.</p>
-          </div>
-        </div>
-        <div class="e-card gsap-card">
-          <div class="e-icon b" aria-hidden="true">🌍</div>
-          <div class="e-body">
-            <h3>Mais inglês</h3>
-            <p>Vivência bilíngue no dia a dia — fluência construída com naturalidade, não com pressão.</p>
-          </div>
-        </div>
-        <div class="e-card gsap-card">
-          <div class="e-icon g" aria-hidden="true">🏆</div>
-          <div class="e-body">
-            <h3>Mais oportunidades</h3>
-            <p>Uma base sólida que abre portas para os próximos ciclos escolares e para a vida.</p>
-          </div>
+      <div>
+        <ul class="pillar-list">
+          <li class="pillar-card gsap-reveal" style="transition-delay:.1s">
+            <span class="pillar-icon-wrap" aria-hidden="true">
+              <svg class="pillar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+            </span>
+            <div>
+              <p class="pillar-title">Mais profundidade</p>
+              <p class="pillar-desc">Currículo BNCC enriquecido com projetos reais, debates e aprendizagem ativa.</p>
+            </div>
+          </li>
+          <li class="pillar-card gsap-reveal" style="transition-delay:.2s">
+            <span class="pillar-icon-wrap" aria-hidden="true">
+              <svg class="pillar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 010 20M12 2a15 15 0 000 20M2 12h20"/></svg>
+            </span>
+            <div>
+              <p class="pillar-title">Mais fluência</p>
+              <p class="pillar-desc">Inglês integrado ao currículo — não é extra. É do dia a dia, do 1º ao 5º ano.</p>
+            </div>
+          </li>
+          <li class="pillar-card gsap-reveal" style="transition-delay:.3s">
+            <span class="pillar-icon-wrap" aria-hidden="true">
+              <svg class="pillar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            <div>
+              <p class="pillar-title">Mais autonomia</p>
+              <p class="pillar-desc">Crianças que aprendem a pensar, questionar e resolver com segurança e confiança.</p>
+            </div>
+          </li>
+        </ul>
+        <div class="stat-strip gsap-reveal" style="transition-delay:.2s">
+          <div class="stat-cell"><span class="stat-num">8+</span><span class="stat-label">Anos de escola</span></div>
+          <div class="stat-cell"><span class="stat-num">97%</span><span class="stat-label">Famílias satisfeitas</span></div>
+          <div class="stat-cell"><span class="stat-num">12</span><span class="stat-label">Alunos por turma</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ ATIVIDADES ══ -->
-<section class="s-activities" id="atividades">
-  <div class="container">
-    <div class="act-header">
-      <div class="eyebrow-dark" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.6)" aria-label="Aprendizagem com propósito">Aprendizagem com propósito</div>
-      <h2 class="section-title gsap-split" style="margin-top:16px">Aprender também<br>pode ser <span class="accent-yellow">leve.</span></h2>
-      <p>Aqui, o aprendizado acontece com participação, troca, experiências e desenvolvimento real. Queremos formar crianças mais confiantes, curiosas e preparadas.</p>
-    </div>
-    <div class="act-grid stagger" id="actGrid">
-      <div class="act-card ac-1 gsap-tilt"><span class="icon" aria-hidden="true">📖</span><h3>Português</h3><p>Leitura e escrita trabalhadas com criatividade e amor pelas palavras.</p></div>
-      <div class="act-card ac-2 gsap-tilt"><span class="icon" aria-hidden="true">➕</span><h3>Matemática</h3><p>Raciocínio lógico e resolução de problemas conectados à vida real.</p></div>
-      <div class="act-card wide ac-3 gsap-tilt"><span class="icon" aria-hidden="true">🌍</span><h3>Inglês Integrado</h3><p>Fluência construída no cotidiano escolar, sem decoreba e sem pressão — de verdade.</p></div>
-      <div class="act-card ac-4 gsap-tilt"><span class="icon" aria-hidden="true">🔬</span><h3>Ciências</h3><p>Experimentos e descobertas que acendem a curiosidade científica.</p></div>
-      <div class="act-card ac-5 gsap-tilt"><span class="icon" aria-hidden="true">🗺️</span><h3>Humanas</h3><p>O mundo e o tempo explorados com histórias e debates reais.</p></div>
-      <div class="act-card ac-6 gsap-tilt"><span class="icon" aria-hidden="true">🎨</span><h3>Artes</h3><p>Expressão criativa como parte essencial da formação humana completa.</p></div>
-      <div class="act-card ac-7 gsap-tilt"><span class="icon" aria-hidden="true">💻</span><h3>Tecnologia</h3><p>Pensamento computacional e uso consciente das ferramentas digitais.</p></div>
-      <div class="act-card ac-8 gsap-tilt"><span class="icon" aria-hidden="true">🤸</span><h3>Esporte</h3><p>Corpo saudável, fair-play e trabalho em equipe na prática diária.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ GALERIA ══ -->
 <section class="s-gallery" id="galeria">
   <div class="container">
-    <div class="gallery-header">
-      <div class="eyebrow-dark gsap-fade">Nossa escola</div>
-      <h2 class="section-title gsap-split" style="margin-top:16px">Momentos reais<br>do <span style="color:var(--blue)">Fundamental I Grow Up.</span></h2>
+    <div class="gallery-head gsap-reveal">
+      <p class="section-label sl-blue">Nossa escola</p>
+      <h2 class="section-title st-dark">Momentos reais<br>do Fundamental I.</h2>
     </div>
-    <div class="gallery-grid stagger" id="galleryGrid">
-      <div class="gallery-item gsap-card"><img src="../images/fundamental1/Galeria1.jpg" alt="Fundamental I Grow Up" loading="lazy"></div>
-      <div class="gallery-item gsap-card"><img src="../images/fundamental1/Galeria2.jpg" alt="Fundamental I Grow Up" loading="lazy"></div>
-      <div class="gallery-item gsap-card"><img src="../images/fundamental1/Galeria3.jpg" alt="Fundamental I Grow Up" loading="lazy"></div>
-      <div class="gallery-item gsap-card"><img src="../images/fundamental1/Galeria4.jpg" alt="Fundamental I Grow Up" loading="lazy"></div>
+    <div class="gsap-reveal" style="transition-delay:.1s">
+      <div class="gallery-carousel" id="galleryCarousel" aria-label="Galeria de fotos do Fundamental I" aria-live="polite">
+        <div class="gallery-slide active"><img src="../images/fundamental1/Galeria1.jpg" alt="Aula no Fundamental I Grow Up" loading="lazy" width="460" height="575"/></div>
+        <div class="gallery-slide"><img src="../images/fundamental1/Galeria2.jpg" alt="Projeto bilíngue Grow Up" loading="lazy" width="460" height="575"/></div>
+        <div class="gallery-slide"><img src="../images/fundamental1/Galeria3.jpg" alt="Ambiente do Fundamental I" loading="lazy" width="460" height="575"/></div>
+        <div class="gallery-slide"><img src="../images/fundamental1/Galeria4.jpg" alt="Aluno feliz no Grow Up" loading="lazy" width="460" height="575"/></div>
+      </div>
+      <div class="gallery-dots" id="galleryDots" aria-hidden="true"></div>
     </div>
   </div>
 </section>
 
-<!-- ══ INGLÊS ══ -->
-<section class="s-english" id="ingles">
+<section class="s-ingles" id="ingles">
+  <div class="ingles-orb" aria-hidden="true"></div>
   <div class="container">
-    <div class="eng-grid">
-      <div class="eng-visual gsap-fade">
-        <div class="eng-big-num" aria-hidden="true">EN</div>
-        <h3>O inglês faz parte da rotina.</h3>
-        <p>Na Grow Up, o contato com o inglês acontece de forma natural através das vivências, interações e experiências do dia a dia escolar. Mais do que decorar palavras, queremos criar familiaridade, confiança e conexão com o idioma.</p>
-        <div class="eng-tags">
-          <span class="eng-tag">Conversação</span>
-          <span class="eng-tag">Projetos</span>
-          <span class="eng-tag">Leitura</span>
-          <span class="eng-tag">Escrita</span>
-          <span class="eng-tag">Debate</span>
+    <div class="ingles-grid">
+      <div class="lang-visual gsap-reveal">
+        <div class="lang-glow" aria-hidden="true"></div>
+        <div class="lang-bubble-wrap" aria-hidden="true">
+          <div class="lang-bubble lb-1">🗣 Conversação</div>
+          <div class="lang-bubble lb-2">📋 Projetos</div>
+          <div class="lang-bubble lb-3">📖 Leitura</div>
+          <div class="lang-bubble lb-4">✍️ Escrita</div>
+          <div class="lang-bubble lb-5">💬 Debate</div>
         </div>
       </div>
-      <div class="eng-text">
-        <div class="eyebrow-dark gsap-fade">Fluência que dura</div>
-        <h2 class="section-title gsap-split mb-20">Inglês como<br><span style="color:var(--blue)">segunda língua real.</span></h2>
-        <p class="gsap-fade">O inglês no Fundamental I vai além das músicas. Conversas, projetos e dinâmicas constroem fluência real para a vida — e seu filho sai sabendo usar.</p>
-        <ul class="check-list gsap-fade">
-          <li>Aulas com imersão e metodologia ativa</li>
-          <li>Professores bilíngues especializados</li>
-          <li>Projetos interdisciplinares em inglês</li>
-          <li>Progressão por nível, não por série</li>
-          <li>Preparação para certificações internacionais</li>
+      <div class="gsap-reveal" style="transition-delay:.15s">
+        <p class="section-label sl-yellow">Integrado ao currículo</p>
+        <h2 class="section-title st-light">Inglês que<br>vira fluência.</h2>
+        <p class="section-body sb-light">No Fundamental I, o inglês não é uma aula separada. É o idioma das aulas de Ciências, dos projetos interdisciplinares e das conversas do dia a dia. Seus filhos saem fluentes — naturalmente.</p>
+        <ul class="benefit-list">
+          <li class="benefit-item">
+            <span class="benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>
+            <div><p class="benefit-title">Conversação real do dia a dia</p><p class="benefit-desc">O inglês como idioma de comunicação, não apenas de provas.</p></div>
+          </li>
+          <li class="benefit-item">
+            <span class="benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+            <div><p class="benefit-title">Projetos interdisciplinares</p><p class="benefit-desc">Inglês como veículo de conteúdo — Ciências, Humanas e mais.</p></div>
+          </li>
+          <li class="benefit-item">
+            <span class="benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+            <div><p class="benefit-title">Leitura e escrita bilíngues</p><p class="benefit-desc">Base sólida nos dois idiomas para o Fundamental II e além.</p></div>
+          </li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ DIFERENCIAIS ══ -->
+<section class="s-dev" id="atividades">
+  <div class="container">
+    <div class="dev-head gsap-reveal">
+      <p class="section-label sl-blue">Currículo completo</p>
+      <h2 class="section-title st-dark">Base sólida,<br><span style="color:var(--blue)">visão ampla.</span></h2>
+      <p class="section-body sb-dark" style="max-width:520px;margin:0 auto">Currículo nacional enriquecido com projetos, autonomia e inglês integrado. Formação que prepara para o Fundamental II e para a vida.</p>
+    </div>
+    <div class="act-scroll gsap-reveal" style="transition-delay:.1s">
+      <article class="act-card">
+        <div class="act-icon ai-b" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+        <h3>Português</h3><p>Leitura, escrita e interpretação com foco em comunicação real e pensamento crítico.</p>
+      </article>
+      <article class="act-card">
+        <div class="act-icon ai-y" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <h3>Matemática</h3><p>Raciocínio lógico, resolução de problemas e conexão com situações do mundo real.</p>
+      </article>
+      <article class="act-card">
+        <div class="act-icon ai-b" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 010 20M12 2a15 15 0 000 20M2 12h20"/></svg></div>
+        <h3>Inglês Integrado</h3><p>Imersão diária que vai além da sala de aula. Fluência natural, do 1º ao 5º ano.</p>
+      </article>
+      <article class="act-card">
+        <div class="act-icon ai-g" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg></div>
+        <h3>Ciências</h3><p>Curiosidade científica, experimentos e projetos de pesquisa desde o 1º ano.</p>
+      </article>
+      <article class="act-card">
+        <div class="act-icon ai-r" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h3>Humanas</h3><p>História, geografia e formação cidadã integradas ao cotidiano dos alunos.</p>
+      </article>
+      <article class="act-card">
+        <div class="act-icon ai-r" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></div>
+        <h3>Artes</h3><p>Expressão artística como linguagem, desenvolvimento cognitivo e criatividade.</p>
+      </article>
+      <article class="act-card">
+        <div class="act-icon ai-b" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h3>Tecnologia</h3><p>Pensamento computacional e criação digital integrados ao currículo desde cedo.</p>
+      </article>
+      <article class="act-card">
+        <div class="act-icon ai-g" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+        <h3>Esporte</h3><p>Educação física, cooperação, saúde integral e desenvolvimento motor e emocional.</p>
+      </article>
+    </div>
+    <aside class="dev-note gsap-reveal" style="transition-delay:.2s">
+      <h4>Preparando para o Fundamental II e além.</h4>
+      <p>Alunos da Grow Up chegam ao Fundamental II com base sólida, inglês fluente e autonomia real. Certificações internacionais disponíveis para turmas avançadas.</p>
+    </aside>
+  </div>
+</section>
+
 <section class="s-dif" id="diferenciais">
   <div class="container">
-    <div class="dif-header">
-      <div class="eyebrow-dark" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.5)">Por que a Grow?</div>
-      <h2 class="section-title gsap-split" style="margin-top:16px">Cada criança aprende<br>de um <span class="accent-red">jeito único.</span></h2>
-      <p>Acreditamos em uma educação próxima, humana e construída com atenção verdadeira ao desenvolvimento individual.</p>
+    <div class="dif-head gsap-reveal">
+      <p class="section-label sl-muted-light">Por que a Grow?</p>
+      <h2 class="section-title st-light" style="margin-top:12px">Aqui, seu filho<br>vai além do <span class="accent-yellow">esperado.</span></h2>
+      <p class="section-body sb-light" style="max-width:480px;margin:0 auto">Formação que une excelência acadêmica, fluência no inglês e desenvolvimento integral — do 1º ao 5º ano.</p>
     </div>
-    <div class="dif-grid stagger" id="difGrid">
-      <div class="dif-card gsap-tilt"><span class="icon">👥</span><h3>Turmas reduzidas</h3><p>Grupos pequenos garantem atenção real e individual para cada criança, todos os dias.</p></div>
-      <div class="dif-card gsap-tilt"><span class="icon">🫂</span><h3>Acolhimento genuíno</h3><p>Cada criança entra sendo vista, ouvida e respeitada do seu jeito único.</p></div>
-      <div class="dif-card featured gsap-tilt"><span class="icon">📊</span><h3>Suporte pedagógico</h3><p>Acompanhamento individualizado do desenvolvimento de cada aluno, com feedback constante às famílias.</p></div>
-      <div class="dif-card gsap-tilt"><span class="icon">🎯</span><h3>Atenção individual</h3><p>Cada criança aprende no seu tempo. Sem comparações, sem pressão.</p></div>
-      <div class="dif-card gsap-tilt"><span class="icon">💬</span><h3>Parceria com famílias</h3><p>Comunicação constante. Você sempre sabe o que acontece na escola.</p></div>
-      <div class="dif-card gsap-tilt"><span class="icon">🏆</span><h3>Equipe especializada</h3><p>Professores apaixonados por educação infantil e preparados para cada fase.</p></div>
+    <div class="dif-grid">
+      <div class="dif-card gsap-reveal"><span class="dif-icon">👥</span><h3>Turmas reduzidas</h3><p>Atenção real e aprendizagem mais profunda para cada aluno, todos os dias.</p></div>
+      <div class="dif-card gsap-reveal" style="transition-delay:.08s"><span class="dif-icon">🌍</span><h3>Inglês fluente</h3><p>Integrado ao currículo, do 1º ao 5º ano. Real, eficaz e sem aula extra.</p></div>
+      <div class="dif-card featured gsap-reveal" style="transition-delay:.16s"><span class="dif-icon">📚</span><h3>BNCC + além</h3><p>Currículo nacional enriquecido com projetos, debates e autonomia real.</p></div>
+      <div class="dif-card gsap-reveal" style="transition-delay:.24s"><span class="dif-icon">🧠</span><h3>Pensamento crítico</h3><p>Alunos que argumentam, criam soluções e resolvem com segurança e criatividade.</p></div>
+      <div class="dif-card gsap-reveal" style="transition-delay:.32s"><span class="dif-icon">💬</span><h3>Parceria com famílias</h3><p>Acompanhamento próximo — você participa da jornada do seu filho.</p></div>
+      <div class="dif-card gsap-reveal" style="transition-delay:.4s"><span class="dif-icon">🏆</span><h3>Equipe qualificada</h3><p>Professores comprometidos com excelência, cuidado e formação integral.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ══ DEPOIMENTOS MARQUEE ══ -->
 <section class="s-testimonials" id="depoimentos">
   <div class="container">
-    <div class="test-header">
-      <div class="eyebrow-dark gsap-fade">Famílias Grow</div>
-      <h2 class="section-title gsap-split" style="margin-top:16px">Quem já está <span style="color:var(--blue)">aqui conta.</span></h2>
+    <div class="test-head gsap-reveal">
+      <p class="section-label sl-blue">Famílias Grow</p>
+      <h2 class="section-title st-dark" style="margin-top:12px">Quem já está aqui <span style="color:var(--blue)">conta.</span></h2>
     </div>
-  </div>
-  <div class="test-marquee" aria-label="Depoimentos de famílias">
-    <div class="test-track" id="testTrack">
-      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"Meu filho ficou mais independente, comunicativo e seguro depois que entrou na Grow."</blockquote><div class="t-author"><div class="t-avatar av-y">👨‍👩‍👦</div><div class="t-info"><h4>Família Grow Up</h4><span>Fundamental I</span></div></div></div>
-      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"Percebemos evolução não só no inglês, mas na confiança e autonomia dele."</blockquote><div class="t-author"><div class="t-avatar av-b">👨‍👩‍👧</div><div class="t-info"><h4>Família Grow Up</h4><span>Fundamental I</span></div></div></div>
-      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"Ele passou a gostar de estudar. Para mim, isso vale mais do que qualquer nota."</blockquote><div class="t-author"><div class="t-avatar av-g">👨‍👩‍👦</div><div class="t-info"><h4>Família Grow Up</h4><span>Fundamental I</span></div></div></div>
-      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"A atenção que a escola dá ao desenvolvimento individual é diferente de tudo que já vi."</blockquote><div class="t-author"><div class="t-avatar av-y">👨‍👩‍👧</div><div class="t-info"><h4>Família Grow Up</h4><span>Fundamental I</span></div></div></div>
-      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"Minha filha chegou com dificuldade de leitura. Hoje ela adora ler. O método funciona."</blockquote><div class="t-author"><div class="t-avatar av-b">👨‍👩‍👦</div><div class="t-info"><h4>Família Grow Up</h4><span>Fundamental I</span></div></div></div>
-      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"A comunicação com os professores é impecável. Sei exatamente como ela está evoluindo."</blockquote><div class="t-author"><div class="t-avatar av-g">👨‍👩‍👧</div><div class="t-info"><h4>Família Grow Up</h4><span>Fundamental I</span></div></div></div>
-      <!-- duplicated for infinite loop -->
-      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"Meu filho ficou mais independente, comunicativo e seguro depois que entrou na Grow."</blockquote><div class="t-author"><div class="t-avatar av-y">👨‍👩‍👦</div><div class="t-info"><h4>Família Grow Up</h4><span>Fundamental I</span></div></div></div>
-      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"Percebemos evolução não só no inglês, mas na confiança e autonomia dele."</blockquote><div class="t-author"><div class="t-avatar av-b">👨‍👩‍👧</div><div class="t-info"><h4>Família Grow Up</h4><span>Fundamental I</span></div></div></div>
-      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"Ele passou a gostar de estudar. Para mim, isso vale mais do que qualquer nota."</blockquote><div class="t-author"><div class="t-avatar av-g">👨‍👩‍👦</div><div class="t-info"><h4>Família Grow Up</h4><span>Fundamental I</span></div></div></div>
-      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"A atenção que a escola dá ao desenvolvimento individual é diferente de tudo que já vi."</blockquote><div class="t-author"><div class="t-avatar av-y">👨‍👩‍👧</div><div class="t-info"><h4>Família Grow Up</h4><span>Fundamental I</span></div></div></div>
-      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"Minha filha chegou com dificuldade de leitura. Hoje ela adora ler. O método funciona."</blockquote><div class="t-author"><div class="t-avatar av-b">👨‍👩‍👦</div><div class="t-info"><h4>Família Grow Up</h4><span>Fundamental I</span></div></div></div>
-      <div class="t-card"><div class="stars">★★★★★</div><blockquote>"A comunicação com os professores é impecável. Sei exatamente como ela está evoluindo."</blockquote><div class="t-author"><div class="t-avatar av-g">👨‍👩‍👧</div><div class="t-info"><h4>Família Grow Up</h4><span>Fundamental I</span></div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ TRUST / NÚMEROS ══ -->
-<section class="s-trust">
-  <div class="container">
-    <div class="trust-grid">
-      <div class="trust-text">
-        <div class="eyebrow-dark" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.5)" aria-label="Tranquilidade total">Tranquilidade total</div>
-        <h2 class="section-title gsap-split" style="margin-top:16px;margin-bottom:16px">Uma rotina que<br>desenvolve <span class="accent-yellow">muito mais.</span></h2>
-        <p>Além do conteúdo, trabalhamos autonomia, criatividade, confiança e comunicação. Uma base que acompanha seu filho nos próximos ciclos escolares.</p>
-        <ul class="t-list gsap-fade" style="margin-top:0">
-          <li class="t-item"><div class="t-ico">🌍</div>Vivência bilíngue no dia a dia</li>
-          <li class="t-item"><div class="t-ico">🚀</div>Desenvolvimento da autonomia</li>
-          <li class="t-item"><div class="t-ico">🎨</div>Incentivo à criatividade e comunicação</li>
-          <li class="t-item"><div class="t-ico">👥</div>Turmas reduzidas</li>
-          <li class="t-item"><div class="t-ico">📊</div>Acompanhamento próximo</li>
-          <li class="t-item"><div class="t-ico">📚</div>Aprendizado com significado</li>
-        </ul>
-      </div>
-      <div class="stats-box gsap-fade">
-        <div class="stats-grid">
-          <div class="stat"><span class="stat-num counter" data-target="8">0</span><sup style="color:var(--yellow);font-family:'Nunito';font-weight:900;font-size:1.5rem">+</sup><span class="stat-label">Anos de história</span></div>
-          <div class="stat"><span class="stat-num counter" data-target="97">0</span><sup style="color:var(--yellow);font-family:'Nunito';font-weight:900;font-size:1.5rem">%</sup><span class="stat-label">Famílias satisfeitas</span></div>
-          <div class="stat"><span class="stat-num counter" data-target="12">0</span><span class="stat-label">Alunos por turma</span></div>
-          <div class="stat"><span class="stat-num">1º–5º</span><span class="stat-label">Anos do Fundamental</span></div>
-        </div>
-      </div>
+    <div class="test-scroll">
+      <article class="t-card gsap-reveal">
+        <div class="t-header-row"><div class="t-avatar" aria-hidden="true">PF</div><div><p class="t-name">Patrícia F.</p><p class="t-meta">mãe do Guilherme, 3º ano</p></div></div>
+        <p class="t-stars" aria-label="5 estrelas">★★★★★</p>
+        <p class="t-quote">"O Guilherme chegou ao 3º ano se comunicando em inglês com naturalidade. Não parece escola — parece imersão."</p>
+      </article>
+      <article class="t-card gsap-reveal" style="transition-delay:.1s">
+        <div class="t-header-row"><div class="t-avatar" aria-hidden="true">RN</div><div><p class="t-name">Roberto N.</p><p class="t-meta">pai da Sofia, 1º ano</p></div></div>
+        <p class="t-stars" aria-label="5 estrelas">★★★★★</p>
+        <p class="t-quote">"A Sofia chegou ao 1º ano preparada, confiante e animada. A base do Kids fez toda a diferença na transição."</p>
+      </article>
+      <article class="t-card gsap-reveal" style="transition-delay:.2s">
+        <div class="t-header-row"><div class="t-avatar" aria-hidden="true">AM</div><div><p class="t-name">Aline M.</p><p class="t-meta">mãe do Eduardo, 4º ano</p></div></div>
+        <p class="t-stars" aria-label="5 estrelas">★★★★★</p>
+        <p class="t-quote">"O Eduardo discute, questiona, argumenta. Não aprende só conteúdo — aprende a pensar. Isso não tem preço."</p>
+      </article>
+      <article class="t-card gsap-reveal" style="transition-delay:.3s">
+        <div class="t-header-row"><div class="t-avatar" aria-hidden="true">CS</div><div><p class="t-name">Carlos S.</p><p class="t-meta">pai da Laura, 2º ano</p></div></div>
+        <p class="t-stars" aria-label="5 estrelas">★★★★★</p>
+        <p class="t-quote">"Turma pequena, professor presente, conteúdo rico. A Laura evolui a cada semana de forma visível."</p>
+      </article>
+      <article class="t-card gsap-reveal" style="transition-delay:.4s">
+        <div class="t-header-row"><div class="t-avatar" aria-hidden="true">VT</div><div><p class="t-name">Vanessa T.</p><p class="t-meta">mãe do Matheus, 5º ano</p></div></div>
+        <p class="t-stars" aria-label="5 estrelas">★★★★★</p>
+        <p class="t-quote">"O Matheus sai do 5º ano pronto para o que vem. Com inglês, com autonomia e com vontade de aprender mais."</p>
+      </article>
+      <article class="t-card gsap-reveal" style="transition-delay:.5s">
+        <div class="t-header-row"><div class="t-avatar" aria-hidden="true">DP</div><div><p class="t-name">Diego P.</p><p class="t-meta">pai da Isabela, 1º ano</p></div></div>
+        <p class="t-stars" aria-label="5 estrelas">★★★★★</p>
+        <p class="t-quote">"A Isabela ama a escola. Todo dia tem uma história nova para contar — em português e em inglês."</p>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ══ ESCASSEZ ══ -->
-<section class="s-escassez" id="vagas">
+<section class="s-convert" id="whatsapp">
+  <div class="convert-orb co-1" aria-hidden="true"></div>
+  <div class="convert-orb co-2" aria-hidden="true"></div>
   <div class="container">
-    <div class="esc-inner">
-      <div class="esc-badge gsap-fade">
-        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Vagas limitadas
-      </div>
-      <h2 class="section-title gsap-split" style="margin-bottom:16px">Turmas reduzidas<br>fazem <span class="accent-yellow">diferença.</span></h2>
-      <p class="gsap-fade">Mantemos um número limitado de alunos por turma para garantir acompanhamento próximo e desenvolvimento individual. Não espere as últimas vagas.</p>
-      <div class="esc-ctas gsap-fade">
-        <a href="#agendar" class="btn btn-red btn-lg mag">
-          <svg width="17" height="17" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Agendar visita
+    <div class="convert-inner gsap-reveal">
+      <span class="urgency-badge">● Vagas limitadas · turmas 2026</span>
+      <h2 class="convert-title">O futuro do seu filho<br>começa aqui.</h2>
+      <p class="convert-sub">A visita é sem compromisso — você conhece o espaço, os professores e o método. E decide com a informação certa.</p>
+      <div class="convert-card">
+        <a href="https://wa.me/5511939466440?text=Oi!%20Gostaria%20de%20conhecer%20o%20Fundamental%20I%20Grow%20Up%20e%20combinar%20uma%20visita." class="btn-wpp-green" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chamar no WhatsApp
         </a>
-        <a href="https://wa.me/5511939466440?text=Gostaria%20de%20verificar%20vagas%20no%20Fundamental%20I%202026" class="btn btn-ghost btn-lg mag" target="_blank" rel="noopener">Verificar vagas</a>
+        <a href="#" class="btn-visit-white" onclick="document.getElementById('whatsapp').scrollIntoView({behavior:'smooth'});return false">Agendar visita presencial</a>
+        <p class="convert-note">Sem formulário. Você fala com a gente no seu ritmo.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ FAQ ══ -->
 <section class="s-faq" id="faq">
   <div class="container">
-    <div class="text-center">
-      <div class="eyebrow-dark" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.5);display:inline-flex" aria-label="Tirando dúvidas">Tirando dúvidas</div>
-      <h2 class="section-title gsap-split" style="margin-top:16px">Perguntas <span class="accent-yellow">frequentes.</span></h2>
+    <div class="faq-head gsap-reveal">
+      <p class="section-label sl-muted-light">Tirando dúvidas</p>
+      <h2 class="section-title st-light" style="margin-top:12px">Perguntas frequentes.</h2>
     </div>
     <div class="faq-wrap" id="faqList">
-      <div class="faq-item gsap-fade"><button class="faq-q" aria-expanded="false">Meu filho precisa saber inglês? <span class="faq-arr" aria-hidden="true">▼</span></button><div class="faq-body"><div class="faq-body-inner">Não. O contato com o idioma acontece naturalmente dentro da rotina escolar, sem pressão ou exigência prévia.</div></div></div>
-      <div class="faq-item gsap-fade"><button class="faq-q" aria-expanded="false">Como funciona o Fundamental bilíngue? <span class="faq-arr" aria-hidden="true">▼</span></button><div class="faq-body"><div class="faq-body-inner">O inglês faz parte das vivências e experiências do dia a dia, tornando o aprendizado mais leve e natural do que o método tradicional.</div></div></div>
-      <div class="faq-item gsap-fade"><button class="faq-q" aria-expanded="false">Como funciona o acompanhamento dos alunos? <span class="faq-arr" aria-hidden="true">▼</span></button><div class="faq-body"><div class="faq-body-inner">Acompanhamos de perto o desenvolvimento acadêmico, emocional e social de cada criança, com comunicação próxima e transparente com as famílias.</div></div></div>
-      <div class="faq-item gsap-fade"><button class="faq-q" aria-expanded="false">As turmas são grandes? <span class="faq-arr" aria-hidden="true">▼</span></button><div class="faq-body"><div class="faq-body-inner">Não. Trabalhamos com turmas reduzidas para proporcionar mais atenção, proximidade e desenvolvimento individual a cada aluno.</div></div></div>
-      <div class="faq-item gsap-fade"><button class="faq-q" aria-expanded="false">Como a escola trabalha autonomia? <span class="faq-arr" aria-hidden="true">▼</span></button><div class="faq-body"><div class="faq-body-inner">Incentivamos responsabilidade, participação, confiança e independência respeitando a fase de cada criança e valorizando cada conquista.</div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ FORM ══ -->
-<section class="s-form" id="agendar">
-  <div class="container">
-    <div class="form-wrap">
-      <div class="form-header">
-        <div class="eyebrow-dark gsap-fade" style="display:inline-flex;margin-bottom:16px">Agendar visita</div>
-        <h2 class="section-title gsap-split">Venha nos <span style="color:var(--red)">conhecer.</span></h2>
-        <p class="gsap-fade">Preencha abaixo — nossa equipe entra em contato para agendar a melhor data para você.</p>
+      <div class="faq-item gsap-reveal">
+        <button class="faq-q" type="button" aria-expanded="false">Quais anos atende o Fundamental I?<span class="faq-arr" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></button>
+        <div class="faq-body"><div class="faq-body-inner">O Fundamental I atende do 1º ao 5º ano. Cada turma é formada por no máximo 12 alunos, garantindo atenção individualizada e aprendizado mais profundo.</div></div>
       </div>
-      <div class="form-box gsap-fade">
-        <form id="visitForm" novalidate>
-          <div class="form-row">
-            <div class="form-group"><label class="form-label" for="parentName">Seu nome</label><input class="form-input" type="text" id="parentName" placeholder="Como você se chama?" autocomplete="name" required/></div>
-            <div class="form-group"><label class="form-label" for="whatsapp">WhatsApp</label><input class="form-input" type="tel" id="whatsapp" placeholder="(11) 99999-9999" autocomplete="tel" required/></div>
-            <div class="form-group"><label class="form-label" for="childName">Nome da criança</label><input class="form-input" type="text" id="childName" placeholder="Nome do seu filho(a)" required/></div>
-            <div class="form-group"><label class="form-label" for="childAge">Ano escolar</label><select class="form-select" id="childAge" required><option value="" disabled selected>Selecione</option><option value="1º ano (6 anos)">1º ano</option><option value="2º ano (7 anos)">2º ano</option><option value="3º ano (8 anos)">3º ano</option><option value="4º ano (9 anos)">4º ano</option><option value="5º ano (10 anos)">5º ano</option></select></div>
-            <div class="form-group full"><label class="form-label" for="period">Turno desejado</label><select class="form-select" id="period" required><option value="" disabled selected>Qual turno prefere?</option><option value="manha">Manhã (7h–12h)</option><option value="tarde">Tarde (12h–17h)</option><option value="integral">Integral (7h–17h)</option></select></div>
-          </div>
-          <button type="submit" class="btn btn-red btn-full btn-lg mag" id="formBtn" style="margin-top:8px">
-            <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Quero agendar minha visita
-          </button>
-          <p class="form-note">Seus dados estão seguros. Não enviamos spam. <a href="#">Política de privacidade.</a></p>
-        </form>
+      <div class="faq-item gsap-reveal" style="transition-delay:.06s">
+        <button class="faq-q" type="button" aria-expanded="false">Como o inglês é ensinado no Fundamental I?<span class="faq-arr" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></button>
+        <div class="faq-body"><div class="faq-body-inner">O inglês é integrado ao currículo como idioma de instrução — não é uma disciplina separada. Os alunos usam o inglês em aulas de Ciências, projetos e conversação diária, saindo fluentes de forma natural.</div></div>
+      </div>
+      <div class="faq-item gsap-reveal" style="transition-delay:.12s">
+        <button class="faq-q" type="button" aria-expanded="false">O currículo segue a BNCC?<span class="faq-arr" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></button>
+        <div class="faq-body"><div class="faq-body-inner">Sim. O currículo da Grow Up segue integralmente a BNCC e vai além — com projetos interdisciplinares, pensamento crítico, autonomia e formação socioemocional integrada ao conteúdo.</div></div>
+      </div>
+      <div class="faq-item gsap-reveal" style="transition-delay:.18s">
+        <button class="faq-q" type="button" aria-expanded="false">As turmas são pequenas mesmo?<span class="faq-arr" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></button>
+        <div class="faq-body"><div class="faq-body-inner">Sim. Máximo de 12 alunos por turma. Isso é inegociável na Grow Up — acreditamos que aprendizagem real exige que o professor conheça cada aluno de verdade.</div></div>
+      </div>
+      <div class="faq-item gsap-reveal" style="transition-delay:.24s">
+        <button class="faq-q" type="button" aria-expanded="false">Como agendar uma visita?<span class="faq-arr" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></button>
+        <div class="faq-body"><div class="faq-body-inner">É simples: clique em qualquer botão de WhatsApp nesta página. Você fala diretamente com nossa equipe, sem formulário, e agenda uma visita no horário que for melhor para você.</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ CTA FINAL ══ -->
-<section class="s-final">
-  <div class="final-orb fo-1" aria-hidden="true"></div>
-  <div class="final-orb fo-2" aria-hidden="true"></div>
-  <div class="container">
-    <div class="final-inner">
-      <h2 class="section-title gsap-split" style="font-size:clamp(2.5rem,7vw,5rem)">Você não precisa<br>decidir <span class="accent-yellow">hoje.</span></h2>
-      <p class="gsap-fade">Conheça de perto uma escola que valoriza desenvolvimento, acolhimento e crescimento de verdade.</p>
-      <div class="final-ctas gsap-fade">
-        <a href="#agendar" class="btn btn-red btn-xl mag">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Agendar minha visita
-        </a>
-        <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20conhecer%20o%20Fundamental%20I%20Grow%20Up" class="btn btn-ghost btn-xl mag" target="_blank" rel="noopener">Falar no WhatsApp</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ FOOTER ══ -->
 <footer class="footer" id="contato">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="#" class="logo">Grow<em>Up</em></a>
-        <p>Educação Infantil bilíngue onde cada criança aprende brincando, cresce com leveza e vive a infância que merece.</p>
-        <div class="f-social">
-          <a href="#" class="f-soc-btn" aria-label="Instagram">
-            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          </a>
-          <a href="#" class="f-soc-btn" aria-label="Facebook">
-            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-          </a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Links</h4>
-        <ul class="footer-links">
-          <li><a href="#sobre">Nossa missão</a></li>
-          <li><a href="#atividades">Atividades</a></li>
-          <li><a href="#ingles">Inglês</a></li>
-          <li><a href="#diferenciais">Diferenciais</a></li>
-          <li><a href="#depoimentos">Depoimentos</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#agendar">Agendar visita</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contato</h4>
-        <ul class="f-contact">
-          <li><span>📍</span><span>São Paulo, SP — Brasil</span></li>
-          <li><span>📱</span><a href="https://wa.me/5511939466440" style="color:rgba(255,255,255,.45);transition:color .2s" onmouseover="this.style.color='#FFC928'" onmouseout="this.style.color='rgba(255,255,255,.45)'">(11) 93946-6440</a></li>
-          <li><span>🕐</span><span>Seg–Sex, 7h–17h</span></li>
-        </ul>
-      </div>
+  <div class="footer-inner">
+    <div class="footer-logo"><img src="../images/logo.png" alt="Grow Up"/></div>
+    <p class="footer-addr">Santo André, SP — Brasil<br><a href="https://wa.me/5511939466440">(11) 93946-6440</a> · Seg–Sex, 7h–17h</p>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/growupescola/" target="_blank" rel="noopener" aria-label="Instagram @growupescola">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/growupescola" target="_blank" rel="noopener" aria-label="Facebook Grow Up">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
     </div>
-    <div class="footer-bottom">
-      <p>© 2026 Grow Up Educação Infantil. Todos os direitos reservados.</p>
-      <div class="footer-btm-links"><a href="#">Privacidade</a><a href="#">Termos</a></div>
-    </div>
+    <p class="footer-handle"><a href="https://www.instagram.com/growupescola/" target="_blank" rel="noopener">@growupescola</a></p>
+    <p class="footer-copy">© 2026 Grow Up Educação Infantil</p>
   </div>
 </footer>
 
-<!-- STICKY MOBILE -->
-<div class="sticky-bar" id="stickyBar">
-  <a href="#agendar" class="btn btn-red">
-    <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    Agendar visita
-  </a>
-  <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Fundamental%20I%20Grow%20Up" class="btn btn-blue" target="_blank" rel="noopener">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<div class="sticky-bar" id="stickyBar" role="region" aria-label="Ações rápidas">
+  <button class="btn-red-sm" onclick="document.getElementById('whatsapp').scrollIntoView({behavior:'smooth'})">Agendar visita</button>
+  <a href="https://wa.me/5511939466440?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20Fundamental%20I%20Grow%20Up" class="btn-wpp-sm" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     WhatsApp
   </a>
 </div>
 
-<!-- ══════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════ -->
 <script>
-window.addEventListener('load', () => {
-  const gsapLoaded = typeof gsap !== 'undefined';
-  const lenisLoaded = typeof Lenis !== 'undefined';
-
-  /* ── SMOOTH SCROLL (Lenis) ── */
-  let lenis;
-  if (lenisLoaded) {
-    lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
-    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
-    if (gsapLoaded && ScrollTrigger) {
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add(time => lenis.raf(time * 1000));
-      gsap.ticker.lagSmoothing(0);
-    }
-  }
-
-  /* ── SCROLL PROGRESS ── */
-  const progressBar = document.getElementById('progressBar');
-  window.addEventListener('scroll', () => {
-    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
-    progressBar.style.width = pct + '%';
-  }, { passive: true });
-
-  /* ── NAVBAR ── */
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => nav.classList.toggle('pinned', window.scrollY > 50), { passive: true });
-
-  /* ── CUSTOM CURSOR ── */
-  const cursorDot = document.getElementById('cursorDot');
-  const cursorRing = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  function animCursor() {
-    rx += (mx - rx) * 0.14;
-    ry += (my - ry) * 0.14;
-    cursorDot.style.left = mx + 'px';
-    cursorDot.style.top = my + 'px';
-    cursorRing.style.left = rx + 'px';
-    cursorRing.style.top = ry + 'px';
-    requestAnimationFrame(animCursor);
-  }
-  animCursor();
-  document.querySelectorAll('a,button,.mag,.act-card,.e-card,.dif-card,.t-card').forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-  });
-
-  /* ── MAGNETIC BUTTONS ── */
-  document.querySelectorAll('.mag').forEach(el => {
-    el.addEventListener('mousemove', e => {
-      const r = el.getBoundingClientRect();
-      const x = e.clientX - r.left - r.width / 2;
-      const y = e.clientY - r.top - r.height / 2;
-      el.style.transform = `translate(${x * 0.28}px, ${y * 0.28}px)`;
-    });
-    el.addEventListener('mouseleave', () => {
-      el.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1)';
-      el.style.transform = 'translate(0,0)';
-      setTimeout(() => el.style.transition = '', 500);
-    });
-  });
-
-  /* ── 3D TILT CARDS ── */
-  document.querySelectorAll('.gsap-tilt').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      card.style.transform = `perspective(800px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg) translateZ(6px)`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1)';
-      card.style.transform = 'perspective(800px) rotateY(0) rotateX(0) translateZ(0)';
-      setTimeout(() => card.style.transition = '', 600);
-    });
-  });
-
-  /* ── HERO ENTRANCE ── */
-  if (gsapLoaded) {
-    // split headline into chars
-    ['hl-1','hl-2','hl-3'].forEach((id, li) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const txt = el.textContent;
-      el.innerHTML = txt.split('').map(c =>
-        c === ' ' ? ' ' : `<span class="split-char" style="display:inline-block;transform:translateY(110%)">${c}</span>`
-      ).join('');
-    });
-
-    const tl = gsap.timeline({ delay: 0.1 });
-    tl.to('#heroEyebrow', { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' })
-      .to('#hl-1 .split-char', { y: '0%', duration: 0.8, stagger: 0.03, ease: 'expo.out' }, '-=0.3')
-      .to('#hl-2 .split-char', { y: '0%', duration: 0.8, stagger: 0.03, ease: 'expo.out' }, '-=0.6')
-      .to('#hl-3 .split-char', { y: '0%', duration: 0.8, stagger: 0.03, ease: 'expo.out' }, '-=0.6')
-      .to('#heroSub', { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' }, '-=0.4')
-      .to('#heroCtas', { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' }, '-=0.4')
-      .to('#heroScarcity', { opacity: 1, duration: 0.5, ease: 'expo.out' }, '-=0.2')
-      .to('#heroVisual', { opacity: 1, y: 0, scale: 1, duration: 1, ease: 'expo.out' }, '-=0.8')
-      .to('#scrollHint', { opacity: 1, duration: 0.5 }, '-=0.2');
-
-    /* ── SCROLLTRIGGER ANIMATIONS ── */
-    gsap.registerPlugin(ScrollTrigger);
-
-    // split text util — preserves inner <span> tags during word splitting
-    function splitAndAnimate(selector) {
-      document.querySelectorAll(selector).forEach(el => {
-        const saved = [];
-        let html = el.innerHTML.replace(/<span[^>]*>[\s\S]*?<\/span>/g, match => {
-          saved.push(match);
-          return `§${saved.length - 1}§`;
-        });
-        const lines = html.split('<br>');
-        el.innerHTML = lines.map(line => {
-          const words = line.trim().split(/\s+/).filter(Boolean);
-          return words.map(w => {
-            const restored = w.replace(/§(\d+)§/g, (_, i) => saved[+i]);
-            return `<span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span class="split-w" style="display:inline-block;transform:translateY(110%)">${restored}</span></span>`;
-          }).join(' ');
-        }).join('<br>');
-        gsap.to(el.querySelectorAll('.split-w'), {
-          y: '0%', duration: 0.9, stagger: 0.06, ease: 'expo.out',
-          scrollTrigger: { trigger: el, start: 'top 85%', once: true }
-        });
-      });
-    }
-    splitAndAnimate('.gsap-split');
-
-    // fade-ups
-    gsap.utils.toArray('.gsap-fade').forEach(el => {
-      gsap.fromTo(el,
-        { opacity: 0, y: 28 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'expo.out',
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true } }
-      );
-    });
-
-    // staggered grids
-    gsap.utils.toArray('.stagger').forEach(grid => {
-      gsap.to(grid.children, {
-        opacity: 1, y: 0, duration: 0.7, stagger: 0.08, ease: 'expo.out',
-        scrollTrigger: { trigger: grid, start: 'top 82%', once: true }
-      });
-    });
-
-    // cards
-    gsap.utils.toArray('.gsap-card').forEach((card, i) => {
-      gsap.fromTo(card,
-        { opacity: 0, x: 24 },
-        { opacity: 1, x: 0, duration: 0.7, ease: 'expo.out', delay: i * 0.1,
-          scrollTrigger: { trigger: card, start: 'top 88%', once: true } }
-      );
-    });
-
-    /* hero parallax on scroll */
-    gsap.to('#heroVisual', {
-      y: -80,
-      ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
-    });
-
-  } else {
-    // fallback if GSAP fails to load
-    ['heroEyebrow','heroSub','heroCtas','heroScarcity','heroVisual'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) { el.style.opacity = '1'; el.style.transform = 'none'; }
-    });
-    ['hl-1','hl-2','hl-3'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.style.opacity = '1';
-    });
-    document.querySelectorAll('.gsap-fade,.gsap-split,.stagger>*').forEach(el => {
-      el.style.opacity = '1'; el.style.transform = 'none';
-    });
-  }
-
-  /* ── HERO MOUSE PARALLAX ── */
-  document.addEventListener('mousemove', e => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 20;
-    const y = (e.clientY / window.innerHeight - 0.5) * 20;
-    document.querySelectorAll('.hero-orb').forEach((orb, i) => {
-      const factor = (i + 1) * 0.4;
-      orb.style.transform += ` translate(${x * factor}px, ${y * factor}px)`;
-    });
-  });
-
-  /* ── COUNTER ANIMATION ── */
-  document.querySelectorAll('.counter').forEach(el => {
-    const target = parseInt(el.dataset.target);
-    const obs = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) return;
-      obs.disconnect();
-      let current = 0;
-      const step = target / 60;
-      const timer = setInterval(() => {
-        current = Math.min(current + step, target);
-        el.textContent = Math.floor(current);
-        if (current >= target) clearInterval(timer);
-      }, 16);
-    }, { threshold: 0.5 });
-    obs.observe(el);
-  });
-
-  /* ── FAQ ACCORDION ── */
-  document.querySelectorAll('.faq-q').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.closest('.faq-item');
-      const body = item.querySelector('.faq-body');
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(open => {
-        open.classList.remove('open');
-        open.querySelector('.faq-body').style.maxHeight = '0';
-        open.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
-      });
-      if (!isOpen) {
-        item.classList.add('open');
-        body.style.maxHeight = body.scrollHeight + 'px';
-        btn.setAttribute('aria-expanded', 'true');
-      }
-    });
-  });
-
-  /* ── PHONE MASK ── */
-  const wppInput = document.getElementById('whatsapp');
-  if (wppInput) {
-    wppInput.addEventListener('input', e => {
-      let v = e.target.value.replace(/\D/g, '').slice(0, 11);
-      if (v.length > 10) v = v.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-      else if (v.length > 6) v = v.replace(/^(\d{2})(\d{4})(\d*)/, '($1) $2-$3');
-      else if (v.length > 2) v = v.replace(/^(\d{2})(\d*)/, '($1) $2');
-      e.target.value = v;
-    });
-  }
-
-  /* ── FORM SUBMIT ── */
-  const form = document.getElementById('visitForm');
-  const formBtn = document.getElementById('formBtn');
-  if (form) {
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const name = document.getElementById('parentName').value.trim();
-      const wpp = document.getElementById('whatsapp').value.trim();
-      const child = document.getElementById('childName').value.trim();
-      const age = document.getElementById('childAge').value;
-      const period = document.getElementById('period').value;
-      if (!name || !wpp || !child || !age || !period) {
-        formBtn.textContent = 'Preencha todos os campos';
-        formBtn.style.background = '#c0392b';
-        setTimeout(() => { formBtn.innerHTML = `<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Quero agendar minha visita`; formBtn.style.background = ''; }, 2500);
-        return;
-      }
-      const p = {manha:'Manhã',tarde:'Tarde',integral:'Integral'};
-      const msg = encodeURIComponent(`Olá! Gostaria de agendar uma visita à Grow Up — Fundamental I.\n\n👤 *Nome:* ${name}\n🎒 *Aluno:* ${child} (${age})\n🕐 *Turno:* ${p[period]||period}\n📱 *WhatsApp:* ${wpp}`);
-      formBtn.textContent = 'Abrindo WhatsApp...';
-      formBtn.style.background = '#1FA13F';
-      setTimeout(() => { window.open(`https://wa.me/5511939466440?text=${msg}`, '_blank'); formBtn.innerHTML = '✓ Enviado — aguarde o contato!'; }, 600);
-    });
-  }
-
-  /* ── SMOOTH ANCHOR ── */
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (!target) return;
-      e.preventDefault();
-      if (lenis) lenis.scrollTo(target, { offset: -80 });
-      else window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
-    });
-  });
+(function(){
+'use strict';
+function splitChars(el){if(!el)return;var t=el.textContent;el.innerHTML=t.split('').map(function(c){return c===' '?' ':'<span class="split-char">'+c+'</span>'}).join('')}
+function heroFallback(){['heroEyebrow','heroSub','heroVisual','heroCtas','heroScarcity'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.opacity='1';el.style.transform='none'}});document.querySelectorAll('.split-char').forEach(function(c){c.style.transform='none'})}
+window.addEventListener('load',function(){
+  splitChars(document.getElementById('hl-1'));
+  splitChars(document.getElementById('hl-2'));
+  splitChars(document.getElementById('hl-3'));
+  if(typeof gsap==='undefined'){heroFallback();return}
+  var tl=gsap.timeline({delay:0.1,defaults:{ease:'power3.out'}});
+  tl.to('#hl-1 .split-char',{y:'0%',duration:0.7,stagger:0.032})
+    .to('#hl-2 .split-char',{y:'0%',duration:0.7,stagger:0.032},'-=0.5')
+    .to('#hl-3 .split-char',{y:'0%',duration:0.7,stagger:0.038},'-=0.5')
+    .to('#heroEyebrow',{opacity:1,duration:0.5},'-=0.55')
+    .to('#heroSub',{opacity:1,y:0,duration:0.55},'-=0.4')
+    .to('#heroVisual',{opacity:1,y:0,duration:0.65,ease:'power2.out'},'-=0.4')
+    .to('#heroCtas',{opacity:1,y:0,duration:0.5},'-=0.35')
+    .to('#heroScarcity',{opacity:1,duration:0.4},'-=0.3');
 });
+if('IntersectionObserver' in window){
+  var obs=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){if(typeof gsap!=='undefined'){gsap.to(en.target,{opacity:1,y:0,x:0,duration:0.65,ease:'power3.out',delay:parseFloat(en.target.style.transitionDelay||0)})}else{en.target.style.opacity='1';en.target.style.transform='none'}obs.unobserve(en.target)}})},{threshold:0.1,rootMargin:'0px 0px -48px 0px'});
+  document.querySelectorAll('.gsap-reveal').forEach(function(el){obs.observe(el)});
+}else{document.querySelectorAll('.gsap-reveal').forEach(function(el){el.style.opacity='1';el.style.transform='none'})}
+var nav=document.getElementById('mainNav');
+window.addEventListener('scroll',function(){nav.classList.toggle('pinned',window.scrollY>60)},{passive:true});
+var bar=document.getElementById('progressBar');
+window.addEventListener('scroll',function(){bar.style.width=(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100)+'%'},{passive:true});
+var sticky=document.getElementById('stickyBar');
+window.addEventListener('scroll',function(){sticky.classList.toggle('visible',window.scrollY>320)},{passive:true});
+var carousel=document.getElementById('galleryCarousel');
+var dotsWrap=document.getElementById('galleryDots');
+if(carousel&&dotsWrap){
+  var slides=carousel.querySelectorAll('.gallery-slide');var idx=0;
+  slides.forEach(function(_,i){var dot=document.createElement('button');dot.type='button';dot.className='gallery-dot'+(i===0?' active':'');dot.setAttribute('aria-label','Foto '+(i+1));dot.addEventListener('click',function(){goSlide(i)});dotsWrap.appendChild(dot)});
+  function goSlide(n){slides[idx].classList.remove('active');dotsWrap.children[idx].classList.remove('active');idx=n;slides[idx].classList.add('active');dotsWrap.children[idx].classList.add('active')}
+  var autoTimer=setInterval(function(){goSlide((idx+1)%slides.length)},4200);
+  carousel.addEventListener('mouseenter',function(){clearInterval(autoTimer)});
+  carousel.addEventListener('mouseleave',function(){autoTimer=setInterval(function(){goSlide((idx+1)%slides.length)},4200)});
+}
+document.querySelectorAll('.faq-q').forEach(function(btn){btn.addEventListener('click',function(){var item=btn.closest('.faq-item');var body=item.querySelector('.faq-body');var isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item.open').forEach(function(o){o.classList.remove('open');o.querySelector('.faq-body').style.maxHeight='0';o.querySelector('.faq-q').setAttribute('aria-expanded','false')});if(!isOpen){item.classList.add('open');body.style.maxHeight=body.scrollHeight+'px';btn.setAttribute('aria-expanded','true')}})});
+document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var id=a.getAttribute('href');if(id==='#')return;var target=document.querySelector(id);if(!target)return;e.preventDefault();window.scrollTo({top:window.scrollY+target.getBoundingClientRect().top-56,behavior:'smooth'})})});
+var navWpp=document.querySelector('.nav-wpp');
+if(navWpp&&window.matchMedia('(hover:hover)').matches){navWpp.addEventListener('mousemove',function(e){var r=navWpp.getBoundingClientRect();var x=((e.clientX-r.left)/r.width-.5)*8;var y=((e.clientY-r.top)/r.height-.5)*8;navWpp.style.transform='translateY(-2px) rotateX('+(-y)+'deg) rotateY('+x+'deg)'});navWpp.addEventListener('mouseleave',function(){navWpp.style.transform=''})}
+})();
 </script>
 </body>
 </html>
