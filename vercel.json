@@ -21,6 +21,18 @@
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
       ]
+    },
+    {
+      "source": "/kids/(index.html|styles.css|app.js)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/fundamental1/(index.html|styles.css|app.js)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
     }
   ]
 }
