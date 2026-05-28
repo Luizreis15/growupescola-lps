@@ -838,7 +838,8 @@ section { padding: 72px 0; position: relative; }
    BLOCO 9 — FAQ
    ============================================ */
 .faq {
-  background: var(--grow-white);
+  background: #EEF4FF;
+  border-top: 1px solid #E1EAFB;
 }
 
 .faq-list {
