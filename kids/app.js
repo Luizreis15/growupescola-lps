@@ -1,6 +1,6 @@
 /* Berçário Grow Up — interações */
 
-const WA_NUMBER = "5511939466440";
+const WA_NUMBER = "5511978663957";
 const WA_MSG_DEFAULT = "Olá! Gostaria de saber mais sobre o Kids da Grow Up.";
 const waLink = (msg = WA_MSG_DEFAULT) =>
   `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
