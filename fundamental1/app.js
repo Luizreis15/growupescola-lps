@@ -1,7 +1,8 @@
-/* Berçário Grow Up — interações */
+/* Fundamental I Grow Up — interações */
 
 const WA_NUMBER = "5511978663957";
-const WA_MSG_DEFAULT = "Olá! Gostaria de saber mais sobre o Fundamental I da Grow Up.";
+const WA_MSG_DEFAULT =
+  "Oi! Vim pela página do Fundamental I e quero informações sobre matrículas do 1º ao 5º ano 📚";
 const waLink = (msg = WA_MSG_DEFAULT) =>
   `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
 
@@ -87,10 +88,10 @@ if (modalForm) {
   modalForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const data = new FormData(modalForm);
-    const summary = `Olá! Vim pelo site. Gostaria de agendar uma visita.
+    const summary = `Oi! Vim pela página do Fundamental I e quero informações sobre matrículas do 1º ao 5º ano 📚
 Nome: ${data.get("name")}
 WhatsApp: ${data.get("phone")}
-Idade do bebê: ${data.get("age")}
+Ano escolar de interesse: ${data.get("grade")}
 Turno desejado: ${data.get("period")}`;
 
     if (modalBody) modalBody.style.display = "none";
